@@ -1,13 +1,16 @@
 import React from 'react'
-import { Image, Heading, Text } from '@chakra-ui/react'
+import { Box, Center, Image, Heading, Text } from '@chakra-ui/react'
 
-const BookCard = ({title, authors}) => {
+const BookCard = ({title, authors, image}) => {
+
   return (
-    <div className='bookCard'>
-      <Image src="https://bit.ly/dan-abramov" alt="Dan Abramov" />
-      <Heading size='md' my={2} textAlign="center">{title}</Heading>
-      <Text size='md' textAlign="center">{authors}</Text>
-    </div>
+    <Center>
+      <Box className='bookCard' border-radius={10}>
+        <Image src={image.thumbnail} alt={image.thumbnail} />
+        <Heading size='md' my={2} textAlign="center">{title}</Heading>
+        <Text size='md' textAlign="center">{authors}</Text>
+      </Box>
+    </Center>
   )
 }
 

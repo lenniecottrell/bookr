@@ -10,6 +10,7 @@ function App() {
   const [allBookData, setAllBookData] = useState({title: "hungry caterpillar", author: "richard scary?"})
   const [allBookTitles, setAllBookTitles] = useState([])
   const [allBookAuthors, setAllBookAuthors] = useState([])
+  const [allBookImages, setAllBookImages] = useState([])
 
   const [q, setQ] = useState("harry+potter")
 
@@ -22,22 +23,35 @@ function App() {
   const getBooks = () => {
     axios({
       url: 'https://www.googleapis.com/books/v1/volumes',
-      params: {q}
+      params: {
+        q: q, 
+        maxResults: 40
+      }
     })
     .then((response) => {
       const allBooks = response.data.items
       const titles = []
       const authors = []
+      const images = []
       for (let i = 0; i < allBooks.length; i++) {
         titles.push(allBooks[i].volumeInfo.title)
       }
       for (let i = 0; i < allBooks.length; i++) {
         authors.push(allBooks[i].volumeInfo.authors)
       }
-      console.log(titles)
+      for (let i = 0; i < allBooks.length; i++) {
+        if (allBooks[i].volumeInfo.imageLinks === undefined){
+          images.push({smallThumbnail: "No Image Available", thumbnail: "No Image Available"})
+          continue
+        }
+        images.push(allBooks[i].volumeInfo.imageLinks)
+      }
+      //console.log(titles)
       setAllBookTitles(titles)
-      console.log(authors)
+      //console.log(authors)
+      //console.log(images)
       setAllBookAuthors(authors)
+      setAllBookImages(images)
     })
     .catch((err) => {
       console.error(err);
@@ -56,7 +70,7 @@ function App() {
     <div className="App">
       <Nav />
       <SearchBar handleChange={handleChange} value={q}/>
-      <CardGrid  allBookData={allBookData} allBookTitles={allBookTitles} allBookAuthors={allBookAuthors}/>
+      <CardGrid  allBookData={allBookData} allBookTitles={allBookTitles} allBookAuthors={allBookAuthors} allBookImages={allBookImages}/>
     </div>
   )
 }
