@@ -26,15 +26,6 @@ body {
   padding: 5px;
 }
 
-.bookCard {
-  padding: 1rem;
-  max-width: fit-content;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 .gridItem:hover {
   transform: scale(1.02)
 }
