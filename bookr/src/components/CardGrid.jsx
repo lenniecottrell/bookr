@@ -1,14 +1,16 @@
 import React from 'react'
-import { Grid, GridItem } from '@chakra-ui/react'
+import { Grid, GridItem, SlideFade } from '@chakra-ui/react'
 import BookCard from './BookCard'
 
 const CardGrid = ({allBookData, allBookTitles, allBookAuthors, allBookImages}) => {
   let cards = []
   for (let i = 0; i < allBookTitles.length; i++) {
     cards.push(
-      <GridItem w='100%' h='auto' bg='green.200' border="2px" borderRadius={10} key={i}>
-        <BookCard allBookData={allBookData} title={allBookTitles[i]} authors={allBookAuthors[i]} image={allBookImages[i]}/>
-      </GridItem>
+      <SlideFade key={i} in={true}>
+        <GridItem className="gridItem" w='100%' h='auto' bg='red.50' border="1px" borderRadius={10} >
+          <BookCard allBookData={allBookData} title={allBookTitles[i]} authors={allBookAuthors[i]} image={allBookImages[i]}/>
+        </GridItem>
+      </SlideFade>
     )
   }
 

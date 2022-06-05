@@ -34,3 +34,7 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+.gridItem:hover {
+  transform: scale(1.02)
+}
