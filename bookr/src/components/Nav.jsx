@@ -1,31 +1,28 @@
 import React from 'react'
+import {Link as RouterLink} from 'react-router-dom'
 import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbSeparator,
-  Text
+  Flex,
+  Spacer,
+  Container,
+  Link,
+  Heading
 } from '@chakra-ui/react'
 
 const Nav = () => {
   return (
-    <div className='nav'>
-      <Text fontSize={48}>Bookr</Text>
-      <Breadcrumb className='navLinks'>
-        <BreadcrumbItem>
-          <BreadcrumbLink href='#'>Search</BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbItem>
-          <BreadcrumbLink href='#'>My Library</BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbItem>
-          <BreadcrumbLink href='#'>About</BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbItem>
-          <BreadcrumbLink href='#'>Account</BreadcrumbLink>
-        </BreadcrumbItem>
-      </Breadcrumb>
-    </div>
+    <Flex className='nav' display="flex" flexDirection="row" justifyContent="space-between" alignItems="center" m={5} px={5}>
+      <Heading size="2xl">Bookr</Heading>
+      <Spacer />
+      <Container maxW="md" display="flex" flexDirection="row" justifyContent="flex-end">
+        <Link as={RouterLink} to="/">Search</Link>
+        <p> / </p>
+        <Link as={RouterLink} to="/library">My Library</Link>
+        <p> / </p>
+        <Link as={RouterLink} to="/about">About</Link>
+        <p> / </p>
+        <Link as={RouterLink} to="/account">Account</Link>
+      </Container>
+    </Flex>
   )
 }
 

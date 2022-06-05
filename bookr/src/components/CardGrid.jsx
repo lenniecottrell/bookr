@@ -1,5 +1,5 @@
-import React from 'react'
-import { SimpleGrid, GridItem, SlideFade } from '@chakra-ui/react'
+import React, {Suspense} from 'react'
+import { SimpleGrid, GridItem, SlideFade, Spinner } from '@chakra-ui/react'
 import BookCard from './BookCard'
 
 const CardGrid = ({allBookData, allBookTitles, allBookAuthors, allBookImages}) => {
@@ -7,7 +7,7 @@ const CardGrid = ({allBookData, allBookTitles, allBookAuthors, allBookImages}) =
   for (let i = 0; i < allBookTitles.length; i++) {
     cards.push(
       <SlideFade key={i} in={true}>
-        <GridItem className="gridItem" w='100%' h='100%' bg='gray.100' border="1px" borderRadius={6} >
+        <GridItem  boxShadow="lg" w='100%' h='100%' bg='gray.100' borderRadius={6} >
           <BookCard allBookData={allBookData} title={allBookTitles[i]} authors={allBookAuthors[i]} image={allBookImages[i]}/>
         </GridItem>
       </SlideFade>
@@ -15,9 +15,9 @@ const CardGrid = ({allBookData, allBookTitles, allBookAuthors, allBookImages}) =
   }
 
   return (
-    <SimpleGrid minChildWidth={300} spacing={6} m="2rem">
-      {cards}
-    </SimpleGrid>
+      <SimpleGrid minChildWidth={300} spacing={6} m="2rem">
+        {cards}
+      </SimpleGrid>
   )
 }
 
