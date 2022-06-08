@@ -7,7 +7,7 @@ const CardGrid = ({allBookData, allBookTitles, allBookAuthors, allBookImages}) =
   for (let i = 0; i < allBookTitles.length; i++) {
     cards.push(
       <SlideFade key={i} in={true}>
-        <GridItem  boxShadow="lg" w='100%' h='100%' bg='gray.100' borderRadius={6} >
+        <GridItem className="gridItem" boxShadow="lg" w='100%' h='100%' bg='gray.100' borderRadius={6} >
           <BookCard allBookData={allBookData} title={allBookTitles[i]} authors={allBookAuthors[i]} image={allBookImages[i]}/>
         </GridItem>
       </SlideFade>
