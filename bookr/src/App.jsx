@@ -66,10 +66,11 @@ function App() {
     getBooks()
   }, [q])
 
+  const mainSearchHeading="Find a book"
   return (
     <div className="App">
       <Nav />
-      <SearchBar handleChange={handleChange} value={q}/>
+      <SearchBar handleChange={handleChange} value={q} heading={mainSearchHeading}/>
       <CardGrid  allBookData={allBookData} allBookTitles={allBookTitles} allBookAuthors={allBookAuthors} allBookImages={allBookImages}/>
     </div>
   )

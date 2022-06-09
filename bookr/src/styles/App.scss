@@ -9,18 +9,12 @@ body {
   width: 100vw;
 }
 
-.nav {
-  p {
-    margin: 0 10px;
-  }
-}
-
 .searchBar {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 5px;
+
 }
 
 .gridItem:hover {
