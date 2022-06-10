@@ -6,10 +6,6 @@ import {
   Container,
   Link,
   Heading,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
   Button,
   useDisclosure,
   Modal,
@@ -31,10 +27,9 @@ const Nav = () => {
         <Link as={RouterLink} to="/" mr={5}>Search</Link>
         <Link as={RouterLink} to="/library" mx={5}>My Library</Link>
         <Link as={RouterLink} to="/about" mx={5}>About</Link>
-        <Button bg="white" fontWeight="400" mx={2} onClick={onOpen}>Account
-        </Button>
+        <Button bg="white" fontWeight="400" mx={2} onClick={onOpen}>Account</Button>
       </Container>
-            <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>My Account</ModalHeader>

@@ -23,7 +23,7 @@ const MyLibrary = () => {
       <Nav />
       <SearchBar heading={libraryHeading}/>
       <Container>
-        <Tabs isFitted>
+        <Tabs isFitted mt={3}>
           <TabList>
             <Tab>Reading</Tab>
             <Tab>Want To Read</Tab>
@@ -31,7 +31,7 @@ const MyLibrary = () => {
           </TabList>
 
           <TabPanels>
-            <TabPanel>
+            <TabPanel w="100%" h="auto">
               <Reading />
             </TabPanel>
             <TabPanel>

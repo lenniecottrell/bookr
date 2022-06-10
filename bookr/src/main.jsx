@@ -10,12 +10,12 @@ import {ChakraProvider} from '@chakra-ui/react'
 ReactDOM.createRoot(document.getElementById('root')).render(
     <ChakraProvider>
       <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<App />} />
-        <Route path='about' element={<About />} />
-        <Route path='library' element={<MyLibrary />} />
-        {/* <Route path="account" element={<Account />} /> */}
-      </Routes>
+        <Routes>
+          <Route path='/' element={<App />} />
+          <Route path='about' element={<About />} />
+          <Route path='library' element={<MyLibrary />} />
+          {/* <Route path="account" element={<Account />} /> */}
+        </Routes>
       </BrowserRouter>
     </ChakraProvider>
 )
