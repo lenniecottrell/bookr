@@ -1,7 +1,16 @@
 import React from 'react'
-import { Box, Center, Image, Heading, Text } from '@chakra-ui/react'
+import { Box, Center, Image, Heading, Text, useDisclosure,  Link,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalCloseButton,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+ } from '@chakra-ui/react'
 
 const BookCard = ({title, authors, image}) => {
+  const {onOpen} = useDisclosure()
 
   return (
     <Center>

@@ -4,6 +4,7 @@ import axios from 'axios'
 import SearchBar from './components/SearchBar';
 import Nav from './components/Nav';
 import CardGrid from './components/CardGrid';
+import BookDetail from './pages/BookDetail';
 
 
 function App() {
@@ -11,7 +12,6 @@ function App() {
   const [allBookTitles, setAllBookTitles] = useState([])
   const [allBookAuthors, setAllBookAuthors] = useState([])
   const [allBookImages, setAllBookImages] = useState([])
-
   const [q, setQ] = useState("harry+potter")
 
 
@@ -66,6 +66,7 @@ function App() {
     getBooks()
   }, [q])
 
+  //alert("Don't forget to check your git branch")
   const mainSearchHeading="Find a book"
   return (
     <div className="App">
