@@ -3,12 +3,10 @@ import './styles/App.scss'
 import SearchBar from './components/SearchBar';
 import Nav from './components/Nav';
 import CardGrid from './components/CardGrid';
-import BookDetail from './pages/BookDetail';
 
 
 function App() {
   const [q, setQ] = useState("harry+potter")
-
 
   const handleChange = (e) => {
     let input = e.target.value.trim()

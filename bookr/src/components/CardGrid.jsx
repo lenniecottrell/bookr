@@ -31,22 +31,35 @@ const CardGrid = ({query}) => {
         books.push(allBooks[i].volumeInfo)
       }
       console.log(books)
-      for (let i = 0; i < allBooks.length; i++) {
-        titles.push(allBooks[i].volumeInfo.title)
+
+      for (let i = 0; i < books.length; i++) {
+        if (books[i].authors === undefined) {
+          authors.push([" "])
+          continue
+        }
+        authors.push(books[i].authors)
+        titles.push(books[i].title)
       }
-      for (let i = 0; i < allBooks.length; i++) {
-        authors.push(allBooks[i].volumeInfo.authors)
+
+      //authorList is an inner array of authors. If there's more than one, add a space to each item
+      for (let authorList of authors) {
+        if (authorList.length > 1) {
+          for (let i = 0; i < authorList.length - 1; i++) {
+            authorList[i] += ", "
+          }
+        }
       }
-      for (let i = 0; i < allBooks.length; i++) {
-        if (allBooks[i].volumeInfo.imageLinks === undefined){
+
+      for (let i = 0; i < books.length; i++) {
+        if (books[i].imageLinks === undefined){
           images.push({smallThumbnail: "No Image Available", thumbnail: "No Image Available"})
           continue
         }
-        images.push(allBooks[i].volumeInfo.imageLinks)
+        images.push(books[i].imageLinks)
       }
       setAllBookData(books)
-      setAllBookTitles(titles)
-      setAllBookAuthors(authors)
+      //setAllBookTitles(titles)
+      //setAllBookAuthors(authors)
       setAllBookImages(images)
     })
     .catch((err) => {
@@ -78,7 +91,7 @@ const CardGrid = ({query}) => {
       <SimpleGrid minChildWidth={300} spacing={6} m="2rem">
         {cards}
       </SimpleGrid>
-    <BookDetail isOpen={isOpen} onClose={onClose} />
+      <BookDetail isOpen={isOpen} onClose={onClose} />
     </>
   )
 }
