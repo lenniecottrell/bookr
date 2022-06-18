@@ -1,12 +1,11 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import {Input, Heading} from '@chakra-ui/react'
 
-const SearchBar = ({handleChange, q, heading}) => {
+const SearchBar = ({handleChange, q, title}) => {
 
-  console.log(heading)
   return (
     <div className="searchBar">
-      <Heading size="xl" mb={4}>{heading}</Heading>
+      <Heading size="xl" mb={4}>{title}</Heading>
       <Input 
         color="gray.800" 
         placeholder='title or author' 

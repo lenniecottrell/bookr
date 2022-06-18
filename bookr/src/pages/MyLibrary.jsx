@@ -10,18 +10,15 @@ import {
   TabPanels, 
   Tab, 
   TabPanel,
-  Heading,
-  Text,
   Container
  } from '@chakra-ui/react'
 
 const MyLibrary = () => {
 
-  const libraryHeading="My Library"
   return (
     <div>
       <Nav />
-      <SearchBar heading={libraryHeading}/>
+      <SearchBar title={"My Library"}/>
       <Container>
         <Tabs isFitted mt={3}>
           <TabList>
