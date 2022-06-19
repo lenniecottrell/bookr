@@ -87,7 +87,7 @@ const CardGrid = ({query}) => {
       <SimpleGrid minChildWidth={300} spacing={6} m="2rem">
         {cards}
       </SimpleGrid>
-      <BookDetail isOpen={isOpen} onClose={onClose} bookData={allBookData} />
+      <BookDetail isOpen={isOpen} onClose={onClose} bookData={allBookData} query={query}/>
     </>
   )
 }

@@ -15,7 +15,7 @@ import {
   ModalFooter,
 } from'@chakra-ui/react'
 
-const BookDetail = ({isOpen, onClose, bookData}) => {
+const BookDetail = ({isOpen, onClose, bookData, query}) => {
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -41,7 +41,7 @@ const BookDetail = ({isOpen, onClose, bookData}) => {
         </ModalBody>
         <ModalFooter>
           <Button>Add to my books</Button>
-          <Link href="https://www.overdrive.com/Search?q=harry+potter">Find in OverDrive</Link>
+          <Link href={`https://www.overdrive.com/Search?q=${query}`}>Find in OverDrive</Link>
           <Button onClick={onClose}>Close</Button>
         </ModalFooter>
       </ModalContent>
