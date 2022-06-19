@@ -10,7 +10,6 @@ import { Box, Center, Image, Heading, Text, useDisclosure,  Link,
  } from '@chakra-ui/react'
 
 const BookCard = ({title, authors, image}) => {
-  const {onOpen} = useDisclosure()
 
   return (
     <Center>

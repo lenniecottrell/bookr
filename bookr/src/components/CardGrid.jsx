@@ -6,10 +6,8 @@ import axios from 'axios'
 
 const CardGrid = ({query}) => {
   const [allBookData, setAllBookData] = useState({title: "hungry caterpillar", author: "richard scary?"})
-  const [allBookTitles, setAllBookTitles] = useState([])
-  const [allBookAuthors, setAllBookAuthors] = useState([])
   const [allBookImages, setAllBookImages] = useState([])
-  const {isOpen, onClose} = useDisclosure()
+  const {isOpen, onClose, onOpen} = useDisclosure()
 
   const titles = []
   const authors = []
@@ -58,8 +56,6 @@ const CardGrid = ({query}) => {
         images.push(books[i].imageLinks)
       }
       setAllBookData(books)
-      //setAllBookTitles(titles)
-      //setAllBookAuthors(authors)
       setAllBookImages(images)
     })
     .catch((err) => {
@@ -79,7 +75,7 @@ const CardGrid = ({query}) => {
   for (let i = 0; i < allBookData.length; i++) {
     cards.push(
       <SlideFade key={i} in={true}>
-        <GridItem className="gridItem" boxShadow="lg" w='100%' h='100%' bg='gray.100' borderRadius={6} >
+        <GridItem className="gridItem" boxShadow="lg" w='100%' h='100%' bg='gray.100' borderRadius={6} onClick={onOpen}>
           <BookCard allBookData={allBookData[i]} title={allBookData[i].title} authors={allBookData[i].authors} image={allBookImages[i]}/>
         </GridItem>
       </SlideFade>
@@ -91,7 +87,7 @@ const CardGrid = ({query}) => {
       <SimpleGrid minChildWidth={300} spacing={6} m="2rem">
         {cards}
       </SimpleGrid>
-      <BookDetail isOpen={isOpen} onClose={onClose} />
+      <BookDetail isOpen={isOpen} onClose={onClose} bookData={allBookData} />
     </>
   )
 }
