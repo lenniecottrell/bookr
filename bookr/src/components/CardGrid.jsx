@@ -28,13 +28,26 @@ const CardGrid = ({query}) => {
       for (let i = 0; i < allBooks.length; i++) {
         books.push(allBooks[i].volumeInfo)
       }
-      console.log(books)
+      console.log(books[0])
       for (let i = 0; i < allBooks.length; i++) {
         titles.push(allBooks[i].volumeInfo.title)
       }
       for (let i = 0; i < allBooks.length; i++) {
         authors.push(allBooks[i].volumeInfo.authors)
       }
+      console.log(authors)
+      //authorList is an inner array of authors. If there's more than one, add a space to each item
+      for (let authorList of authors) {
+        if (authorList === undefined) {
+          authorList = [""]
+        }
+        if (authorList.length > 1) {
+          for (let i = 0; i < authorList.length - 1; i++) {
+            authorList[i] += ", "
+          }
+        }
+      }
+      
       for (let i = 0; i < allBooks.length; i++) {
         if (allBooks[i].volumeInfo.imageLinks === undefined){
           images.push({smallThumbnail: "No Image Available", thumbnail: "No Image Available"})
