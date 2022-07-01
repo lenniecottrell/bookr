@@ -25,17 +25,13 @@ const CardGrid = ({query}) => {
     })
     .then((response) => {
       const allBooks = response.data.items
+      console.log(allBooks)
       for (let i = 0; i < allBooks.length; i++) {
         books.push(allBooks[i].volumeInfo)
-      }
-      console.log(books[0])
-      for (let i = 0; i < allBooks.length; i++) {
         titles.push(allBooks[i].volumeInfo.title)
-      }
-      for (let i = 0; i < allBooks.length; i++) {
         authors.push(allBooks[i].volumeInfo.authors)
       }
-      console.log(authors)
+
       //authorList is an inner array of authors. If there's more than one, add a space to each item
       for (let authorList of authors) {
         if (authorList === undefined) {
@@ -64,7 +60,8 @@ const CardGrid = ({query}) => {
       console.error(err);
     })
   }
-
+  
+  console.log(allBookData)
   useEffect(() => {
     //do nothing if the search box is empty
     if (query==="") {
