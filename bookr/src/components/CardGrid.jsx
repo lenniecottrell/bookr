@@ -22,24 +22,22 @@ const CardGrid = ({query}) => {
       const allBooks = response.data.items
       for (let i = 0; i < allBooks.length; i++) {
         if (allBooks[i].volumeInfo.imageLinks == undefined){
-          console.log("IMAGES UNDEFINED")
+          //console.log("IMAGES UNDEFINED")
           allBooks[i].volumeInfo.imageLinks = {smallThumbnail: "No Image Available", thumbnail: "No Image Available"}
-          continue
         }
         if (allBooks[i].volumeInfo.authors === undefined) {
-          allBooks[i].volumeInfo.authors = ["REPLACEMENT TEST"]
-          continue
+          allBooks[i].volumeInfo.authors = [""]
         }
         // If there's more than one, add a comma and a space to each item
         if (allBooks[i].volumeInfo.authors.length > 1) {
-          for (let i = 0; i < allBooks[i].volumeInfo.authors.length - 1; i++) {
-            allBooks[i].volumeInfo.authors += ", "
+          for (let j = 0; j < allBooks[i].volumeInfo.authors.length - 1; j++) {
+            allBooks[i].volumeInfo.authors[j] += ", "
           }
         }
       }
-      for (let book of allBooks) {
-        console.log(book.volumeInfo.authors)
-      }
+      // for (let book of allBooks) {
+      //   console.log(book.volumeInfo.authors)
+      // }
       setAllBookData(allBooks)
     })
     .catch((err) => {
@@ -47,22 +45,19 @@ const CardGrid = ({query}) => {
     })
   }, [query])
   
-  console.log(allBookData)
+  //console.log(allBookData)
 
   return (
       <SimpleGrid minChildWidth={300} spacing={6} m="2rem">
-        {allBookData.map((book) => {
+        {allBookData.map((book) => 
         <SlideFade key={book.id} in={true}>
           <GridItem className="gridItem" boxShadow="lg" w='100%' h='100%' bg='gray.100' borderRadius={6} >
             <BookCard 
               bookData={book}
-              title={book.volumeInfo.title}
-              authors={JSON.stringify(book.volumeInfo.authors)}
-              image={book.volumeInfo.imageLinks}
             />
           </GridItem>
         </SlideFade>
-        })
+        )
 
         }
 
