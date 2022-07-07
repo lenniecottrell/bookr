@@ -8,7 +8,6 @@ import CardGrid from './components/CardGrid';
 function App() {
   const [q, setQ] = useState("harry+potter")
 
-
   const handleChange = (e) => {
     let input = e.target.value.trim()
     setQ(input.replace(" ", "+"))
