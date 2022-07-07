@@ -5,7 +5,9 @@ import {
   Text,
   Box,
   Button,
-  Link,
+  Image,
+  LinkOverlay,
+  LinkBox,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -25,23 +27,29 @@ const BookDetail = ({isOpen, onClose, bookData, query}) => {
         <ModalCloseButton />
         <ModalBody>
           <Container display="flex" flexDirection="row">
-            <Box>Book Cover</Box>
+            <Box>
+              <Image boxSize="250px" objectFit="contain" src={bookData.volumeInfo.imageLinks.thumbnail} alt={bookData.volumeInfo.title} alignSelf="center"/>
+            </Box>
             <Box  display="flex" flexDirection="column">
-              <Text>{bookData.title}</Text>
-              <Text>Authors</Text>
-              <Text>Year Published</Text>
-              <Text>ISBN</Text>
-              <Text>Language</Text>
+              <Text>{bookData.volumeInfo.title}</Text>
+              <Text>{bookData.volumeInfo.authors}</Text>
+              <Text>{bookData.volumeInfo.publishedDate}</Text>
+              <Text>{bookData.volumeInfo.industryIdentifiers[0].identifier}</Text>
+              <Text>{bookData.volumeInfo.language}</Text>
             </Box>
           </Container>
-          <Heading>Description</Heading>
+          <Heading size="sm">Description</Heading>
           <Container>
-            <Text>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quae saepe iure ipsa minus corrupti cupiditate hic excepturi quos aperiam voluptatem.</Text>
+            <Text>{bookData.volumeInfo.description}</Text>
           </Container>
         </ModalBody>
-        <ModalFooter>
+        <ModalFooter display="flex" justifyContent="space-between">
           <Button>Add to my books</Button>
-          <Link href={`https://www.overdrive.com/Search?q=${query}`}>Find in OverDrive</Link>
+          <LinkBox>
+            <Button>Find in OverDrive
+              <LinkOverlay href={`https://www.overdrive.com/Search?q=${query}`} isExternal></LinkOverlay>
+            </Button>
+          </LinkBox>
           <Button onClick={onClose}>Close</Button>
         </ModalFooter>
       </ModalContent>

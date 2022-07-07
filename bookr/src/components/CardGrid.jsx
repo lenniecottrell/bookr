@@ -6,6 +6,8 @@ import axios from 'axios'
 
 const CardGrid = ({query}) => {
   const [allBookData, setAllBookData] = useState([])
+  const [selectedBook, setSelectedBook] = useState({})
+  const {isOpen, onClose, onOpen} = useDisclosure()
 
   useEffect(() => {
     //do nothing if the search box is empty
@@ -21,9 +23,9 @@ const CardGrid = ({query}) => {
     })
     .then((response) => {
       const allBooks = response.data.items
+      //handle undefined book data
       for (let i = 0; i < allBooks.length; i++) {
         if (allBooks[i].volumeInfo.imageLinks == undefined){
-          //console.log("IMAGES UNDEFINED")
           allBooks[i].volumeInfo.imageLinks = {smallThumbnail: "No Image Available", thumbnail: "No Image Available"}
         }
         if (allBooks[i].volumeInfo.authors === undefined) {
@@ -36,37 +38,35 @@ const CardGrid = ({query}) => {
           }
         }
       }
-      // for (let book of allBooks) {
-      //   console.log(book.volumeInfo.authors)
-      // }
       setAllBookData(allBooks)
+      setSelectedBook(allBooks[0])
     })
     .catch((err) => {
       console.error(err);
     })
   }, [query])
-  
-  //console.log(allBookData)
 
+  const handleClick = (item) => {
+    console.log(item);
+    setSelectedBook(item)
+    onOpen()
+  }
+  
   return (
     <>
       <SimpleGrid minChildWidth={300} spacing={6} m="2rem">
         {allBookData.map((book) => 
-        <SlideFade key={book.id} in={true}>
-          <GridItem className="gridItem" boxShadow="lg" w='100%' h='100%' bg='gray.100' borderRadius={6} >
-            <BookCard 
-              bookData={book}
-            />
-          </GridItem>
-        </SlideFade>
-        )
-
+          <SlideFade key={book.id} in={true} onClick={()=>handleClick(book)}>
+            <GridItem className="gridItem" boxShadow="lg" w='100%' h='100%' bg='gray.100' borderRadius={6} >
+              <BookCard 
+                bookData={book}
+              />
+            </GridItem>
+          </SlideFade>
+          )
         }
-
-
-
       </SimpleGrid>
-      <BookDetail isOpen={isOpen} onClose={onClose} bookData={allBookData} query={query}/>
+      {Object.keys(selectedBook).length > 0 && <BookDetail isOpen={isOpen} onClose={onClose} bookData={selectedBook} query={query}/>}
     </>
   )
 }
