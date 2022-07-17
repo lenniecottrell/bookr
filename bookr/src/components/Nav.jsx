@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import {Link as RouterLink} from 'react-router-dom'
-import GoogleAuth from './GoogleAuth';
+import GoogleButton from 'react-google-button'
 import {
   Flex,
   Spacer,
@@ -9,14 +9,7 @@ import {
   Heading,
 } from '@chakra-ui/react'
 
-const Nav = () => {
-
-  useEffect(() => {
-      google.accounts.id.renderButton(
-      document.querySelector('.signIn'),
-      {theme: 'outline', size: 'large'}
-    )
-  })
+const Nav = ({getAccessToken}) => {
 
   return (
     <Flex className='nav' display="flex" flexDirection="row" justifyContent="space-between" alignItems="center" m={5} px={5}>
@@ -28,7 +21,7 @@ const Nav = () => {
         <Link as={RouterLink} to="/about" mx={5}>About</Link>
         <Link as={RouterLink} to="/account" mx={5}>Account</Link>
       </Container>
-      <GoogleAuth />
+      <GoogleButton onClick={() => getAccessToken()} />
     </Flex>
   )
 }
