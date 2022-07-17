@@ -19,6 +19,8 @@ import {
 
 const BookDetail = ({isOpen, onClose, bookData, query}) => {
 
+  //I'll need this later: https://www.andiamo.co.uk/resources/iso-language-codes/
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay bg="transparent"/>

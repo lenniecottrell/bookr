@@ -1,7 +1,7 @@
 import React from 'react'
 import {Input, Heading} from '@chakra-ui/react'
 
-const SearchBar = ({handleChange, q, title}) => {
+const SearchBar = ({handleSearchChange, q, title}) => {
 
   return (
     <div className="searchBar">
@@ -15,7 +15,7 @@ const SearchBar = ({handleChange, q, title}) => {
         minW="25%" 
         m={2}
         value={q}
-        onChange={handleChange}
+        onChange={handleSearchChange}
       />
     </div>
   )
