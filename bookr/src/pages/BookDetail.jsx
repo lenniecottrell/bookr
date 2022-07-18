@@ -34,22 +34,29 @@ const BookDetail = ({isOpen, onClose, bookData, token}) => {
     //Have Read = 4
   const addToShelf = (bookId, shelfId) => {
     if (shelfId === 2) {
-      console.log(bookId, shelfId)
-      axios.post(
-        'https://www.googleapis.com/books/v1/mylibrary/bookshelves/2/addVolume',
-        {
-          volumeId: bookId,
-          key: process.env.REACT_APP_API_KEY
-        }
+      axios.get(
+        'http://localhost:5000/to-read'
       ).then((response) => {
         console.log(response);
       }).catch((error) => {
         console.error(error)
       })
     } else if (shelfId === 3) {
-      console.log(bookId, shelfId)
+      axios.get(
+        'http://localhost:5000/reading-now'
+      ).then((response) => {
+        console.log(response);
+      }).catch((error) => {
+        console.error(error)
+      })
     } else if (shelfId === 4) {
-      console.log(bookId, shelfId)
+      axios.get(
+        'http://localhost:5000/have-read'
+      ).then((response) => {
+        console.log(response);
+      }).catch((error) => {
+        console.error(error)
+      })
     }
   }
 
