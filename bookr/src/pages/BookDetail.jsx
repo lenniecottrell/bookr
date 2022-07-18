@@ -33,7 +33,12 @@ const BookDetail = ({isOpen, onClose, bookData, token}) => {
     //Reading Now = 3
     //Have Read = 4
   const addToShelf = (bookId, shelfId, token) => {
-    if (shelfId === 2) {
+    if (!token) {
+      alert("You need to sign in to add books to your library")
+      return;
+    }
+
+    if (!!token && shelfId === 2) {
       axios.get(
         'http://localhost:5000/to-read',{
         params: {
@@ -48,20 +53,34 @@ const BookDetail = ({isOpen, onClose, bookData, token}) => {
       .catch((error) => {
         console.error(error)
       })
-    } else if (shelfId === 3) {
+    } else if (!!token && shelfId === 3) {
       axios.get(
-        'http://localhost:5000/reading-now'
-      ).then((response) => {
+        'http://localhost:5000/reading-now',{
+        params: {
+          bookId: bookId,
+          shelfId: shelfId,
+          token: token
+        }
+      })
+      .then((response) => {
         console.log(response);
-      }).catch((error) => {
+      })
+      .catch((error) => {
         console.error(error)
       })
-    } else if (shelfId === 4) {
+    } else if (!!token && shelfId === 4) {
       axios.get(
-        'http://localhost:5000/have-read'
-      ).then((response) => {
+        'http://localhost:5000/have-read',{
+        params: {
+          bookId: bookId,
+          shelfId: shelfId,
+          token: token
+        }
+      })
+      .then((response) => {
         console.log(response);
-      }).catch((error) => {
+      })
+      .catch((error) => {
         console.error(error)
       })
     }

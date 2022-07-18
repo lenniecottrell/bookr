@@ -13,20 +13,19 @@ app.listen(port, () => {
 
 app.route('/to-read')
   .get((req, res) => {
-    //console.log("request: ", req)
     console.log("request params: ", req.url, req.query)
-    
     res.send("adding a book to 'To Read'")
   })
 
 app.route('/reading-now')
   .get((req, res) => {
-    //console.log("request: ", req)
+    console.log("request params: ", req.url, req.query)
     res.send("adding a book to 'Reading Now'")
   })
 
 app.route('/have-read')
   .get((req, res) => {
+    console.log("request params: ", req.url, req.query)
     res.send("adding a book to 'Have Read'")
   })
 
