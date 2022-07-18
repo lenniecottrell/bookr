@@ -39,7 +39,7 @@ const BookDetail = ({isOpen, onClose, bookData, token}) => {
         'https://www.googleapis.com/books/v1/mylibrary/bookshelves/2/addVolume',
         {
           volumeId: bookId,
-          key: process.env.API_KEY
+          key: process.env.REACT_APP_API_KEY
         }
       ).then((response) => {
         console.log(response);
