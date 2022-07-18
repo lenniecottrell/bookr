@@ -15,7 +15,13 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
 } from'@chakra-ui/react'
+
+import { ChevronDownIcon } from '@chakra-ui/icons'
 
 const BookDetail = ({isOpen, onClose, bookData, query}) => {
 
@@ -46,10 +52,19 @@ const BookDetail = ({isOpen, onClose, bookData, query}) => {
           </Container>
         </ModalBody>
         <ModalFooter display="flex" justifyContent="space-between">
-          <Button>Add to my books</Button>
+          <Menu>
+            <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+              Add to My Library
+            </MenuButton>
+            <MenuList>
+              <MenuItem>Reading Now</MenuItem>
+              <MenuItem>To Read</MenuItem>
+              <MenuItem>Have Read</MenuItem>
+            </MenuList>
+          </Menu>
           <LinkBox>
             <Button>Find in OverDrive
-              <LinkOverlay href={`https://www.overdrive.com/Search?q=${query}`} isExternal></LinkOverlay>
+              <LinkOverlay href={`https://www.overdrive.com/Search?q=${bookData.volumeInfo.title}`} isExternal></LinkOverlay>
             </Button>
           </LinkBox>
           <Button onClick={onClose}>Close</Button>

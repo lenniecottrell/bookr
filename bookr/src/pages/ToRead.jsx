@@ -1,8 +1,8 @@
 import React from 'react'
-import { Container, Heading, Box } from '@chakra-ui/react'
 import EmptyShelf from '../components/EmptyShelf'
+import { Container } from '@chakra-ui/react'
 
-const Reading = () => {
+const ToRead = () => {
   return (
     <Container textAlign="center" border="2px">
       <EmptyShelf />
@@ -10,4 +10,4 @@ const Reading = () => {
   )
 }
 
-export default Reading
+export default ToRead
