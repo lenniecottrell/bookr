@@ -4,7 +4,7 @@ import BookCard from './BookCard'
 import BookDetail from '../pages/BookDetail'
 import axios from 'axios'
 
-const CardGrid = ({query}) => {
+const CardGrid = ({query, token}) => {
   const [allBookData, setAllBookData] = useState([])
   const [selectedBook, setSelectedBook] = useState({})
   const {isOpen, onClose, onOpen} = useDisclosure()
@@ -66,7 +66,7 @@ const CardGrid = ({query}) => {
           )
         }
       </SimpleGrid>
-      {Object.keys(selectedBook).length > 0 && <BookDetail isOpen={isOpen} onClose={onClose} bookData={selectedBook} query={query}/>}
+      {Object.keys(selectedBook).length > 0 && <BookDetail isOpen={isOpen} onClose={onClose} bookData={selectedBook} token={token}/>}
     </>
   )
 }

@@ -4,7 +4,7 @@ import {Container} from '@chakra-ui/react'
 
 const HaveRead = () => {
   return (
-    <Container textAlign="center" border="2px">
+    <Container textAlign="center">
       <EmptyShelf />
     </Container>
   )

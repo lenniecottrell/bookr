@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 import {
   Container,
   Heading,
@@ -23,9 +24,34 @@ import {
 
 import { ChevronDownIcon } from '@chakra-ui/icons'
 
-const BookDetail = ({isOpen, onClose, bookData, query}) => {
+const BookDetail = ({isOpen, onClose, bookData, token}) => {
 
   //I'll need this later: https://www.andiamo.co.uk/resources/iso-language-codes/
+
+  //google shelf ids (https://developers.google.com/books/docs/v1/using#ids):
+    //To read = 2
+    //Reading Now = 3
+    //Have Read = 4
+  const addToShelf = (bookId, shelfId) => {
+    if (shelfId === 2) {
+      console.log(bookId, shelfId)
+      axios.post(
+        'https://www.googleapis.com/books/v1/mylibrary/bookshelves/2/addVolume',
+        {
+          volumeId: bookId,
+          key: process.env.API_KEY
+        }
+      ).then((response) => {
+        console.log(response);
+      }).catch((error) => {
+        console.error(error)
+      })
+    } else if (shelfId === 3) {
+      console.log(bookId, shelfId)
+    } else if (shelfId === 4) {
+      console.log(bookId, shelfId)
+    }
+  }
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -57,9 +83,9 @@ const BookDetail = ({isOpen, onClose, bookData, query}) => {
               Add to My Library
             </MenuButton>
             <MenuList>
-              <MenuItem>Reading Now</MenuItem>
-              <MenuItem>To Read</MenuItem>
-              <MenuItem>Have Read</MenuItem>
+              <MenuItem onClick={() => addToShelf(bookData.id, 2)}>To Read</MenuItem>
+              <MenuItem onClick={() => addToShelf(bookData.id, 3)}>Reading Now</MenuItem>
+              <MenuItem onClick={() => addToShelf(bookData.id, 4)}>Have Read</MenuItem>
             </MenuList>
           </Menu>
           <LinkBox>
