@@ -32,13 +32,20 @@ const BookDetail = ({isOpen, onClose, bookData, token}) => {
     //To read = 2
     //Reading Now = 3
     //Have Read = 4
-  const addToShelf = (bookId, shelfId) => {
+  const addToShelf = (bookId, shelfId, token) => {
     if (shelfId === 2) {
       axios.get(
-        'http://localhost:5000/to-read'
-      ).then((response) => {
+        'http://localhost:5000/to-read',{
+        params: {
+          bookId: bookId,
+          shelfId: shelfId,
+          token: token
+        }
+      })
+      .then((response) => {
         console.log(response);
-      }).catch((error) => {
+      })
+      .catch((error) => {
         console.error(error)
       })
     } else if (shelfId === 3) {
@@ -90,9 +97,9 @@ const BookDetail = ({isOpen, onClose, bookData, token}) => {
               Add to My Library
             </MenuButton>
             <MenuList>
-              <MenuItem onClick={() => addToShelf(bookData.id, 2)}>To Read</MenuItem>
-              <MenuItem onClick={() => addToShelf(bookData.id, 3)}>Reading Now</MenuItem>
-              <MenuItem onClick={() => addToShelf(bookData.id, 4)}>Have Read</MenuItem>
+              <MenuItem onClick={() => addToShelf(bookData.id, 2, token)}>To Read</MenuItem>
+              <MenuItem onClick={() => addToShelf(bookData.id, 3, token)}>Reading Now</MenuItem>
+              <MenuItem onClick={() => addToShelf(bookData.id, 4, token)}>Have Read</MenuItem>
             </MenuList>
           </Menu>
           <LinkBox>

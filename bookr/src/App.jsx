@@ -27,7 +27,7 @@ function App() {
     try {
       console.log(response)
       setToken(response.access_token)
-      setIsLoggedIn(true)
+      setLoggedIn(true)
     } catch (error) {
       console.error(error)
     }
