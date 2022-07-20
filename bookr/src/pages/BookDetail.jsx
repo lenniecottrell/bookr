@@ -38,9 +38,9 @@ const BookDetail = ({isOpen, onClose, bookData, token}) => {
       return;
     }
 
-    if (!!token && shelfId === 2) {
+    if (!!token) {
       axios.get(
-        'http://localhost:5000/to-read',{
+        'http://localhost:5000/add-to-shelf',{
         params: {
           bookId: bookId,
           shelfId: shelfId,
@@ -53,37 +53,7 @@ const BookDetail = ({isOpen, onClose, bookData, token}) => {
       .catch((error) => {
         console.error(error)
       })
-    } else if (!!token && shelfId === 3) {
-      axios.get(
-        'http://localhost:5000/reading-now',{
-        params: {
-          bookId: bookId,
-          shelfId: shelfId,
-          token: token
-        }
-      })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.error(error)
-      })
-    } else if (!!token && shelfId === 4) {
-      axios.get(
-        'http://localhost:5000/have-read',{
-        params: {
-          bookId: bookId,
-          shelfId: shelfId,
-          token: token
-        }
-      })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.error(error)
-      })
-    }
+     }
   }
 
   return (
