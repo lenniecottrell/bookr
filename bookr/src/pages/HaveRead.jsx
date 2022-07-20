@@ -2,12 +2,12 @@ import React from 'react'
 import EmptyShelf from '../components/EmptyShelf'
 import {Container} from '@chakra-ui/react'
 
-const Finished = () => {
+const HaveRead = () => {
   return (
-    <Container textAlign="center" border="2px">
+    <Container textAlign="center">
       <EmptyShelf />
     </Container>
   )
 }
 
-export default Finished
+export default HaveRead

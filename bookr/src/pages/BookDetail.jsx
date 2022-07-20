@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 import {
   Container,
   Heading,
@@ -15,11 +16,45 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
 } from'@chakra-ui/react'
 
-const BookDetail = ({isOpen, onClose, bookData, query}) => {
+import { ChevronDownIcon } from '@chakra-ui/icons'
+
+const BookDetail = ({isOpen, onClose, bookData, token}) => {
 
   //I'll need this later: https://www.andiamo.co.uk/resources/iso-language-codes/
+
+  //google shelf ids (https://developers.google.com/books/docs/v1/using#ids):
+    //To read = 2
+    //Reading Now = 3
+    //Have Read = 4
+  const addToShelf = (bookId, shelfId, token) => {
+    if (!token) {
+      alert("You need to sign in to add books to your library")
+      return;
+    }
+
+    if (!!token) {
+      axios.get(
+        'http://localhost:5000/add-to-shelf',{
+        params: {
+          bookId: bookId,
+          shelfId: shelfId,
+          token: token
+        }
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+     }
+  }
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -46,10 +81,19 @@ const BookDetail = ({isOpen, onClose, bookData, query}) => {
           </Container>
         </ModalBody>
         <ModalFooter display="flex" justifyContent="space-between">
-          <Button>Add to my books</Button>
+          <Menu>
+            <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+              Add to My Library
+            </MenuButton>
+            <MenuList>
+              <MenuItem onClick={() => addToShelf(bookData.id, 2, token)}>To Read</MenuItem>
+              <MenuItem onClick={() => addToShelf(bookData.id, 3, token)}>Reading Now</MenuItem>
+              <MenuItem onClick={() => addToShelf(bookData.id, 4, token)}>Have Read</MenuItem>
+            </MenuList>
+          </Menu>
           <LinkBox>
             <Button>Find in OverDrive
-              <LinkOverlay href={`https://www.overdrive.com/Search?q=${query}`} isExternal></LinkOverlay>
+              <LinkOverlay href={`https://www.overdrive.com/Search?q=${bookData.volumeInfo.title}`} isExternal></LinkOverlay>
             </Button>
           </LinkBox>
           <Button onClick={onClose}>Close</Button>

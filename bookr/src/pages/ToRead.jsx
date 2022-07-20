@@ -2,12 +2,12 @@ import React from 'react'
 import EmptyShelf from '../components/EmptyShelf'
 import { Container } from '@chakra-ui/react'
 
-const WantToRead = () => {
+const ToRead = () => {
   return (
-    <Container textAlign="center" border="2px">
+    <Container textAlign="center">
       <EmptyShelf />
     </Container>
   )
 }
 
-export default WantToRead
+export default ToRead

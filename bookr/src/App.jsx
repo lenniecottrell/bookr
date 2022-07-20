@@ -1,15 +1,16 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import './styles/App.scss'
 import SearchBar from './components/SearchBar';
 import Nav from './components/Nav';
 import CardGrid from './components/CardGrid';
 
 
+
 function App() {
   //TODO create context for the user state?
   const [q, setQ] = useState("harry+potter")
-  const [user, setUser] = useState({})
   const [token, setToken] = useState("")
+  const [loggedIn, setLoggedIn] = useState(false)
 
   const handleSearchChange = (e) => {
     let input = e.target.value.trim()
@@ -23,8 +24,13 @@ function App() {
   // const scope = 'https://www.googleapis.com/auth/books'
   
   const handleAuthorizationResponse = (response) => {
-    console.log(response)
-    setToken(response.access_token)
+    try {
+      console.log(response)
+      setToken(response.access_token)
+      setLoggedIn(true)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   //Pretty sure I don't need this...
@@ -50,7 +56,7 @@ function App() {
     <div className="App">
       <Nav getAccessToken={getAccessToken}/>
       <SearchBar handleSearchChange={handleSearchChange} value={q} title={"Find A Book"}/>
-      <CardGrid query={q}/>
+      <CardGrid query={q} token={token}/>
     </div>
   )
 }

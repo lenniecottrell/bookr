@@ -1,9 +1,9 @@
 import React from 'react'
 import Nav from '../components/Nav'
 import SearchBar from '../components/SearchBar'
-import Reading from './Reading'
-import WantToRead from './WantToRead'
-import Finished from './Finished'
+import ReadingNow from './ReadingNow'
+import ToRead from './ToRead'
+import HaveRead from './HaveRead'
 import { 
   Tabs, 
   TabList, 
@@ -22,20 +22,20 @@ const MyLibrary = () => {
       <Container>
         <Tabs isFitted mt={3}>
           <TabList>
-            <Tab>Reading</Tab>
-            <Tab>Want To Read</Tab>
-            <Tab>Finished</Tab>
+            <Tab>Reading Now</Tab>
+            <Tab>To Read</Tab>
+            <Tab>Have Read</Tab>
           </TabList>
 
           <TabPanels>
             <TabPanel w="100%" h="auto">
-              <Reading />
+              <ReadingNow />
             </TabPanel>
             <TabPanel>
-              <WantToRead />
+              <ToRead />
             </TabPanel>
             <TabPanel>
-              <Finished />
+              <HaveRead />
             </TabPanel>
           </TabPanels>
         </Tabs>
