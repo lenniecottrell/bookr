@@ -1,25 +1,27 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useContext} from 'react'
 import { Container, Heading, Box } from '@chakra-ui/react'
 import EmptyShelf from '../components/EmptyShelf'
 import axios from 'axios'
+import { useToken } from '../hooks/useToken'
 
-const ReadingNow = ({token}) => {
+const ReadingNow = () => {
+  // const tokenValue = useToken().token
+  // console.log(tokenValue)
 
-  // useEffect((token) => {
-  //   axios.get(
-  //     'http://localhost:5000/get-shelf', {
-  //       params: {
-  //         shelfId: 3,
-  //         token: token
-  //       }
-  //     })
-  //     .then((response) => {
-  //       console.log(response)
-  //     })
-  //     .catch((error) => {
-  //       console.log(error)
-  //     })
-  //   },[token])
+  axios.get(
+    'http://localhost:5000/get-shelf', {
+      params: {
+        shelfId: 2,
+        token: useToken().token
+      }
+    })
+    .then((response) => {
+      console.log(response)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+
 
   return (
     <Container textAlign="center">

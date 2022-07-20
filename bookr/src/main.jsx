@@ -4,11 +4,13 @@ import App from './App'
 import About from './pages/About'
 import Account from './pages/Account'
 import MyLibrary from './pages/MyLibrary'
+import { TokenProvider } from './hooks/useToken'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import {ChakraProvider} from '@chakra-ui/react'
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
+  <TokenProvider>
     <ChakraProvider>
       <BrowserRouter>
         <Routes>
@@ -19,4 +21,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         </Routes>
       </BrowserRouter>
     </ChakraProvider>
+  </TokenProvider>
 )
