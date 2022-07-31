@@ -28,7 +28,7 @@ app.route('/add-to-shelf')
     }).catch((error) => {
       console.log(error.response.data)
     })
-    
+  
     res.send("adding a book!")
   });
 
@@ -49,5 +49,24 @@ app.route('/get-shelf')
       console.log(error.response.data)
       res.send(error.response.data)
     })
+  });
 
+app.route('/remove-book')
+  .get((req, res) => {
+    console.log("request params: ", req.query)
+    const headers = {
+      'Authorization': `Bearer ${req.query.token}`,
+      'Content-Type': 'application/json',
+    }
+    axios.post(
+      `https://www.googleapis.com/books/v1/mylibrary/bookshelves/${req.query.shelfId}/removeVolume?volumeId=${req.query.bookId}`,
+      {},
+      {headers: headers}
+    ).then((response) => {
+      console.log(response);
+      //res.send(response)
+    }).catch((error) => {
+      console.log(error.response.data)
+      res.send(error.response.data)
+    })
   });

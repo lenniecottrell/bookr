@@ -23,38 +23,35 @@ import {
   MenuItem,
 } from'@chakra-ui/react'
 
-import { ChevronDownIcon } from '@chakra-ui/icons'
-
-const BookDetail = ({isOpen, onClose, bookData}) => {
+const BookDetailShelf = ({isOpen, onClose, bookData, shelfId}) => {
   const token = useToken().token
-  //I'll need this later: https://www.andiamo.co.uk/resources/iso-language-codes/
 
-  //google shelf ids (https://developers.google.com/books/docs/v1/using#ids):
-    //To read = 2
-    //Reading Now = 3
-    //Have Read = 4
-  const addToShelf = (bookId, shelfId, token) => {
+  const checkToken = (token) => {
+    console.log(token);
+  }
+  
+  const removeBook = (bookId, shelfId, token) => {
     if (!token) {
-      alert("You need to sign in to add books to your library")
+      alert("You need to sign in to remove books from your library")
       return;
     }
 
     if (!!token) {
       axios.get(
-        'http://localhost:5000/add-to-shelf',{
-        params: {
-          bookId: bookId,
-          shelfId: shelfId,
-          token: token
-        }
-      })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.error(error)
-      })
-     }
+        'http://localhost:5000/remove-book', {
+          params: {
+            shelfId: shelfId,
+            token: token,
+            bookId: bookId
+          }
+        })
+        .then((response) => {
+          console.log(response)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
   }
 
   return (
@@ -82,16 +79,20 @@ const BookDetail = ({isOpen, onClose, bookData}) => {
           </Container>
         </ModalBody>
         <ModalFooter display="flex" justifyContent="space-between">
-          <Menu>
+          {/* <Menu>
             <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
               Add to My Library
             </MenuButton>
             <MenuList>
-              <MenuItem onClick={() => addToShelf(bookData.id, 2, token)}>To Read</MenuItem>
-              <MenuItem onClick={() => addToShelf(bookData.id, 3, token)}>Reading Now</MenuItem>
-              <MenuItem onClick={() => addToShelf(bookData.id, 4, token)}>Have Read</MenuItem>
+              <MenuItem onClick={() => removeBook(bookData.id, shelfId, token)}>To Read</MenuItem>
             </MenuList>
-          </Menu>
+          </Menu> */}
+          <Button onClick={() => removeBook(bookData.id, shelfId, token)}>
+            Remove from shelf
+          </Button>
+          {/* <Button onClick={() => checkToken(token)}>
+            CheckToken
+          </Button> */}
           <LinkBox>
             <Button>Find in OverDrive
               <LinkOverlay href={`https://www.overdrive.com/Search?q=${bookData.volumeInfo.title}`} isExternal></LinkOverlay>
@@ -104,4 +105,4 @@ const BookDetail = ({isOpen, onClose, bookData}) => {
   )
 }
 
-export default BookDetail
+export default BookDetailShelf

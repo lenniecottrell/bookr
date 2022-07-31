@@ -8,14 +8,11 @@ import {Box} from '@chakra-ui/react'
 const HaveRead = () => {
   const [books, setBooks] = useState([])
   const token = useToken().token
+  const shelfId = 2
   //TODO
-    //put an API call to the server that checks for books on the bookshelf
     //if the user isn't logged in, prompt them to log in with a CTA and a button
-    //if the user is logged in but the shelf is empty, render the EmptyShelf component
-    //if the user is logged in and the shelf has books, render the CardGridShelf
 
   useEffect(()=>{
-    
     axios.get(
       //google shelf ids (https://developers.google.com/books/docs/v1/using#ids):
       //To read = 2
@@ -23,7 +20,7 @@ const HaveRead = () => {
       //Have Read = 4
       'http://localhost:5000/get-shelf', {
         params: {
-          shelfId: 2,
+          shelfId: shelfId,
           token: token
         }
       })
@@ -38,7 +35,7 @@ const HaveRead = () => {
 
   return (
     <Box textAlign="center">
-      {books.length === 0 ? <EmptyShelf /> : <CardGridShelf books={books}/>}
+      {books.length === 0 ? <EmptyShelf /> : <CardGridShelf books={books} shelfId={shelfId}/>}
     </Box>
   )
 }
