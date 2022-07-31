@@ -3,13 +3,13 @@ import './styles/App.scss'
 import SearchBar from './components/SearchBar';
 import Nav from './components/Nav';
 import CardGrid from './components/CardGrid';
+import { useToken } from './hooks/useToken';
 
 
 
 function App() {
-  //TODO create context for the user state?
   const [q, setQ] = useState("harry+potter")
-  const [token, setToken] = useState("")
+  const {token, setToken} = useToken("")
   const [loggedIn, setLoggedIn] = useState(false)
 
   const handleSearchChange = (e) => {
@@ -56,7 +56,7 @@ function App() {
     <div className="App">
       <Nav getAccessToken={getAccessToken}/>
       <SearchBar handleSearchChange={handleSearchChange} value={q} title={"Find A Book"}/>
-      <CardGrid query={q} token={token}/>
+      <CardGrid query={q}/>
     </div>
   )
 }

@@ -19,8 +19,8 @@ const MyLibrary = () => {
     <div>
       <Nav />
       <SearchBar title={"My Library"}/>
-      <Container>
-        <Tabs isFitted mt={3}>
+      <Container maxWidth="95%">
+        <Tabs isFitted variant='enclosed-colored' colorScheme='blue' mt={3}>
           <TabList>
             <Tab>Reading Now</Tab>
             <Tab>To Read</Tab>

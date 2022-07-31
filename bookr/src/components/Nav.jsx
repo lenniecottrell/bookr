@@ -1,6 +1,7 @@
 import React from 'react'
 import {Link as RouterLink} from 'react-router-dom'
 import GoogleButton from 'react-google-button'
+import GoogleAuth from './GoogleAuth'
 import {
   Flex,
   Spacer,
@@ -22,6 +23,8 @@ const Nav = ({getAccessToken}) => {
         <Link as={RouterLink} to="/account" mx={5}>Account</Link>
       </Container>
       <GoogleButton onClick={() => getAccessToken()} />
+      {/* Come back to this
+      <GoogleAuth onClick={() => getAccessToken()} /> */}
     </Flex>
   )
 }

@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import { useToken } from '../hooks/useToken'
 import {
   Container,
   Heading,
@@ -24,8 +25,8 @@ import {
 
 import { ChevronDownIcon } from '@chakra-ui/icons'
 
-const BookDetail = ({isOpen, onClose, bookData, token}) => {
-
+const BookDetail = ({isOpen, onClose, bookData}) => {
+  const tokenValue = useToken().token
   //I'll need this later: https://www.andiamo.co.uk/resources/iso-language-codes/
 
   //google shelf ids (https://developers.google.com/books/docs/v1/using#ids):
@@ -44,7 +45,7 @@ const BookDetail = ({isOpen, onClose, bookData, token}) => {
         params: {
           bookId: bookId,
           shelfId: shelfId,
-          token: token
+          token: tokenValue
         }
       })
       .then((response) => {
@@ -86,9 +87,9 @@ const BookDetail = ({isOpen, onClose, bookData, token}) => {
               Add to My Library
             </MenuButton>
             <MenuList>
-              <MenuItem onClick={() => addToShelf(bookData.id, 2, token)}>To Read</MenuItem>
-              <MenuItem onClick={() => addToShelf(bookData.id, 3, token)}>Reading Now</MenuItem>
-              <MenuItem onClick={() => addToShelf(bookData.id, 4, token)}>Have Read</MenuItem>
+              <MenuItem onClick={() => addToShelf(bookData.id, 2, tokenValue)}>To Read</MenuItem>
+              <MenuItem onClick={() => addToShelf(bookData.id, 3, tokenValue)}>Reading Now</MenuItem>
+              <MenuItem onClick={() => addToShelf(bookData.id, 4, tokenValue)}>Have Read</MenuItem>
             </MenuList>
           </Menu>
           <LinkBox>
