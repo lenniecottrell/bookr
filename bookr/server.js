@@ -12,6 +12,18 @@ app.listen(port, () => {
   console.log(`~~~~~~~************~~~~~~~~~~~~~~~~~~~~~***********~~~~~~~~~~~~~~~~~~`)
 })
 
+app.all('/set-token', (req, res, next) => {
+    app.set('token', req.query.token)
+    res.send("Token is set")
+    next();
+  })
+
+
+app.get('/get-token', (req, res) => {
+  const token = app.get('token')
+  res.send(token)
+})
+
 app.route('/add-to-shelf')
   .get((req, res) => {
     console.log("request params: ", req.query)

@@ -6,6 +6,7 @@ import BookDetailShelf from '../pages/BookDetailShelf'
 const CardGridShelf = ({books, shelfId}) => {
   const [selectedBook, setSelectedBook] = useState({})
   const {isOpen, onClose, onOpen} = useDisclosure()
+  console.log(books);
 
   const handleClick = (item) => {
     setSelectedBook(item)
@@ -31,7 +32,7 @@ const CardGridShelf = ({books, shelfId}) => {
     //   }
     // })
       
-      return (
+  return (
     <>
       <SimpleGrid minChildWidth={300} spacing={6} m="2rem">
         {books.map((book) => 

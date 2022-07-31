@@ -9,10 +9,7 @@ const HaveRead = () => {
   const [books, setBooks] = useState([])
   const token = useToken().token
   //TODO
-    //put an API call to the server that checks for books on the bookshelf
     //if the user isn't logged in, prompt them to log in with a CTA and a button
-    //if the user is logged in but the shelf is empty, render the EmptyShelf component
-    //if the user is logged in and the shelf has books, render the CardGridShelf
 
   useEffect(()=>{
     
@@ -28,7 +25,7 @@ const HaveRead = () => {
         }
       })
       .then((response) => {
-        console.log(response)
+        //console.log(response)
         setBooks(response.data) //array of objects
       })
       .catch((error) => {

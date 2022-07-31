@@ -23,7 +23,7 @@ const ReadingNow = () => {
         }
       })
       .then((response) => {
-        console.log(response)
+        //console.log(response)
         setBooks(response.data) //array of objects
       })
       .catch((error) => {

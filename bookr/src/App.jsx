@@ -4,8 +4,7 @@ import SearchBar from './components/SearchBar';
 import Nav from './components/Nav';
 import CardGrid from './components/CardGrid';
 import { useToken } from './hooks/useToken';
-
-
+import axios from 'axios';
 
 function App() {
   const [q, setQ] = useState("harry+potter")
@@ -28,6 +27,18 @@ function App() {
       console.log(response)
       setToken(response.access_token)
       setLoggedIn(true)
+      axios.get(
+        'http://localhost:5000/set-token', {
+          params: {
+            token: response.access_token
+          }
+        })
+        .then((response) => {
+          console.log(response.data)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     } catch (error) {
       console.error(error)
     }

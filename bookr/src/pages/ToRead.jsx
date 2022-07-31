@@ -2,10 +2,11 @@ import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import CardGridShelf from '../components/CardGridShelf'
 import EmptyShelf from '../components/EmptyShelf'
+import NotLoggedIn from '../components/NotLoggedIn'
 import { useToken } from '../hooks/useToken'
 import {Box} from '@chakra-ui/react'
 
-const ToRead = () => {
+const ToRead = ({loggedIn}) => {
   const [books, setBooks] = useState([])
   const token = useToken().token
   const shelfId = 2
@@ -25,7 +26,7 @@ const ToRead = () => {
         }
       })
       .then((response) => {
-        console.log(response)
+        // console.log(response)
         setBooks(response.data) //array of objects
       })
       .catch((error) => {
@@ -35,7 +36,9 @@ const ToRead = () => {
 
   return (
     <Box textAlign="center">
-      {books.length === 0 ? <EmptyShelf /> : <CardGridShelf books={books} shelfId={shelfId}/>}
+      {!loggedIn ? <NotLoggedIn />
+      : books.length === 0 ? <EmptyShelf />
+      : <CardGridShelf books={books} shelfId={shelfId}/>}
     </Box>
   )
 }

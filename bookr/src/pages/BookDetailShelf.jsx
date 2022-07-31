@@ -39,6 +39,7 @@ const BookDetailShelf = ({isOpen, onClose, bookData, shelfId}) => {
         })
         .then((response) => {
           console.log(response)
+          onClose();
         })
         .catch((error) => {
           console.log(error)

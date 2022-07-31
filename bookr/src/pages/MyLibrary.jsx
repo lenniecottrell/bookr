@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Nav from '../components/Nav'
 import SearchBar from '../components/SearchBar'
 import ReadingNow from './ReadingNow'
@@ -12,8 +12,21 @@ import {
   TabPanel,
   Container
  } from '@chakra-ui/react'
+ import axios from 'axios'
 
 const MyLibrary = () => {
+  const [loggedIn, setLoggedIn] = useState(false)
+
+  useEffect(() => {
+    axios.get('http://localhost:5000/get-token')
+      .then((res)=> {
+        console.log(res)
+        setLoggedIn(true)
+      })        
+      .catch((error) => {
+        console.log(error)
+      })
+  }, [])
 
   return (
     <div>
@@ -26,16 +39,15 @@ const MyLibrary = () => {
             <Tab>To Read</Tab>
             <Tab>Have Read</Tab>
           </TabList>
-
           <TabPanels>
             <TabPanel w="100%" h="auto">
-              <ReadingNow />
+              <ReadingNow loggedIn={loggedIn}/>
             </TabPanel>
             <TabPanel>
-              <ToRead />
+              <ToRead loggedIn={loggedIn}/>
             </TabPanel>
             <TabPanel>
-              <HaveRead />
+              <HaveRead loggedIn={loggedIn}/>
             </TabPanel>
           </TabPanels>
         </Tabs>
