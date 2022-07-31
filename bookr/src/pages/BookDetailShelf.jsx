@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import axios from 'axios'
 import { useToken } from '../hooks/useToken'
 import {
@@ -17,18 +17,10 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
 } from'@chakra-ui/react'
 
 const BookDetailShelf = ({isOpen, onClose, bookData, shelfId}) => {
   const token = useToken().token
-
-  const checkToken = (token) => {
-    console.log(token);
-  }
   
   const removeBook = (bookId, shelfId, token) => {
     if (!token) {
@@ -79,20 +71,9 @@ const BookDetailShelf = ({isOpen, onClose, bookData, shelfId}) => {
           </Container>
         </ModalBody>
         <ModalFooter display="flex" justifyContent="space-between">
-          {/* <Menu>
-            <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-              Add to My Library
-            </MenuButton>
-            <MenuList>
-              <MenuItem onClick={() => removeBook(bookData.id, shelfId, token)}>To Read</MenuItem>
-            </MenuList>
-          </Menu> */}
           <Button onClick={() => removeBook(bookData.id, shelfId, token)}>
             Remove from shelf
           </Button>
-          {/* <Button onClick={() => checkToken(token)}>
-            CheckToken
-          </Button> */}
           <LinkBox>
             <Button>Find in OverDrive
               <LinkOverlay href={`https://www.overdrive.com/Search?q=${bookData.volumeInfo.title}`} isExternal></LinkOverlay>

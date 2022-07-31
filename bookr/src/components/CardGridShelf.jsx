@@ -2,16 +2,12 @@ import React, {useEffect, useState} from 'react'
 import { SimpleGrid, GridItem, SlideFade, useDisclosure } from '@chakra-ui/react'
 import BookCard from './BookCard'
 import BookDetailShelf from '../pages/BookDetailShelf'
-import axios from 'axios'
 
 const CardGridShelf = ({books, shelfId}) => {
-  //console.log(books);
-  //const [allBookData, setAllBookData] = useState([])
   const [selectedBook, setSelectedBook] = useState({})
   const {isOpen, onClose, onOpen} = useDisclosure()
 
   const handleClick = (item) => {
-    //console.log(item);
     setSelectedBook(item)
     onOpen()
   }

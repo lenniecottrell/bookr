@@ -5,7 +5,7 @@ import EmptyShelf from '../components/EmptyShelf'
 import { useToken } from '../hooks/useToken'
 import {Box} from '@chakra-ui/react'
 
-const HaveRead = () => {
+const ToRead = () => {
   const [books, setBooks] = useState([])
   const token = useToken().token
   const shelfId = 2
@@ -40,4 +40,4 @@ const HaveRead = () => {
   )
 }
 
-export default HaveRead
+export default ToRead
