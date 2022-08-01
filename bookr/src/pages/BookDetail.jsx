@@ -1,6 +1,6 @@
-import React from 'react'
-import axios from 'axios'
-import { useToken } from '../hooks/useToken'
+import React from "react";
+import axios from "axios";
+import { useToken } from "../hooks/useToken";
 import {
   Container,
   Heading,
@@ -21,58 +21,67 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-} from'@chakra-ui/react'
+} from "@chakra-ui/react";
 
-import { ChevronDownIcon } from '@chakra-ui/icons'
+import { ChevronDownIcon } from "@chakra-ui/icons";
 
-const BookDetail = ({isOpen, onClose, bookData}) => {
-  const token = useToken().token
+const BookDetail = ({ isOpen, onClose, bookData }) => {
+  const token = useToken().token;
+  console.log(token);
   //I'll need this later: https://www.andiamo.co.uk/resources/iso-language-codes/
 
   //google shelf ids (https://developers.google.com/books/docs/v1/using#ids):
-    //To read = 2
-    //Reading Now = 3
-    //Have Read = 4
+  //To read = 2
+  //Reading Now = 3
+  //Have Read = 4
   const addToShelf = (bookId, shelfId, token) => {
     if (!token) {
-      alert("You need to sign in to add books to your library")
+      alert("You need to sign in to add books to your library");
       return;
     }
 
     if (!!token) {
-      axios.get(
-        'http://localhost:5000/add-to-shelf',{
-        params: {
-          bookId: bookId,
-          shelfId: shelfId,
-          token: token
-        }
-      })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.error(error)
-      })
-     }
-  }
+      axios
+        .get("http://localhost:5000/add-to-shelf", {
+          params: {
+            bookId: bookId,
+            shelfId: shelfId,
+            token: token,
+          },
+        })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <ModalOverlay bg="transparent"/>
+      <ModalOverlay bg="transparent" />
       <ModalContent className="modal-content" boxShadow="base" bg="white">
         <ModalHeader>Book Detail</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <Container display="flex" flexDirection="row">
             <Box>
-              <Image boxSize="250px" objectFit="contain" src={bookData.volumeInfo.imageLinks.thumbnail} alt={bookData.volumeInfo.title} alignSelf="center"/>
+              <Image
+                boxSize="250px"
+                objectFit="contain"
+                src={bookData.volumeInfo.imageLinks.thumbnail}
+                alt={bookData.volumeInfo.title}
+                alignSelf="center"
+              />
             </Box>
-            <Box  display="flex" flexDirection="column">
+            <Box display="flex" flexDirection="column">
               <Text>{bookData.volumeInfo.title}</Text>
               <Text>{bookData.volumeInfo.authors}</Text>
               <Text>{bookData.volumeInfo.publishedDate}</Text>
-              <Text>{bookData.volumeInfo.industryIdentifiers[0].identifier}</Text>
+              <Text>
+                {bookData.volumeInfo.industryIdentifiers[0].identifier}
+              </Text>
               <Text>{bookData.volumeInfo.language}</Text>
             </Box>
           </Container>
@@ -83,25 +92,38 @@ const BookDetail = ({isOpen, onClose, bookData}) => {
         </ModalBody>
         <ModalFooter display="flex" justifyContent="space-between">
           <Menu>
-            <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+            <MenuButton
+              as={Button}
+              rightIcon={<ChevronDownIcon ml={10} mt={1} />}
+            >
               Add to My Library
             </MenuButton>
             <MenuList>
-              <MenuItem onClick={() => addToShelf(bookData.id, 2, token)}>To Read</MenuItem>
-              <MenuItem onClick={() => addToShelf(bookData.id, 3, token)}>Reading Now</MenuItem>
-              <MenuItem onClick={() => addToShelf(bookData.id, 4, token)}>Have Read</MenuItem>
+              <MenuItem onClick={() => addToShelf(bookData.id, 2, token)}>
+                To Read
+              </MenuItem>
+              <MenuItem onClick={() => addToShelf(bookData.id, 3, token)}>
+                Reading Now
+              </MenuItem>
+              <MenuItem onClick={() => addToShelf(bookData.id, 4, token)}>
+                Have Read
+              </MenuItem>
             </MenuList>
           </Menu>
           <LinkBox>
-            <Button>Find in OverDrive
-              <LinkOverlay href={`https://www.overdrive.com/Search?q=${bookData.volumeInfo.title}`} isExternal></LinkOverlay>
+            <Button>
+              Find in OverDrive
+              <LinkOverlay
+                href={`https://www.overdrive.com/Search?q=${bookData.volumeInfo.title}`}
+                isExternal
+              ></LinkOverlay>
             </Button>
           </LinkBox>
           <Button onClick={onClose}>Close</Button>
         </ModalFooter>
       </ModalContent>
     </Modal>
-  )
-}
+  );
+};
 
-export default BookDetail
+export default BookDetail;

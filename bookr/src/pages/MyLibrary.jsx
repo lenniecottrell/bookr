@@ -5,6 +5,8 @@ import ReadingNow from "./ReadingNow";
 import ToRead from "./ToRead";
 import HaveRead from "./HaveRead";
 import CardGridShelf from "../components/CardGridShelf";
+import EmptyShelf from "../components/EmptyShelf";
+import { useToken } from "../hooks/useToken";
 import {
   Tabs,
   TabList,
@@ -15,12 +17,11 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 import axios from "axios";
-import EmptyShelf from "../components/EmptyShelf";
 
 const MyLibrary = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [token, setToken] = useState("");
+  const { token, setToken } = useToken("");
   const [toReadList, setToReadList] = useState([]);
   const [readingNowList, setReadingNowList] = useState([]);
   const [haveReadList, setHaveReadList] = useState([]);
@@ -44,7 +45,6 @@ const MyLibrary = () => {
   useEffect(() => {
     setLoading(true);
     setTimeout(() => {
-      //console.log(token)
       //google shelf ids:
       //To read = 2
       //Reading Now = 3
@@ -55,7 +55,6 @@ const MyLibrary = () => {
         .get("http://localhost:5000/get-shelf", {
           params: {
             shelfId: 2,
-            token: token,
           },
         })
         .then((response) => {
@@ -74,8 +73,8 @@ const MyLibrary = () => {
           },
         })
         .then((response) => {
-          console.log(response.data.length);
-          setReadingNowList(response.data); //array of objects
+          console.log(response.data);
+          setReadingNowList(response.data);
         })
         .catch((error) => {
           console.log(error);
@@ -86,12 +85,11 @@ const MyLibrary = () => {
         .get("http://localhost:5000/get-shelf", {
           params: {
             shelfId: 4,
-            token: token,
           },
         })
         .then((response) => {
           console.log(response);
-          setHaveReadList(response.data); //array of objects
+          setHaveReadList(response.data);
         })
         .catch((error) => {
           console.log(error);
@@ -122,21 +120,21 @@ const MyLibrary = () => {
                 {readingNowList.length === 0 ? (
                   <EmptyShelf />
                 ) : (
-                  <CardGridShelf books={readingNowList} />
+                  <CardGridShelf books={readingNowList} shelfId={3} />
                 )}
               </TabPanel>
               <TabPanel textAlign="center">
                 {toReadList.length === 0 ? (
                   <EmptyShelf />
                 ) : (
-                  <CardGridShelf books={toReadList} />
+                  <CardGridShelf books={toReadList} shelfId={2} />
                 )}
               </TabPanel>
               <TabPanel textAlign="center">
                 {haveReadList.length === 0 ? (
                   <EmptyShelf />
                 ) : (
-                  <CardGridShelf books={haveReadList} />
+                  <CardGridShelf books={haveReadList} shelfId={4} />
                 )}
               </TabPanel>
             </TabPanels>
