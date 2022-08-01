@@ -48,7 +48,7 @@ app.route('/get-shelf')
   .get((req, res) => {
     console.log("request params: ", req.query)
     const headers = {
-      'Authorization': `Bearer ${req.query.token}`,
+      'Authorization': `Bearer ${app.get('token')}`,
       'Content-Type': 'application/json',
     }
     axios.get(

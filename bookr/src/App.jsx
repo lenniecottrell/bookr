@@ -25,8 +25,9 @@ function App() {
   const handleAuthorizationResponse = (response) => {
     try {
       console.log(response)
-      setToken(response.access_token)
       setLoggedIn(true)
+      setToken(response.access_token)
+      //send token to backend storage
       axios.get(
         'http://localhost:5000/set-token', {
           params: {

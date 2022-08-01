@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { SimpleGrid, GridItem, SlideFade, useDisclosure } from '@chakra-ui/react'
+import { SimpleGrid, GridItem, SlideFade, useDisclosure, Spinner } from '@chakra-ui/react'
 import BookCard from './BookCard'
 import BookDetailShelf from '../pages/BookDetailShelf'
 
@@ -12,6 +12,13 @@ const CardGridShelf = ({books, shelfId}) => {
     setSelectedBook(item)
     onOpen()
   }
+
+  // useEffect(() => {
+  //   setLoading(true)
+  //   setTimeout(() => {
+  //     setLoading(false);
+  //   }, 2000)
+  // }, [])
 
     // //TODO: this is copied from CardGrid - there's probably a DRY way to do this...
 
@@ -34,19 +41,19 @@ const CardGridShelf = ({books, shelfId}) => {
       
   return (
     <>
-      <SimpleGrid minChildWidth={300} spacing={6} m="2rem">
-        {books.map((book) => 
-          <SlideFade key={book.id} in={true} onClick={()=>handleClick(book)}>
-            <GridItem className="gridItem" boxShadow="lg" w='100%' h='100%' bg='gray.100' borderRadius={6} >
-              <BookCard 
-                bookData={book}
-              />
-            </GridItem>
-          </SlideFade>
-          )
-        }
-      </SimpleGrid>
-      {Object.keys(selectedBook).length > 0 && <BookDetailShelf isOpen={isOpen} onClose={onClose} bookData={selectedBook} shelfId={shelfId}/>}
+        <SimpleGrid minChildWidth={300} spacing={6} m="2rem">
+          {books.map((book) => 
+            <SlideFade key={book.id} in={true} onClick={()=>handleClick(book)}>
+              <GridItem className="gridItem" boxShadow="lg" w='100%' h='100%' bg='gray.100' borderRadius={6} >
+                <BookCard 
+                  bookData={book}
+                />
+              </GridItem>
+            </SlideFade>
+            )
+          }
+        </SimpleGrid>
+        {Object.keys(selectedBook).length > 0 && <BookDetailShelf isOpen={isOpen} onClose={onClose} bookData={selectedBook} shelfId={shelfId}/>}
     </>
   )
 }
