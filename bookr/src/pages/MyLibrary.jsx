@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Nav from "../components/Nav";
 import SearchBar from "../components/SearchBar";
-import ReadingNow from "./ReadingNow";
-import ToRead from "./ToRead";
-import HaveRead from "./HaveRead";
 import CardGridShelf from "../components/CardGridShelf";
 import EmptyShelf from "../components/EmptyShelf";
 import { useToken } from "../hooks/useToken";
@@ -26,6 +23,7 @@ const MyLibrary = () => {
   const [readingNowList, setReadingNowList] = useState([]);
   const [haveReadList, setHaveReadList] = useState([]);
 
+  //get token from server if it exists
   useEffect(() => {
     setLoggedIn(false);
     setTimeout(() => {
@@ -59,7 +57,7 @@ const MyLibrary = () => {
         })
         .then((response) => {
           // console.log(response)
-          setToReadList(response.data); //array of objects
+          setToReadList(response.data);
         })
         .catch((error) => {
           console.log(error);
@@ -96,7 +94,6 @@ const MyLibrary = () => {
         });
       setLoading(false);
     }, 2000);
-    //pass book data into the components...
   }, []);
 
   return (
