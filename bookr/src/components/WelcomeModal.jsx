@@ -7,14 +7,14 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  useDisclosure,
+  Button,
 } from "@chakra-ui/react";
+import GoogleButton from "react-google-button";
 
-const WelcomeModal = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+const WelcomeModal = ({ isOpen, onClose, onToggle, getAccessToken }) => {
   return (
     <div>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} isCentered={true} size="xl">
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Welcome to Bookr</ModalHeader>
@@ -22,16 +22,15 @@ const WelcomeModal = () => {
           <ModalBody>
             This app interacts directly with your Google Books account. If you
             use Google Books to keep track of books, this app will manipulate
-            your Google Books data. Please log in to explore the functionality!
+            your Google Books data. Please log in to explore the functionality.
             Otherwise, you can search for books in the Google Books database,
             but won't be able to add them to shelves.
           </ModalBody>
 
-          <ModalFooter>
-            <Button colorScheme="blue" mr={3}>
-              Log in with Google
-            </Button>
-            <Button variant="ghost" onClick={onClose}>
+          <ModalFooter flexDirection="column">
+            <GoogleButton onClick={() => getAccessToken()} />
+
+            <Button variant="outline" onClick={onClose} size="sm" mt={3}>
               Nvm, browse books
             </Button>
           </ModalFooter>

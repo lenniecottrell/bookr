@@ -3,16 +3,19 @@ import "./styles/App.scss";
 import SearchBar from "./components/SearchBar";
 import Nav from "./components/Nav";
 import CardGrid from "./components/CardGrid";
+import WelcomeModal from "./components/WelcomeModal";
 import { useToken } from "./hooks/useToken";
 import axios from "axios";
+import { useDisclosure } from "@chakra-ui/react";
 
 function App() {
   const [q, setQ] = useState("harry+potter");
   const { token, setToken } = useToken("");
   const [loggedIn, setLoggedIn] = useState(false);
-
+  const { isOpen, onOpen, onToggle, onClose } = useDisclosure();
   //get the token from the server if it exists
   useEffect(() => {
+    onOpen();
     setLoggedIn(false);
     axios
       .get("http://localhost:5000/get-token")
@@ -32,6 +35,7 @@ function App() {
     let input = e.target.value.trim();
     setQ(input.replace(" ", "+"));
   };
+
   //set the token from Google
   const handleAuthorizationResponse = (response) => {
     try {
@@ -47,6 +51,7 @@ function App() {
         })
         .then((response) => {
           console.log(response.data);
+          console.log("logged in? ", loggedIn);
         })
         .catch((error) => {
           console.log(error);
@@ -67,6 +72,7 @@ function App() {
   };
 
   const getAccessToken = () => {
+    onClose();
     const client = google.accounts.oauth2.initTokenClient({
       client_id:
         "618793947299-lrlk0trtc9qbej6b6f02vsuv15fh6o6n.apps.googleusercontent.com",
@@ -78,6 +84,12 @@ function App() {
 
   return (
     <div className="App">
+      <WelcomeModal
+        isOpen={isOpen}
+        onClose={onClose}
+        onToggle={onToggle}
+        getAccessToken={getAccessToken}
+      />
       <Nav getAccessToken={getAccessToken} />
       <SearchBar
         handleSearchChange={handleSearchChange}
