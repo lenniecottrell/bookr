@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import GoogleButton from "react-google-button";
 
-const WelcomeModal = ({ isOpen, onClose, onToggle, getAccessToken }) => {
+const WelcomeModal = ({ isOpen, onClose, getAccessToken }) => {
   return (
     <div>
       <Modal isOpen={isOpen} onClose={onClose} isCentered={true} size="xl">

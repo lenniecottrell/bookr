@@ -16,7 +16,6 @@ function App() {
   //get the token from the server if it exists
   useEffect(() => {
     onOpen();
-    setLoggedIn(false);
     axios
       .get("http://localhost:5000/get-token")
       .then((res) => {
@@ -31,6 +30,7 @@ function App() {
       });
   }, []);
 
+  console.log("loggedIn? ", loggedIn);
   const handleSearchChange = (e) => {
     let input = e.target.value.trim();
     setQ(input.replace(" ", "+"));
@@ -40,7 +40,6 @@ function App() {
   const handleAuthorizationResponse = (response) => {
     try {
       console.log(response);
-      setLoggedIn(true);
       setToken(response.access_token);
       //send token to backend storage
       axios
@@ -50,6 +49,7 @@ function App() {
           },
         })
         .then((response) => {
+          setLoggedIn(true);
           console.log(response.data);
           console.log("logged in? ", loggedIn);
         })
@@ -87,10 +87,9 @@ function App() {
       <WelcomeModal
         isOpen={isOpen}
         onClose={onClose}
-        onToggle={onToggle}
         getAccessToken={getAccessToken}
       />
-      <Nav getAccessToken={getAccessToken} />
+      <Nav getAccessToken={getAccessToken} loggedIn={loggedIn} />
       <SearchBar
         handleSearchChange={handleSearchChange}
         value={q}
