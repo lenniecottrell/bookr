@@ -17,7 +17,6 @@ function App() {
   const { token, setToken } = useToken("");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  console.log(modalViewed);
   useEffect(() => {
     if (!modalViewed) {
       onOpen();
@@ -61,7 +60,6 @@ function App() {
         .then((response) => {
           setLoggedIn(true);
           console.log(response.data);
-          console.log("logged in? ", loggedIn);
         })
         .catch((error) => {
           console.log(error);
@@ -69,6 +67,7 @@ function App() {
     } catch (error) {
       console.error(error);
     }
+    console.log("logged in? ", loggedIn);
   };
 
   //Pretty sure I don't need this...

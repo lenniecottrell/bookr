@@ -1,8 +1,19 @@
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import GoogleButton from "react-google-button";
-import GoogleAuth from "./GoogleAuth";
-import { Flex, Spacer, Container, Link, Heading } from "@chakra-ui/react";
+import {
+  Flex,
+  Spacer,
+  Container,
+  Link,
+  Heading,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverBody,
+  PopoverArrow,
+  PopoverCloseButton,
+} from "@chakra-ui/react";
 
 const Nav = ({ getAccessToken, loggedIn }) => {
   return (
@@ -27,9 +38,22 @@ const Nav = ({ getAccessToken, loggedIn }) => {
         <Link as={RouterLink} to="/" mr={5}>
           Search
         </Link>
-        <Link as={RouterLink} to="/library" mx={5}>
-          My Library
-        </Link>
+        {!loggedIn ? (
+          <Popover>
+            <PopoverTrigger>
+              <Link mx={5}> My Library </Link>
+            </PopoverTrigger>
+            <PopoverContent color="white" bg="blue.800" borderColor="blue.800">
+              <PopoverArrow bg="blue.800" />
+              <PopoverCloseButton />
+              <PopoverBody>You need to log in to view My Library</PopoverBody>
+            </PopoverContent>
+          </Popover>
+        ) : (
+          <Link as={RouterLink} to="/library" mx={5}>
+            My Library
+          </Link>
+        )}
         <Link as={RouterLink} to="/about" mx={5}>
           About
         </Link>
