@@ -30,37 +30,10 @@ const About = () => {
         alignItems="center"
         textAlign="center"
         w="100%"
-        border="1px"
-        borderColor="gray.600"
       >
         <Heading size="xl" mb={4}>
           About this app
         </Heading>
-        <Text fontSize="xl" m={0}>
-          Do you like books?
-        </Text>
-        <Text fontSize="xl" m={0}>
-          Do you like keeping track of your books?
-        </Text>
-        <Text fontSize="xl" m={0}>
-          Do you like the idea of GoodReads but don't care at all about the
-          social network part?
-        </Text>
-      </Container>
-      <Container
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-        alignItems="center"
-        textAlign="center"
-        mt="100"
-        border="1px"
-        borderColor="gray.600"
-      >
-        <Text fontSize="xl" m={2}>
-          Welcome to Bookr - a simple, straightforward way to keep track of your
-          books
-        </Text>
         <Text fontSize="xl" m={2}>
           This app is made with Vite (React), ChakraUI, and the Google Books API
         </Text>
@@ -84,7 +57,7 @@ const About = () => {
           >
             Twitter
           </Link>{" "}
-          sometimes{" "}
+          sometimes.{" "}
         </Text>
       </Container>
     </>

@@ -57,9 +57,9 @@ const Nav = ({ getAccessToken, loggedIn }) => {
         <Link as={RouterLink} to="/about" mx={5}>
           About
         </Link>
-        <Link as={RouterLink} to="/account" mx={5}>
+        {/* <Link as={RouterLink} to="/account" mx={5}>
           Account
-        </Link>
+        </Link> */}
       </Container>
       <GoogleButton onClick={() => getAccessToken()} />
       {/* Come back to this
