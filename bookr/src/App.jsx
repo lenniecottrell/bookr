@@ -3,17 +3,29 @@ import "./styles/App.scss";
 import SearchBar from "./components/SearchBar";
 import Nav from "./components/Nav";
 import CardGrid from "./components/CardGrid";
+import WelcomeModal from "./components/WelcomeModal";
 import { useToken } from "./hooks/useToken";
 import axios from "axios";
+import { useDisclosure } from "@chakra-ui/react";
 
 function App() {
   const [q, setQ] = useState("harry+potter");
-  const { token, setToken } = useToken("");
   const [loggedIn, setLoggedIn] = useState(false);
+  const [modalViewed, setModalViewed] = useState(
+    window.sessionStorage.getItem("hasSeenModal") || false
+  );
+  const { token, setToken } = useToken("");
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  useEffect(() => {
+    if (!modalViewed) {
+      onOpen();
+      window.sessionStorage.setItem("hasSeenModal", true);
+    }
+  }, []);
 
   //get the token from the server if it exists
   useEffect(() => {
-    setLoggedIn(false);
     axios
       .get("http://localhost:5000/get-token")
       .then((res) => {
@@ -32,11 +44,11 @@ function App() {
     let input = e.target.value.trim();
     setQ(input.replace(" ", "+"));
   };
+
   //set the token from Google
   const handleAuthorizationResponse = (response) => {
     try {
       console.log(response);
-      setLoggedIn(true);
       setToken(response.access_token);
       //send token to backend storage
       axios
@@ -46,6 +58,7 @@ function App() {
           },
         })
         .then((response) => {
+          setLoggedIn(true);
           console.log(response.data);
         })
         .catch((error) => {
@@ -54,6 +67,7 @@ function App() {
     } catch (error) {
       console.error(error);
     }
+    console.log("logged in? ", loggedIn);
   };
 
   //Pretty sure I don't need this...
@@ -67,6 +81,7 @@ function App() {
   };
 
   const getAccessToken = () => {
+    onClose();
     const client = google.accounts.oauth2.initTokenClient({
       client_id:
         "618793947299-lrlk0trtc9qbej6b6f02vsuv15fh6o6n.apps.googleusercontent.com",
@@ -78,7 +93,14 @@ function App() {
 
   return (
     <div className="App">
-      <Nav getAccessToken={getAccessToken} />
+      {!modalViewed && (
+        <WelcomeModal
+          isOpen={isOpen}
+          onClose={onClose}
+          getAccessToken={getAccessToken}
+        />
+      )}
+      <Nav getAccessToken={getAccessToken} loggedIn={loggedIn} />
       <SearchBar
         handleSearchChange={handleSearchChange}
         value={q}
