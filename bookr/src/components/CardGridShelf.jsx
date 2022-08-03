@@ -1,12 +1,12 @@
 import React, { useState } from "react";
+import BookCard from "./BookCard";
+import BookDetailShelf from "../pages/BookDetailShelf";
 import {
   SimpleGrid,
   GridItem,
   SlideFade,
   useDisclosure,
 } from "@chakra-ui/react";
-import BookCard from "./BookCard";
-import BookDetailShelf from "../pages/BookDetailShelf";
 
 const CardGridShelf = ({ books, shelfId }) => {
   const [selectedBook, setSelectedBook] = useState({});

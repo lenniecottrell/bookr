@@ -1,18 +1,22 @@
-import React, {useState, useEffect} from 'react'
-import axios from 'axios'
-import CardGridShelf from '../components/CardGridShelf'
-import EmptyShelf from '../components/EmptyShelf'
-import { useToken } from '../hooks/useToken'
-import {Box} from '@chakra-ui/react'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import CardGridShelf from "../components/CardGridShelf";
+import EmptyShelf from "../components/EmptyShelf";
+import { useToken } from "../hooks/useToken";
+import { Box } from "@chakra-ui/react";
 
-const HaveRead = ({haveReadList}) => {
+/*
+ ***THIS COMPONENT CAN PROBABLY BE DELETED***
+ */
+
+const HaveRead = ({ haveReadList }) => {
   // const [books, setBooks] = useState([])
   // const token = useToken().token
   //TODO
-    //if the user isn't logged in, prompt them to log in with a CTA and a button
+  //if the user isn't logged in, prompt them to log in with a CTA and a button
 
   // useEffect(()=>{
-    
+
   //   axios.get(
   //     //google shelf ids (https://developers.google.com/books/docs/v1/using#ids):
   //     //To read = 2
@@ -35,9 +39,13 @@ const HaveRead = ({haveReadList}) => {
 
   return (
     <Box textAlign="center">
-      {haveReadList.length === 0 ? <EmptyShelf /> : <CardGridShelf books={haveReadList}/>}
+      {haveReadList.length === 0 ? (
+        <EmptyShelf />
+      ) : (
+        <CardGridShelf books={haveReadList} />
+      )}
     </Box>
-  )
-}
+  );
+};
 
-export default HaveRead
+export default HaveRead;

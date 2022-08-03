@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Nav from "../components/Nav";
 import {
   Container,
@@ -10,7 +10,6 @@ import {
   Button,
   Text,
   Link,
-  InputRightElement,
 } from "@chakra-ui/react";
 import { Field, Form, Formik, useFormik } from "formik";
 
@@ -90,11 +89,6 @@ const Account = () => {
                       placeholder="password"
                       type="password"
                     />
-                    {/* <InputRightElement width="4.5rem">
-                      <Button h='1.75rem' size='sm' onClick={handleClick}>
-                        {show ? 'Hide' : 'Show'}
-                      </Button>
-                    </InputRightElement>  */}
                     <FormErrorMessage>{form.errors.name}</FormErrorMessage>
                   </FormControl>
                 )}

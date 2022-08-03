@@ -1,17 +1,21 @@
-import React, {useState, useEffect} from 'react'
-import axios from 'axios'
-import CardGridShelf from '../components/CardGridShelf'
-import EmptyShelf from '../components/EmptyShelf'
-import NotLoggedIn from '../components/NotLoggedIn'
-import { useToken } from '../hooks/useToken'
-import {Box} from '@chakra-ui/react'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import CardGridShelf from "../components/CardGridShelf";
+import EmptyShelf from "../components/EmptyShelf";
+import NotLoggedIn from "../components/NotLoggedIn";
+import { useToken } from "../hooks/useToken";
+import { Box } from "@chakra-ui/react";
 
-const ToRead = ({toReadList}) => {
+/*
+ ***THIS COMPONENT CAN PROBABLY BE DELETED***
+ */
+
+const ToRead = ({ toReadList }) => {
   // const [books, setBooks] = useState([])
   // const token = useToken().token
   // const shelfId = 2
   //TODO
-    //if the user isn't logged in, prompt them to log in with a CTA and a button
+  //if the user isn't logged in, prompt them to log in with a CTA and a button
 
   // useEffect(()=>{
   //   axios.get(
@@ -36,9 +40,13 @@ const ToRead = ({toReadList}) => {
 
   return (
     <Box textAlign="center">
-      {toReadList.length === 0 ? <EmptyShelf /> : <CardGridShelf books={toReadList}/>}
+      {toReadList.length === 0 ? (
+        <EmptyShelf />
+      ) : (
+        <CardGridShelf books={toReadList} />
+      )}
     </Box>
-  )
-}
+  );
+};
 
-export default ToRead
+export default ToRead;

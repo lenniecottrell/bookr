@@ -70,16 +70,6 @@ function App() {
     console.log("logged in? ", loggedIn);
   };
 
-  //Pretty sure I don't need this...
-  const handleAuthenticationResponse = (response) => {
-    console.log(response);
-    //decode the returned credential
-    // var userObject = jwt_decode(response.credential)
-    // //comma instead of plus to display two different data types
-    // console.log("UserObject: ", userObject )
-    // setUser(userObject)
-  };
-
   const getAccessToken = () => {
     onClose();
     const client = google.accounts.oauth2.initTokenClient({
