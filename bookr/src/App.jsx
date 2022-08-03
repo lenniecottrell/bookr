@@ -10,12 +10,23 @@ import { useDisclosure } from "@chakra-ui/react";
 
 function App() {
   const [q, setQ] = useState("harry+potter");
-  const { token, setToken } = useToken("");
   const [loggedIn, setLoggedIn] = useState(false);
-  const { isOpen, onOpen, onToggle, onClose } = useDisclosure();
+  const [modalViewed, setModalViewed] = useState(
+    window.sessionStorage.getItem("hasSeenModal") || false
+  );
+  const { token, setToken } = useToken("");
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  console.log(modalViewed);
+  useEffect(() => {
+    if (!modalViewed) {
+      onOpen();
+      window.sessionStorage.setItem("hasSeenModal", true);
+    }
+  }, []);
+
   //get the token from the server if it exists
   useEffect(() => {
-    onOpen();
     axios
       .get("http://localhost:5000/get-token")
       .then((res) => {
@@ -30,7 +41,6 @@ function App() {
       });
   }, []);
 
-  console.log("loggedIn? ", loggedIn);
   const handleSearchChange = (e) => {
     let input = e.target.value.trim();
     setQ(input.replace(" ", "+"));
@@ -84,11 +94,13 @@ function App() {
 
   return (
     <div className="App">
-      <WelcomeModal
-        isOpen={isOpen}
-        onClose={onClose}
-        getAccessToken={getAccessToken}
-      />
+      {!modalViewed && (
+        <WelcomeModal
+          isOpen={isOpen}
+          onClose={onClose}
+          getAccessToken={getAccessToken}
+        />
+      )}
       <Nav getAccessToken={getAccessToken} loggedIn={loggedIn} />
       <SearchBar
         handleSearchChange={handleSearchChange}
