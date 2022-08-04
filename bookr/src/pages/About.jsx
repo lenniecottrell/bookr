@@ -22,9 +22,44 @@ const About = () => {
       });
   }, []);
 
+  const getAccessToken = () => {
+    const client = google.accounts.oauth2.initTokenClient({
+      client_id:
+        "618793947299-lrlk0trtc9qbej6b6f02vsuv15fh6o6n.apps.googleusercontent.com",
+      scope: "https://www.googleapis.com/auth/books",
+      callback: handleAuthorizationResponse,
+    });
+    client.requestAccessToken();
+  };
+
+  //set the token from Google
+  const handleAuthorizationResponse = (response) => {
+    try {
+      console.log(response);
+      setToken(response.access_token);
+      //send token to backend storage
+      axios
+        .get("http://localhost:5000/set-token", {
+          params: {
+            token: response.access_token,
+          },
+        })
+        .then((response) => {
+          setLoggedIn(true);
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (error) {
+      console.error(error);
+    }
+    console.log("logged in? ", loggedIn);
+  };
+
   return (
     <>
-      <Nav loggedIn={loggedIn} token={token} />
+      <Nav getAccessToken={getAccessToken} loggedIn={loggedIn} token={token} />
       <Container
         display="flex"
         flexDirection="column"

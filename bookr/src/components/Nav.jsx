@@ -68,7 +68,13 @@ const Nav = ({ getAccessToken, loggedIn, token }) => {
         </Link> */}
       </Container>
       {token ? (
-        <Button onClick={() => handleSignOut()}>Sign out</Button>
+        <Button
+          variant="outline"
+          colorScheme="messenger"
+          onClick={() => handleSignOut()}
+        >
+          Sign out
+        </Button>
       ) : (
         <GoogleButton onClick={() => getAccessToken()} />
       )}
