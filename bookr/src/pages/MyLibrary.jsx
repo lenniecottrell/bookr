@@ -98,7 +98,7 @@ const MyLibrary = () => {
 
   return (
     <div>
-      <Nav />
+      <Nav loggedIn={loggedIn} token={token} />
       <SearchBar title={"My Library"} />
       <Container maxWidth="95%">
         <Tabs isFitted variant="enclosed-colored" colorScheme="blue" mt={3}>

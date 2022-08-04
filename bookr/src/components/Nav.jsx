@@ -13,9 +13,15 @@ import {
   PopoverBody,
   PopoverArrow,
   PopoverCloseButton,
+  Text,
+  Button,
 } from "@chakra-ui/react";
 
-const Nav = ({ getAccessToken, loggedIn }) => {
+const Nav = ({ getAccessToken, loggedIn, token }) => {
+  const handleSignOut = () => {
+    alert("Workin' on it!");
+  };
+
   return (
     <Flex
       className="nav"
@@ -46,7 +52,7 @@ const Nav = ({ getAccessToken, loggedIn }) => {
             <PopoverContent color="white" bg="blue.800" borderColor="blue.800">
               <PopoverArrow bg="blue.800" />
               <PopoverCloseButton />
-              <PopoverBody>You need to log in to view My Library</PopoverBody>
+              <PopoverBody>You need to sign in to view My Library</PopoverBody>
             </PopoverContent>
           </Popover>
         ) : (
@@ -61,7 +67,11 @@ const Nav = ({ getAccessToken, loggedIn }) => {
           Account
         </Link> */}
       </Container>
-      <GoogleButton onClick={() => getAccessToken()} />
+      {token ? (
+        <Button onClick={() => handleSignOut()}>Sign out</Button>
+      ) : (
+        <GoogleButton onClick={() => getAccessToken()} />
+      )}
       {/* Come back to this
       <GoogleAuth onClick={() => getAccessToken()} /> */}
     </Flex>

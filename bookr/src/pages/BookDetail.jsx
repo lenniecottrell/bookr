@@ -27,7 +27,7 @@ import { ChevronDownIcon } from "@chakra-ui/icons";
 
 const BookDetail = ({ isOpen, onClose, bookData }) => {
   const token = useToken().token;
-  console.log(token);
+  //console.log(token);
   //I'll need this later: https://www.andiamo.co.uk/resources/iso-language-codes/
 
   //google shelf ids (https://developers.google.com/books/docs/v1/using#ids):

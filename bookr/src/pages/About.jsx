@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import Nav from "../components/Nav";
 import { Heading, Text, Container, Link } from "@chakra-ui/react";
 import axios from "axios";
+import { useToken } from "../hooks/useToken";
 
 const About = () => {
   const [loggedIn, setLoggedIn] = useState(false);
+  const { token, setToken } = useToken("");
   //get the token from the server if it exists
   useEffect(() => {
     axios
@@ -22,7 +24,7 @@ const About = () => {
 
   return (
     <>
-      <Nav loggedIn={loggedIn} />
+      <Nav loggedIn={loggedIn} token={token} />
       <Container
         display="flex"
         flexDirection="column"
