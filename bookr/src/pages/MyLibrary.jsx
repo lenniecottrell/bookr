@@ -101,8 +101,8 @@ const MyLibrary = () => {
       <Container maxWidth="95%">
         <Tabs isFitted variant="enclosed-colored" colorScheme="blue" mt={3}>
           <TabList>
-            <Tab>Reading Now</Tab>
             <Tab>To Read</Tab>
+            <Tab>Reading Now</Tab>
             <Tab>Have Read</Tab>
           </TabList>
           {loading ? (
@@ -111,17 +111,6 @@ const MyLibrary = () => {
             </Container>
           ) : (
             <TabPanels>
-              <TabPanel w="100%" h="auto" textAlign="center">
-                {readingNowList.length === 0 ? (
-                  <EmptyShelf />
-                ) : (
-                  <CardGridShelf
-                    books={readingNowList}
-                    shelfId={3}
-                    setReadingNowList={setReadingNowList}
-                  />
-                )}
-              </TabPanel>
               <TabPanel textAlign="center">
                 {toReadList.length === 0 ? (
                   <EmptyShelf />
@@ -130,6 +119,17 @@ const MyLibrary = () => {
                     books={toReadList}
                     shelfId={2}
                     setToReadList={setToReadList}
+                  />
+                )}
+              </TabPanel>
+              <TabPanel w="100%" h="auto" textAlign="center">
+                {readingNowList.length === 0 ? (
+                  <EmptyShelf />
+                ) : (
+                  <CardGridShelf
+                    books={readingNowList}
+                    shelfId={3}
+                    setReadingNowList={setReadingNowList}
                   />
                 )}
               </TabPanel>

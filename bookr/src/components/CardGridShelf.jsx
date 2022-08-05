@@ -68,8 +68,8 @@ const CardGridShelf = ({
           bookData={selectedBook}
           shelfId={shelfId}
           setToReadList={setToReadList}
-          setHaveReadList={setHaveReadList}
           setReadingNowList={setReadingNowList}
+          setHaveReadList={setHaveReadList}
         />
       )}
     </>
