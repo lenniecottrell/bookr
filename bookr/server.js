@@ -59,7 +59,7 @@ app.route("/get-shelf").get((req, res) => {
       { headers: headers }
     )
     .then((response) => {
-      console.log(response.data.items);
+      //console.log(response.data.items);
       res.send(response.data.items);
     })
     .catch((error) => {
@@ -81,8 +81,16 @@ app.route("/remove-book").get((req, res) => {
       { headers: headers }
     )
     .then((response) => {
-      console.log(response);
-      //res.send(response)
+      axios
+        .get(
+          `https://www.googleapis.com/books/v1/mylibrary/bookshelves/${req.query.shelfId}/volumes`,
+          { headers: headers }
+        )
+        .then((response) => {
+          //console.log(response.data.items);
+          res.send(response.data.items);
+        });
+      //res.send(response);
     })
     .catch((error) => {
       console.log(error.response.data);

@@ -21,13 +21,15 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+  useToast,
 } from "@chakra-ui/react";
 
 import { ChevronDownIcon } from "@chakra-ui/icons";
 
 const BookDetail = ({ isOpen, onClose, bookData }) => {
   const token = useToken().token;
-  //console.log(token);
+  const toast = useToast();
+
   //I'll need this later: https://www.andiamo.co.uk/resources/iso-language-codes/
 
   //google shelf ids (https://developers.google.com/books/docs/v1/using#ids):
@@ -51,9 +53,22 @@ const BookDetail = ({ isOpen, onClose, bookData }) => {
         })
         .then((response) => {
           console.log(response);
+          toast({
+            title: "Book added!",
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+          });
+          onClose();
         })
         .catch((error) => {
           console.error(error);
+          toast({
+            title: "Uh oh. Something went wrong",
+            status: error,
+            duration: 5000,
+            isClosable: true,
+          });
         });
     }
   };
