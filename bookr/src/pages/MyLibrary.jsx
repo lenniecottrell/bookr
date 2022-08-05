@@ -39,7 +39,7 @@ const MyLibrary = () => {
   }, []);
 
   useEffect(() => {
-    //setLoading(true);
+    setLoading(true);
     setTimeout(() => {
       //google shelf ids:
       //To read = 2
@@ -115,21 +115,33 @@ const MyLibrary = () => {
                 {readingNowList.length === 0 ? (
                   <EmptyShelf />
                 ) : (
-                  <CardGridShelf books={readingNowList} shelfId={3} />
+                  <CardGridShelf
+                    books={readingNowList}
+                    shelfId={3}
+                    setReadingNowList={setReadingNowList}
+                  />
                 )}
               </TabPanel>
               <TabPanel textAlign="center">
                 {toReadList.length === 0 ? (
                   <EmptyShelf />
                 ) : (
-                  <CardGridShelf books={toReadList} shelfId={2} />
+                  <CardGridShelf
+                    books={toReadList}
+                    shelfId={2}
+                    setToReadList={setToReadList}
+                  />
                 )}
               </TabPanel>
               <TabPanel textAlign="center">
                 {haveReadList.length === 0 ? (
                   <EmptyShelf />
                 ) : (
-                  <CardGridShelf books={haveReadList} shelfId={4} />
+                  <CardGridShelf
+                    books={haveReadList}
+                    shelfId={4}
+                    setHaveReadList={setHaveReadList}
+                  />
                 )}
               </TabPanel>
             </TabPanels>

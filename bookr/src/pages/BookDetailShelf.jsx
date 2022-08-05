@@ -17,10 +17,20 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
+  useToast,
 } from "@chakra-ui/react";
 
-const BookDetailShelf = ({ isOpen, onClose, bookData, shelfId }) => {
+const BookDetailShelf = ({
+  isOpen,
+  onClose,
+  bookData,
+  shelfId,
+  setToReadList,
+  setReadingNowList,
+  setHaveReadList,
+}) => {
   const token = useToken().token;
+  const toast = useToast();
 
   const removeBook = (bookId, shelfId, token) => {
     if (!token) {
@@ -28,23 +38,53 @@ const BookDetailShelf = ({ isOpen, onClose, bookData, shelfId }) => {
       return;
     }
 
-    if (!!token) {
-      axios
-        .get("http://localhost:5000/remove-book", {
-          params: {
-            shelfId: shelfId,
-            token: token,
-            bookId: bookId,
-          },
-        })
-        .then((response) => {
-          console.log(response);
-          onClose();
-        })
-        .catch((error) => {
-          console.log(error);
+    axios
+      .get("http://localhost:5000/remove-book", {
+        params: {
+          shelfId: shelfId,
+          token: token,
+          bookId: bookId,
+        },
+      })
+      .then((response) => {
+        //response.data has the new book list in it
+        console.log(response);
+        console.log(response.data.bookResponse);
+        let updatedBookList = response.data.bookResponse;
+        //To read = 2
+        //Reading Now = 3
+        //Have Read = 4
+        if (updatedBookList === undefined) {
+          updatedBookList = [];
+        }
+        switch (response.data.shelfResponse) {
+          case "2":
+            setToReadList(updatedBookList);
+            break;
+          case "3":
+            setReadingNowList(updatedBookList);
+            break;
+          case "4":
+            setHaveReadList(updatedBookList);
+            break;
+        }
+        toast({
+          title: "Book removed!",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
         });
-    }
+        onClose();
+      })
+      .catch((error) => {
+        console.error(error);
+        toast({
+          title: "Uh oh. Something went wrong",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      });
   };
 
   return (
