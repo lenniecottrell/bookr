@@ -90,7 +90,7 @@ function App() {
           getAccessToken={getAccessToken}
         />
       )}
-      <Nav getAccessToken={getAccessToken} loggedIn={loggedIn} />
+      <Nav getAccessToken={getAccessToken} loggedIn={loggedIn} token={token} />
       <SearchBar
         handleSearchChange={handleSearchChange}
         value={q}
