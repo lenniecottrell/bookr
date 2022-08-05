@@ -26,6 +26,8 @@ const BookDetailShelf = ({
   bookData,
   shelfId,
   setToReadList,
+  setReadingNowList,
+  setHaveReadList,
 }) => {
   const token = useToken().token;
   const toast = useToast();
@@ -47,7 +49,25 @@ const BookDetailShelf = ({
       .then((response) => {
         //response.data has the new book list in it
         console.log(response);
-        setToReadList(response.data);
+        console.log(response.data.bookResponse);
+        let updatedBookList = response.data.bookResponse;
+        //To read = 2
+        //Reading Now = 3
+        //Have Read = 4
+        if (updatedBookList === undefined) {
+          updatedBookList = [];
+        }
+        switch (response.data.shelfResponse) {
+          case "2":
+            setToReadList(updatedBookList);
+            break;
+          case "3":
+            setReadingNowList(updatedBookList);
+            break;
+          case "4":
+            setHaveReadList(updatedBookList);
+            break;
+        }
         toast({
           title: "Book removed!",
           status: "success",

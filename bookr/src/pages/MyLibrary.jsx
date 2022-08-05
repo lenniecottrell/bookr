@@ -115,7 +115,11 @@ const MyLibrary = () => {
                 {readingNowList.length === 0 ? (
                   <EmptyShelf />
                 ) : (
-                  <CardGridShelf books={readingNowList} shelfId={3} />
+                  <CardGridShelf
+                    books={readingNowList}
+                    shelfId={3}
+                    setReadingNowList={setReadingNowList}
+                  />
                 )}
               </TabPanel>
               <TabPanel textAlign="center">
@@ -133,7 +137,11 @@ const MyLibrary = () => {
                 {haveReadList.length === 0 ? (
                   <EmptyShelf />
                 ) : (
-                  <CardGridShelf books={haveReadList} shelfId={4} />
+                  <CardGridShelf
+                    books={haveReadList}
+                    shelfId={4}
+                    setHaveReadList={setHaveReadList}
+                  />
                 )}
               </TabPanel>
             </TabPanels>

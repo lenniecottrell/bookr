@@ -88,7 +88,11 @@ app.route("/remove-book").get((req, res) => {
         )
         .then((response) => {
           //console.log(response.data.items);
-          res.send(response.data.items);
+          const responseObj = {
+            bookResponse: response.data.items,
+            shelfResponse: req.query.shelfId,
+          };
+          res.send(responseObj);
         });
       //res.send(response);
     })
