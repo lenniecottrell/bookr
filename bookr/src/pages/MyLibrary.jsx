@@ -17,7 +17,7 @@ import axios from "axios";
 
 const MyLibrary = () => {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { token, setToken } = useToken("");
   const [toReadList, setToReadList] = useState([]);
   const [readingNowList, setReadingNowList] = useState([]);
@@ -26,22 +26,20 @@ const MyLibrary = () => {
   //get token from server if it exists
   useEffect(() => {
     setLoggedIn(false);
-    setTimeout(() => {
-      axios
-        .get("http://localhost:5000/get-token")
-        .then((res) => {
-          console.log(res);
-          setLoggedIn(true);
-          setToken(res.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }, 1000);
+    axios
+      .get("http://localhost:5000/get-token")
+      .then((res) => {
+        console.log(res);
+        setLoggedIn(true);
+        setToken(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   useEffect(() => {
-    setLoading(true);
+    //setLoading(true);
     setTimeout(() => {
       //google shelf ids:
       //To read = 2
@@ -93,7 +91,7 @@ const MyLibrary = () => {
           console.log(error);
         });
       setLoading(false);
-    }, 2000);
+    }, 1000);
   }, []);
 
   return (
@@ -109,7 +107,7 @@ const MyLibrary = () => {
           </TabList>
           {loading ? (
             <Container centerContent>
-              <Spinner />
+              <Spinner mt={10} size="xl" />
             </Container>
           ) : (
             <TabPanels>

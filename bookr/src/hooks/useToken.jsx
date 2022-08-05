@@ -10,7 +10,7 @@ export const TokenProvider = ({ children }) => {
     axios
       .get("http://localhost:5000/get-token")
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         existingToken = res.data;
       })
       .catch((error) => {

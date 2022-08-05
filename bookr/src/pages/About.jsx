@@ -15,12 +15,19 @@ const About = () => {
         console.log(res);
         if (res.data.length > 0) {
           setLoggedIn(true);
+          setToken(res.data);
         }
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
+
+  // useEffect(() => {
+  //   if (!!token) {
+  //     setLoggedIn(true);
+  //   }
+  // });
 
   const getAccessToken = () => {
     const client = google.accounts.oauth2.initTokenClient({
@@ -37,6 +44,7 @@ const About = () => {
     try {
       console.log(response);
       setToken(response.access_token);
+      setLoggedIn(true);
       //send token to backend storage
       axios
         .get("http://localhost:5000/set-token", {
@@ -45,7 +53,6 @@ const About = () => {
           },
         })
         .then((response) => {
-          setLoggedIn(true);
           console.log(response.data);
         })
         .catch((error) => {
