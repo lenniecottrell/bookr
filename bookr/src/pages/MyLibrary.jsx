@@ -23,6 +23,10 @@ const MyLibrary = () => {
   const [toReadList, setToReadList] = useState([]);
   const [readingNowList, setReadingNowList] = useState([]);
   const [haveReadList, setHaveReadList] = useState([]);
+  //TODO: add route to the URL to preserve the active tab on refresh
+  //https://reactrouter.com/docs/en/v6/hooks/use-navigate
+  //https://stackoverflow.com/questions/486896/adding-a-parameter-to-the-url-with-javascript?test=true
+  const [activeTab, setActiveTab] = useState(1);
 
   //get token from server if it exists
   useEffect(() => {
@@ -106,6 +110,9 @@ const MyLibrary = () => {
           variant="enclosed-colored"
           colorScheme="blue"
           mt={3}
+          onChange={(index) => {
+            setActiveTab(index);
+          }}
         >
           <TabList>
             <Tab>To Read</Tab>
