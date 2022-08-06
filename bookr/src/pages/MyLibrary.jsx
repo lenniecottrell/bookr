@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link as RouterLink } from "react-router-dom";
 import Nav from "../components/Nav";
 import SearchBar from "../components/SearchBar";
 import CardGridShelf from "../components/CardGridShelf";
@@ -99,7 +100,13 @@ const MyLibrary = () => {
       <Nav loggedIn={loggedIn} token={token} />
       <SearchBar title={"My Library"} />
       <Container maxWidth="95%">
-        <Tabs isFitted variant="enclosed-colored" colorScheme="blue" mt={3}>
+        <Tabs
+          isFitted
+          isLazy
+          variant="enclosed-colored"
+          colorScheme="blue"
+          mt={3}
+        >
           <TabList>
             <Tab>To Read</Tab>
             <Tab>Reading Now</Tab>

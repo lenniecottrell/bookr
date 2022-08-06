@@ -50,6 +50,7 @@ function App() {
     try {
       console.log(response);
       setToken(response.access_token);
+      setLoggedIn(true);
       //send token to backend storage
       axios
         .get("http://localhost:5000/set-token", {
@@ -58,7 +59,6 @@ function App() {
           },
         })
         .then((response) => {
-          setLoggedIn(true);
           console.log(response.data);
         })
         .catch((error) => {
