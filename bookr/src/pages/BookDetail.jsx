@@ -72,12 +72,12 @@ const BookDetail = ({ isOpen, onClose, bookData }) => {
         });
     }
   };
-
+  console.log(bookData.volumeInfo.description);
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} size="lg">
       <ModalOverlay bg="transparent" />
       <ModalContent className="modal-content" boxShadow="base" bg="white">
-        <ModalHeader>Book Detail</ModalHeader>
+        <ModalHeader>{bookData.volumeInfo.title}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <Container display="flex" flexDirection="row">
@@ -91,26 +91,29 @@ const BookDetail = ({ isOpen, onClose, bookData }) => {
               />
             </Box>
             <Box display="flex" flexDirection="column">
-              <Text>{bookData.volumeInfo.title}</Text>
-              <Text>{bookData.volumeInfo.authors}</Text>
-              <Text>{bookData.volumeInfo.publishedDate}</Text>
-              <Text>
-                {bookData.volumeInfo.industryIdentifiers[0].identifier}
+              {/* <Text>{bookData.volumeInfo.title}</Text> */}
+              <Text mb={1} fontSize="lg">
+                {bookData.volumeInfo.authors}
               </Text>
-              <Text>{bookData.volumeInfo.language}</Text>
+              <Text my={0.5}>
+                Published {bookData.volumeInfo.publishedDate}
+              </Text>
+              <Text my={0.5}>
+                ISBN: {bookData.volumeInfo.industryIdentifiers[0].identifier}
+              </Text>
+              <Text my={0.5}>Language: {bookData.volumeInfo.language}</Text>
             </Box>
           </Container>
-          <Heading size="sm">Description</Heading>
+          <Heading size="sm" mt={5} mb={3}>
+            Description
+          </Heading>
           <Container>
             <Text>{bookData.volumeInfo.description}</Text>
           </Container>
         </ModalBody>
-        <ModalFooter display="flex" justifyContent="space-between">
+        <ModalFooter display="flex" justifyContent="space-between" gap="10px">
           <Menu>
-            <MenuButton
-              as={Button}
-              rightIcon={<ChevronDownIcon ml={10} mt={1} />}
-            >
+            <MenuButton as={Button} rightIcon={<ChevronDownIcon mt={1} />}>
               Add to My Library
             </MenuButton>
             <MenuList>
@@ -126,7 +129,7 @@ const BookDetail = ({ isOpen, onClose, bookData }) => {
             </MenuList>
           </Menu>
           <LinkBox>
-            <Button>
+            <Button colorScheme="telegram">
               Find in OverDrive
               <LinkOverlay
                 href={`https://www.overdrive.com/Search?q=${bookData.volumeInfo.title}`}
@@ -134,7 +137,9 @@ const BookDetail = ({ isOpen, onClose, bookData }) => {
               ></LinkOverlay>
             </Button>
           </LinkBox>
-          <Button onClick={onClose}>Close</Button>
+          <Button onClick={onClose} colorScheme="red">
+            Close
+          </Button>
         </ModalFooter>
       </ModalContent>
     </Modal>
