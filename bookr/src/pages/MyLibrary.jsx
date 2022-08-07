@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link as RouterLink } from "react-router-dom";
 import Nav from "../components/Nav";
 import SearchBar from "../components/SearchBar";
 import CardGridShelf from "../components/CardGridShelf";
@@ -22,6 +23,10 @@ const MyLibrary = () => {
   const [toReadList, setToReadList] = useState([]);
   const [readingNowList, setReadingNowList] = useState([]);
   const [haveReadList, setHaveReadList] = useState([]);
+  //TODO: add route to the URL to preserve the active tab on refresh
+  //https://reactrouter.com/docs/en/v6/hooks/use-navigate
+  //https://stackoverflow.com/questions/486896/adding-a-parameter-to-the-url-with-javascript?test=true
+  const [activeTab, setActiveTab] = useState(1);
 
   //get token from server if it exists
   useEffect(() => {
@@ -99,10 +104,19 @@ const MyLibrary = () => {
       <Nav loggedIn={loggedIn} token={token} />
       <SearchBar title={"My Library"} />
       <Container maxWidth="95%">
-        <Tabs isFitted variant="enclosed-colored" colorScheme="blue" mt={3}>
+        <Tabs
+          isFitted
+          isLazy
+          variant="enclosed-colored"
+          colorScheme="blue"
+          mt={3}
+          onChange={(index) => {
+            setActiveTab(index);
+          }}
+        >
           <TabList>
-            <Tab>Reading Now</Tab>
             <Tab>To Read</Tab>
+            <Tab>Reading Now</Tab>
             <Tab>Have Read</Tab>
           </TabList>
           {loading ? (
@@ -111,17 +125,6 @@ const MyLibrary = () => {
             </Container>
           ) : (
             <TabPanels>
-              <TabPanel w="100%" h="auto" textAlign="center">
-                {readingNowList.length === 0 ? (
-                  <EmptyShelf />
-                ) : (
-                  <CardGridShelf
-                    books={readingNowList}
-                    shelfId={3}
-                    setReadingNowList={setReadingNowList}
-                  />
-                )}
-              </TabPanel>
               <TabPanel textAlign="center">
                 {toReadList.length === 0 ? (
                   <EmptyShelf />
@@ -130,6 +133,17 @@ const MyLibrary = () => {
                     books={toReadList}
                     shelfId={2}
                     setToReadList={setToReadList}
+                  />
+                )}
+              </TabPanel>
+              <TabPanel w="100%" h="auto" textAlign="center">
+                {readingNowList.length === 0 ? (
+                  <EmptyShelf />
+                ) : (
+                  <CardGridShelf
+                    books={readingNowList}
+                    shelfId={3}
+                    setReadingNowList={setReadingNowList}
                   />
                 )}
               </TabPanel>
