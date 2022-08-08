@@ -101,7 +101,13 @@ const MyLibrary = () => {
 
   return (
     <div>
-      <Nav loggedIn={loggedIn} token={token} />
+      <Nav
+        loggedIn={loggedIn}
+        setLoggedIn={setLoggedIn}
+        token={token}
+        setToken={setToken}
+        location={"myLibrary"}
+      />
       <SearchBar title={"My Library"} />
       <Container maxWidth="95%">
         <Tabs

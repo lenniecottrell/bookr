@@ -15,6 +15,11 @@ app.listen(port, () => {
 });
 
 app.all("/set-token", (req, res, next) => {
+  //clear token
+  if (req.query.token === "") {
+    app.set("token", "");
+    res.send("token is removed from the server");
+  }
   app.set("token", req.query.token);
   res.send("Token is set");
   next();

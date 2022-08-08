@@ -66,7 +66,13 @@ const About = () => {
 
   return (
     <>
-      <Nav getAccessToken={getAccessToken} loggedIn={loggedIn} token={token} />
+      <Nav
+        getAccessToken={getAccessToken}
+        loggedIn={loggedIn}
+        setLoggedIn={setLoggedIn}
+        token={token}
+        setToken={setToken}
+      />
       <Container
         display="flex"
         flexDirection="column"
