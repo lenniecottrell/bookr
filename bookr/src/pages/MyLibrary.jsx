@@ -105,6 +105,7 @@ const MyLibrary = () => {
         loggedIn={loggedIn}
         setLoggedIn={setLoggedIn}
         token={token}
+        setToken={setToken}
         location={"myLibrary"}
       />
       <SearchBar title={"My Library"} />

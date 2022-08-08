@@ -18,6 +18,7 @@ import {
   PopoverCloseButton,
   Button,
 } from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
 
 const Nav = ({
   getAccessToken,
@@ -27,11 +28,10 @@ const Nav = ({
   setToken,
   location,
 }) => {
+  const toast = useToast();
   let navigate = useNavigate();
 
   const handleSignOut = () => {
-    console.log(location);
-    //alert("Workin' on it!");
     //clear token
     axios
       .get("http://localhost:5000/set-token", {
@@ -43,6 +43,13 @@ const Nav = ({
         console.log(response.data);
         setLoggedIn(false);
         setToken(false);
+        toast({
+          title: "You are now logged out",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+        //reroute from MyLibrary
         if (location === "myLibrary") {
           navigate("/");
         }
@@ -50,7 +57,6 @@ const Nav = ({
       .catch((error) => {
         console.log(error);
       });
-    //reroute
   };
 
   return (
