@@ -72,7 +72,6 @@ const BookDetail = ({ isOpen, onClose, bookData }) => {
         });
     }
   };
-  console.log(bookData.volumeInfo.description);
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="lg">
       <ModalOverlay bg="transparent" />

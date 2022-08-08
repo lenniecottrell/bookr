@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import { Link as RouterLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 import GoogleButton from "react-google-button";
 import {
   Flex,
@@ -16,9 +19,30 @@ import {
   Button,
 } from "@chakra-ui/react";
 
-const Nav = ({ getAccessToken, loggedIn, token }) => {
+const Nav = ({ getAccessToken, loggedIn, setLoggedIn, token, location }) => {
+  let navigate = useNavigate();
+
   const handleSignOut = () => {
-    alert("Workin' on it!");
+    console.log(location);
+    //alert("Workin' on it!");
+    //clear token
+    axios
+      .get("http://localhost:5000/set-token", {
+        params: {
+          token: "",
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        setLoggedIn(false);
+        if (location === "myLibrary") {
+          navigate("/");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    //reroute
   };
 
   return (
@@ -77,8 +101,6 @@ const Nav = ({ getAccessToken, loggedIn, token }) => {
       ) : (
         <GoogleButton onClick={() => getAccessToken()} />
       )}
-      {/* Come back to this
-      <GoogleAuth onClick={() => getAccessToken()} /> */}
     </Flex>
   );
 };
