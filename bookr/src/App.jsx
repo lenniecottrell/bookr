@@ -93,7 +93,9 @@ function App() {
       <Nav
         getAccessToken={getAccessToken}
         loggedIn={loggedIn}
+        setLoggedIn={setLoggedIn}
         token={token}
+        setToken={setToken}
         location={"landing"}
       />
       <SearchBar

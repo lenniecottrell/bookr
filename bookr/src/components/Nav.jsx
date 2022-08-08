@@ -19,7 +19,14 @@ import {
   Button,
 } from "@chakra-ui/react";
 
-const Nav = ({ getAccessToken, loggedIn, setLoggedIn, token, location }) => {
+const Nav = ({
+  getAccessToken,
+  loggedIn,
+  setLoggedIn,
+  token,
+  setToken,
+  location,
+}) => {
   let navigate = useNavigate();
 
   const handleSignOut = () => {
@@ -35,6 +42,7 @@ const Nav = ({ getAccessToken, loggedIn, setLoggedIn, token, location }) => {
       .then((response) => {
         console.log(response.data);
         setLoggedIn(false);
+        setToken(false);
         if (location === "myLibrary") {
           navigate("/");
         }
