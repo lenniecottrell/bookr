@@ -22,7 +22,9 @@ const WelcomeModal = ({ isOpen, onClose, getAccessToken }) => {
           <ModalBody>
             This app interacts directly with your Google Books account. If you
             use Google Books to keep track of books, this app will manipulate
-            your Google Books data. Please log in to explore the functionality.
+            your Google Books data. Please log in to explore the functionality!
+            <br />
+            <br />
             Otherwise, you can search for books in the Google Books database,
             but won't be able to add them to shelves.
           </ModalBody>
