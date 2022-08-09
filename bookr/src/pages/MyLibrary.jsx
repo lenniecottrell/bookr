@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useLayoutEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import Nav from "../components/Nav";
 import SearchBar from "../components/SearchBar";
@@ -59,7 +59,8 @@ const MyLibrary = () => {
           },
         })
         .then((response) => {
-          // console.log(response)
+          console.log(response);
+          console.log(response.data);
           setToReadList(response.data);
         })
         .catch((error) => {
@@ -74,7 +75,6 @@ const MyLibrary = () => {
           },
         })
         .then((response) => {
-          console.log(response.data);
           setReadingNowList(response.data);
         })
         .catch((error) => {
@@ -89,7 +89,7 @@ const MyLibrary = () => {
           },
         })
         .then((response) => {
-          console.log(response);
+          //console.log(response);
           setHaveReadList(response.data);
         })
         .catch((error) => {
