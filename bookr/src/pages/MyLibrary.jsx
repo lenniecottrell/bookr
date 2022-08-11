@@ -19,6 +19,7 @@ import axios from "axios";
 const MyLibrary = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [ready, setReady] = useState(false);
   const { token, setToken } = useToken("");
   const [toReadList, setToReadList] = useState([]);
   const [readingNowList, setReadingNowList] = useState([]);
@@ -43,7 +44,7 @@ const MyLibrary = () => {
       });
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setLoading(true);
     setTimeout(() => {
       //google shelf ids:
