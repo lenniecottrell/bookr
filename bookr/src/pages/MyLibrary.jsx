@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useLayoutEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import Nav from "../components/Nav";
 import SearchBar from "../components/SearchBar";
@@ -19,7 +19,6 @@ import axios from "axios";
 const MyLibrary = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [ready, setReady] = useState(false);
   const { token, setToken } = useToken("");
   const [toReadList, setToReadList] = useState([]);
   const [readingNowList, setReadingNowList] = useState([]);
@@ -44,7 +43,7 @@ const MyLibrary = () => {
       });
   }, []);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     setLoading(true);
     setTimeout(() => {
       //google shelf ids:
@@ -60,7 +59,8 @@ const MyLibrary = () => {
           },
         })
         .then((response) => {
-          // console.log(response)
+          console.log(response);
+          console.log(response.data);
           setToReadList(response.data);
         })
         .catch((error) => {
@@ -75,7 +75,6 @@ const MyLibrary = () => {
           },
         })
         .then((response) => {
-          console.log(response.data);
           setReadingNowList(response.data);
         })
         .catch((error) => {
@@ -90,7 +89,7 @@ const MyLibrary = () => {
           },
         })
         .then((response) => {
-          console.log(response);
+          //console.log(response);
           setHaveReadList(response.data);
         })
         .catch((error) => {
