@@ -9,14 +9,6 @@ body {
   width: 100vw;
 }
 
-.searchBar {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-}
-
 .gridItem:hover {
-  transform: scale(1.02)
+  transform: scale(1.02);
 }
