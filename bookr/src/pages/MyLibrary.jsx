@@ -13,6 +13,7 @@ import {
   TabPanel,
   Container,
   Spinner,
+  Heading,
 } from "@chakra-ui/react";
 import axios from "axios";
 
@@ -108,7 +109,17 @@ const MyLibrary = () => {
         setToken={setToken}
         location={"myLibrary"}
       />
-      <SearchBar title={"My Library"} />
+      {/* <SearchBar title={"My Library"} /> */}
+      <Heading
+        size="xl"
+        mb={6}
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+      >
+        My Library
+      </Heading>
       <Container maxWidth="95%">
         <Tabs
           isFitted
