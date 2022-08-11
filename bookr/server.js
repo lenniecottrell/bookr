@@ -64,23 +64,17 @@ app.route("/get-shelf").get((req, res) => {
       { headers: headers }
     )
     .then((response) => {
-      console.log(response.data.items);
-      if (response.data.items === undefined) {
-        res.send([]);
-      } else {
-        for (let bookObj of response.data.items) {
-          // If there's more than one author, add a comma and a space to each item
-          if (bookObj.volumeInfo.authors.length > 1) {
-            for (let j = 0; j < bookObj.volumeInfo.authors.length - 1; j++) {
-              bookObj.volumeInfo.authors[j] += ", ";
-            }
+      for (let bookObj of response.data.items) {
+        // If there's more than one author, add a comma and a space to each item
+        if (bookObj.volumeInfo.authors.length > 1) {
+          for (let j = 0; j < bookObj.volumeInfo.authors.length - 1; j++) {
+            bookObj.volumeInfo.authors[j] += ", ";
           }
         }
       }
       res.send(response.data.items);
     })
     .catch((error) => {
-      console.log(error);
       console.log(error.response.data);
       res.send(error.response.data);
     });
@@ -105,17 +99,11 @@ app.route("/remove-book").get((req, res) => {
           { headers: headers }
         )
         .then((response) => {
-          if (response.data.items > 0) {
-            for (let bookObj of response.data.items) {
-              // If there's more than one author, add a comma and a space to each item
-              if (bookObj.volumeInfo.authors.length > 1) {
-                for (
-                  let j = 0;
-                  j < bookObj.volumeInfo.authors.length - 1;
-                  j++
-                ) {
-                  bookObj.volumeInfo.authors[j] += ", ";
-                }
+          for (let bookObj of response.data.items) {
+            // If there's more than one author, add a comma and a space to each item
+            if (bookObj.volumeInfo.authors.length > 1) {
+              for (let j = 0; j < bookObj.volumeInfo.authors.length - 1; j++) {
+                bookObj.volumeInfo.authors[j] += ", ";
               }
             }
           }

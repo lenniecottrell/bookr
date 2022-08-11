@@ -17,8 +17,10 @@ const CardGridShelf = ({
 }) => {
   const [selectedBook, setSelectedBook] = useState({});
   const { isOpen, onClose, onOpen } = useDisclosure();
+  //console.log(books);
 
   const handleClick = (item) => {
+    console.log(item.volumeInfo.description);
     setSelectedBook(item);
     onOpen();
   };
