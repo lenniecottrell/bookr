@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useLayoutEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import Nav from "../components/Nav";
-import SearchBar from "../components/SearchBar";
 import CardGridShelf from "../components/CardGridShelf";
 import EmptyShelf from "../components/EmptyShelf";
 import { useToken } from "../hooks/useToken";

@@ -69,7 +69,7 @@ const Nav = ({
       m={5}
       px={5}
     >
-      <Heading size="2xl">Bookr</Heading>
+      <Heading size={["lg", "2xl"]}>Bookr</Heading>
       <Spacer />
       <Container
         maxW="md"
@@ -78,13 +78,13 @@ const Nav = ({
         alignItems="center"
         justifyContent="flex-end"
       >
-        <Link as={RouterLink} to="/" mr={5}>
+        <Link as={RouterLink} to="/" mr={[2, 5]}>
           Search
         </Link>
         {!loggedIn ? (
           <Popover>
             <PopoverTrigger>
-              <Link mx={5}> My Library </Link>
+              <Link mx={[2, 5]}> My Library </Link>
             </PopoverTrigger>
             <PopoverContent color="white" bg="blue.800" borderColor="blue.800">
               <PopoverArrow bg="blue.800" />
@@ -93,11 +93,11 @@ const Nav = ({
             </PopoverContent>
           </Popover>
         ) : (
-          <Link as={RouterLink} to="/library" mx={5}>
+          <Link as={RouterLink} to="/library" mx={[2, 5]}>
             My Library
           </Link>
         )}
-        <Link as={RouterLink} to="/about" mx={5}>
+        <Link as={RouterLink} to="/about" mx={[2, 5]}>
           About
         </Link>
         {/* <Link as={RouterLink} to="/account" mx={5}>

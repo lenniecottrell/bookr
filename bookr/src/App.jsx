@@ -98,11 +98,7 @@ function App() {
         setToken={setToken}
         location={"landing"}
       />
-      <SearchBar
-        handleSearchChange={handleSearchChange}
-        value={q}
-        title={"Find A Book"}
-      />
+      <SearchBar handleSearchChange={handleSearchChange} value={q} />
       <CardGrid query={q} />
     </div>
   );
