@@ -17,6 +17,7 @@ import {
   PopoverArrow,
   PopoverCloseButton,
   Button,
+  Center,
 } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
 
@@ -69,22 +70,35 @@ const Nav = ({
       m={5}
       px={5}
     >
-      <Heading size={["lg", "2xl"]}>Bookr</Heading>
+      <Heading size={["lg", "xl", "2xl"]}>Bookr</Heading>
       <Spacer />
       <Container
-        maxW="md"
         display="flex"
-        flexDirection="row"
-        alignItems="center"
-        justifyContent="flex-end"
+        flexDirection={{ base: "column", md: "row" }}
+        alignItems={{ base: "flex-end", md: "center" }}
+        justifyContent={{ base: "center", md: "flex-end" }}
       >
-        <Link as={RouterLink} to="/" mr={[2, 5]}>
+        <Link
+          as={RouterLink}
+          to="/"
+          mr={[0, 0, 5]}
+          size={["md", "xl"]}
+          border="1px solid red"
+        >
           Search
         </Link>
         {!loggedIn ? (
           <Popover>
             <PopoverTrigger>
-              <Link mx={[2, 5]}> My Library </Link>
+              <Link
+                mx={[0, 0, 5]}
+                border="1px solid red"
+                w="85px"
+                textAlign={"right"}
+              >
+                {" "}
+                My Library{" "}
+              </Link>
             </PopoverTrigger>
             <PopoverContent color="white" bg="blue.800" borderColor="blue.800">
               <PopoverArrow bg="blue.800" />
@@ -93,28 +107,33 @@ const Nav = ({
             </PopoverContent>
           </Popover>
         ) : (
-          <Link as={RouterLink} to="/library" mx={[2, 5]}>
+          <Link
+            as={RouterLink}
+            to="/library"
+            mx={[0, 0, 5]}
+            border="1px solid red"
+          >
             My Library
           </Link>
         )}
-        <Link as={RouterLink} to="/about" mx={[2, 5]}>
+        <Link as={RouterLink} to="/about" mx={[0, 0, 5]} border="1px solid red">
           About
         </Link>
         {/* <Link as={RouterLink} to="/account" mx={5}>
           Account
         </Link> */}
+        {token ? (
+          <Button
+            variant="outline"
+            colorScheme="messenger"
+            onClick={() => handleSignOut()}
+          >
+            Sign out
+          </Button>
+        ) : (
+          <GoogleButton onClick={() => getAccessToken()} />
+        )}
       </Container>
-      {token ? (
-        <Button
-          variant="outline"
-          colorScheme="messenger"
-          onClick={() => handleSignOut()}
-        >
-          Sign out
-        </Button>
-      ) : (
-        <GoogleButton onClick={() => getAccessToken()} />
-      )}
     </Flex>
   );
 };
