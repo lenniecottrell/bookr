@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link as RouterLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
-import GoogleButton from "react-google-button";
+import GoogleButton from "../components/GoogleAuth";
+// import GoogleButton from "react-google-button";
 import {
   Flex,
   Spacer,
@@ -17,7 +17,6 @@ import {
   PopoverArrow,
   PopoverCloseButton,
   Button,
-  Center,
 } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
 
@@ -70,35 +69,22 @@ const Nav = ({
       m={5}
       px={5}
     >
-      <Heading size={["lg", "xl", "2xl"]}>Bookr</Heading>
+      <Heading size={["xl", "2xl"]}>Bookr</Heading>
       <Spacer />
       <Container
         display="flex"
         flexDirection={{ base: "column", md: "row" }}
         alignItems={{ base: "flex-end", md: "center" }}
         justifyContent={{ base: "center", md: "flex-end" }}
+        p={{ base: 0 }}
       >
-        <Link
-          as={RouterLink}
-          to="/"
-          mr={[0, 0, 5]}
-          size={["md", "xl"]}
-          border="1px solid red"
-        >
+        <Link as={RouterLink} to="/" mr={[0, 0, 5]} size={["md", "xl"]}>
           Search
         </Link>
         {!loggedIn ? (
           <Popover>
             <PopoverTrigger>
-              <Link
-                mx={[0, 0, 5]}
-                border="1px solid red"
-                w="85px"
-                textAlign={"right"}
-              >
-                {" "}
-                My Library{" "}
-              </Link>
+              <Link mx={[0, 0, 5]}> My Library </Link>
             </PopoverTrigger>
             <PopoverContent color="white" bg="blue.800" borderColor="blue.800">
               <PopoverArrow bg="blue.800" />
@@ -107,16 +93,11 @@ const Nav = ({
             </PopoverContent>
           </Popover>
         ) : (
-          <Link
-            as={RouterLink}
-            to="/library"
-            mx={[0, 0, 5]}
-            border="1px solid red"
-          >
+          <Link as={RouterLink} to="/library" mx={[0, 0, 5]}>
             My Library
           </Link>
         )}
-        <Link as={RouterLink} to="/about" mx={[0, 0, 5]} border="1px solid red">
+        <Link as={RouterLink} to="/about" mx={[0, 0, 5]}>
           About
         </Link>
         {/* <Link as={RouterLink} to="/account" mx={5}>
