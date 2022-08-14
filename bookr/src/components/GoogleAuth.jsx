@@ -1,7 +1,8 @@
 import { FcGoogle } from "react-icons/fc";
 import { Button, Center, Text } from "@chakra-ui/react";
 
-export default function GoogleButton({ onClick }) {
+//reference: https://chakra-templates.dev/components/social-media-buttons
+const GoogleButton = ({ onClick }) => {
   return (
     <Center>
       <Button variant={"outline"} leftIcon={<FcGoogle />} onClick={onClick}>
@@ -11,4 +12,6 @@ export default function GoogleButton({ onClick }) {
       </Button>
     </Center>
   );
-}
+};
+
+export default GoogleButton;
