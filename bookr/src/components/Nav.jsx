@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import axios from "axios";
 import { Link as RouterLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -6,21 +6,16 @@ import GoogleButton from "../components/GoogleAuth";
 import PopoverWarning from "./PopoverWarning";
 // import GoogleButton from "react-google-button";
 import {
-  Box,
-  Stack,
   HStack,
   IconButton,
   Flex,
   Spacer,
-  Container,
+  Menu,
+  MenuList,
+  MenuItem,
+  MenuButton,
   Link,
   Heading,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverBody,
-  PopoverArrow,
-  PopoverCloseButton,
   Button,
 } from "@chakra-ui/react";
 import { useToast, useDisclosure } from "@chakra-ui/react";
@@ -60,6 +55,7 @@ const Nav = ({
         if (location === "myLibrary") {
           navigate("/");
         }
+        onClose();
       })
       .catch((error) => {
         console.log(error);
@@ -78,18 +74,9 @@ const Nav = ({
     >
       <Heading size={["xl", "2xl"]}>Bookr</Heading>
       <Spacer />
-      <IconButton
-        size={"lg"}
-        icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-        aria-label={"Open Menu"}
-        display={{ md: "none" }}
-        onClick={isOpen ? onClose : onOpen}
-      />
       <HStack
+        as={"nav"}
         display={{ base: "none", md: "flex" }}
-        //flexDirection={{ base: "column", md: "row" }}
-        //alignItems={{ base: "flex-end", md: "center" }}
-        //justifyContent={{ base: "center", md: "flex-end" }}
         p={{ base: 0 }}
         spacing={6}
       >
@@ -118,6 +105,58 @@ const Nav = ({
           <GoogleButton onClick={() => getAccessToken()} />
         )}
       </HStack>
+      <Flex>
+        <Menu>
+          {({ isOpen }) => (
+            <>
+              <MenuButton
+                as={IconButton}
+                size={"lg"}
+                icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
+                aria-label={"Open Menu"}
+                display={{ md: "none" }}
+              />
+              <MenuList>
+                <MenuItem>
+                  <Link as={RouterLink} to="/" size={["md", "xl"]}>
+                    Search
+                  </Link>
+                </MenuItem>
+                {!loggedIn ? (
+                  <MenuItem closeOnSelect={false}>
+                    <PopoverWarning />
+                  </MenuItem>
+                ) : (
+                  <MenuItem>
+                    <Link as={RouterLink} to="/library">
+                      My Library
+                    </Link>
+                  </MenuItem>
+                )}
+                <MenuItem>
+                  <Link as={RouterLink} to="/about">
+                    About
+                  </Link>
+                </MenuItem>
+                <MenuItem>
+                  {token ? (
+                    <Link
+                      as={"button"}
+                      variant="outline"
+                      colorScheme="messenger"
+                      onClick={() => handleSignOut()}
+                    >
+                      Sign out
+                    </Link>
+                  ) : (
+                    <GoogleButton onClick={() => getAccessToken()} />
+                  )}
+                </MenuItem>
+              </MenuList>
+            </>
+          )}
+        </Menu>
+      </Flex>
     </Flex>
   );
 };
