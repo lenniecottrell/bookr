@@ -17,6 +17,8 @@ import {
   Link,
   Heading,
   Button,
+  LinkBox,
+  LinkOverlay,
 } from "@chakra-ui/react";
 import { useToast, useDisclosure } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
@@ -62,6 +64,8 @@ const Nav = ({
       });
   };
 
+  //reference here, but I had to make some significant adjustments: https://chakra-templates.dev/navigation/navbar
+
   return (
     <Flex
       className="nav"
@@ -105,6 +109,7 @@ const Nav = ({
           <GoogleButton onClick={() => getAccessToken()} />
         )}
       </HStack>
+      {/* collapsed menu */}
       <Flex>
         <Menu>
           {({ isOpen }) => (
@@ -117,41 +122,51 @@ const Nav = ({
                 display={{ md: "none" }}
               />
               <MenuList>
-                <MenuItem>
-                  <Link as={RouterLink} to="/" size={["md", "xl"]}>
-                    Search
-                  </Link>
-                </MenuItem>
-                {!loggedIn ? (
-                  <MenuItem closeOnSelect={false}>
-                    <PopoverWarning />
-                  </MenuItem>
-                ) : (
+                <LinkBox>
                   <MenuItem>
-                    <Link as={RouterLink} to="/library">
-                      My Library
-                    </Link>
+                    <LinkOverlay as={RouterLink} to="/" size={["md", "xl"]}>
+                      Search
+                    </LinkOverlay>
                   </MenuItem>
-                )}
-                <MenuItem>
-                  <Link as={RouterLink} to="/about">
-                    About
-                  </Link>
-                </MenuItem>
-                <MenuItem>
-                  {token ? (
-                    <Link
-                      as={"button"}
-                      variant="outline"
-                      colorScheme="messenger"
-                      onClick={() => handleSignOut()}
-                    >
-                      Sign out
-                    </Link>
+                </LinkBox>
+                <LinkBox>
+                  {!loggedIn ? (
+                    <MenuItem closeOnSelect={false}>
+                      <PopoverWarning />
+                    </MenuItem>
                   ) : (
-                    <GoogleButton onClick={() => getAccessToken()} />
+                    <MenuItem>
+                      <LinkOverlay as={RouterLink} to="/library">
+                        My Library
+                      </LinkOverlay>
+                    </MenuItem>
                   )}
-                </MenuItem>
+                </LinkBox>
+                <LinkBox>
+                  <MenuItem>
+                    <LinkOverlay as={RouterLink} to="/about">
+                      About
+                    </LinkOverlay>
+                  </MenuItem>
+                </LinkBox>
+                <LinkBox>
+                  <MenuItem>
+                    {token ? (
+                      <LinkOverlay
+                        as={Button}
+                        variant="outline"
+                        colorScheme="messenger"
+                        onClick={() => handleSignOut()}
+                      >
+                        Sign out
+                      </LinkOverlay>
+                    ) : (
+                      <LinkOverlay>
+                        <GoogleButton onClick={() => getAccessToken()} />
+                      </LinkOverlay>
+                    )}
+                  </MenuItem>
+                </LinkBox>
               </MenuList>
             </>
           )}
