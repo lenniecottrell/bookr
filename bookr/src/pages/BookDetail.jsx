@@ -91,16 +91,21 @@ const BookDetail = ({ isOpen, onClose, bookData }) => {
             </Box>
             <Box display="flex" flexDirection="column">
               {/* <Text>{bookData.volumeInfo.title}</Text> */}
-              <Text mb={1} fontSize="lg">
+              <Text mb={1} fontSize="xl">
                 {bookData.volumeInfo.authors}
               </Text>
               <Text my={0.5}>
-                Published {bookData.volumeInfo.publishedDate}
+                <Text fontStyle={"italic"}>Published</Text>{" "}
+                {bookData.volumeInfo.publishedDate}
               </Text>
               <Text my={0.5}>
-                ISBN: {bookData.volumeInfo.industryIdentifiers[0].identifier}
+                <Text fontStyle={"italic"}>ISBN:</Text>{" "}
+                {bookData.volumeInfo.industryIdentifiers[0].identifier}
               </Text>
-              <Text my={0.5}>Language: {bookData.volumeInfo.language}</Text>
+              <Text my={0.5}>
+                <Text fontStyle={"italic"}>Language: </Text>
+                {bookData.volumeInfo.language}
+              </Text>
             </Box>
           </Container>
           <Heading size="sm" mt={5} mb={3}>
@@ -110,9 +115,18 @@ const BookDetail = ({ isOpen, onClose, bookData }) => {
             <Text>{bookData.volumeInfo.description}</Text>
           </Container>
         </ModalBody>
-        <ModalFooter display="flex" justifyContent="space-between" gap="10px">
+        <ModalFooter
+          display="flex"
+          flexDirection={{ base: "column", md: "row" }}
+          justifyContent="space-between"
+          gap="10px"
+        >
           <Menu>
-            <MenuButton as={Button} rightIcon={<ChevronDownIcon mt={1} />}>
+            <MenuButton
+              as={Button}
+              width={{ base: "80%", md: "auto" }}
+              rightIcon={<ChevronDownIcon mt={1} />}
+            >
               Add to My Library
             </MenuButton>
             <MenuList>
@@ -127,8 +141,8 @@ const BookDetail = ({ isOpen, onClose, bookData }) => {
               </MenuItem>
             </MenuList>
           </Menu>
-          <LinkBox>
-            <Button colorScheme="telegram">
+          <LinkBox width={{ base: "80%", md: "auto" }}>
+            <Button colorScheme="telegram" width={{ base: "100%", md: "auto" }}>
               Find in OverDrive
               <LinkOverlay
                 href={`https://www.overdrive.com/Search?q=${bookData.volumeInfo.title}`}
@@ -136,7 +150,11 @@ const BookDetail = ({ isOpen, onClose, bookData }) => {
               ></LinkOverlay>
             </Button>
           </LinkBox>
-          <Button onClick={onClose} colorScheme="red">
+          <Button
+            onClick={onClose}
+            colorScheme="red"
+            width={{ base: "80%", md: "auto" }}
+          >
             Close
           </Button>
         </ModalFooter>

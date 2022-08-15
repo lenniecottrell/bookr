@@ -1,26 +1,17 @@
-import React from 'react'
+import { FcGoogle } from "react-icons/fc";
+import { Button, Center, Text } from "@chakra-ui/react";
 
-const GoogleAuth = () => {
+//reference: https://chakra-templates.dev/components/social-media-buttons
+const GoogleButton = ({ onClick }) => {
   return (
-    <div className="signIn">
-      <div id="g_id_onload"
-        data-client_id="618793947299-lrlk0trtc9qbej6b6f02vsuv15fh6o6n.apps.googleusercontent.com"
-        data-context="use"
-        data-ux_mode="popup"
-        data-callback="handleAuthorizationResponse"
-        data-auto_prompt="false">
-      </div>
+    <Center>
+      <Button variant={"outline"} leftIcon={<FcGoogle />} onClick={onClick}>
+        <Center>
+          <Text>Sign in with Google</Text>
+        </Center>
+      </Button>
+    </Center>
+  );
+};
 
-      <div className="g_id_signin"
-          data-type="standard"
-          data-shape="rectangular"
-          data-theme="outline"
-          data-text="signin_with"
-          data-size="medium"
-          data-logo_alignment="left">
-      </div>
-    </div>
-  )
-}
-
-export default GoogleAuth
+export default GoogleButton;
