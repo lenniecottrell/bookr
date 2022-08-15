@@ -14,11 +14,16 @@ const PopoverWarning = () => {
   return (
     <Popover>
       <PopoverTrigger>
-        <LinkOverlay mx={[0, 0, 5]}> My Library </LinkOverlay>
+        <LinkOverlay> My Library </LinkOverlay>
       </PopoverTrigger>
-      <PopoverContent color="white" bg="blue.800" borderColor="blue.800">
+      <PopoverContent
+        color="white"
+        bg="blue.800"
+        borderColor="blue.800"
+        textAlign="center"
+      >
         <PopoverArrow bg="blue.800" />
-        <PopoverCloseButton />
+        {/* <PopoverCloseButton /> */}
         <PopoverBody>You need to sign in to view My Library</PopoverBody>
       </PopoverContent>
     </Popover>

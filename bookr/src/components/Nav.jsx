@@ -84,7 +84,7 @@ const Nav = ({
         p={{ base: 0 }}
         spacing={6}
       >
-        <Link as={RouterLink} to="/" size={["md", "xl"]}>
+        <Link as={RouterLink} to="/">
           Search
         </Link>
         {!loggedIn ? (
@@ -124,7 +124,7 @@ const Nav = ({
               <MenuList>
                 <LinkBox>
                   <MenuItem>
-                    <LinkOverlay as={RouterLink} to="/" size={["md", "xl"]}>
+                    <LinkOverlay as={RouterLink} to="/">
                       Search
                     </LinkOverlay>
                   </MenuItem>
