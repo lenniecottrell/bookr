@@ -6,15 +6,16 @@ const BookCard = ({ bookData }) => {
     <Center>
       <Box
         className="bookCard"
-        pt="1rem"
+        p="1rem"
         display="flex"
         flexDirection="column"
         gap={3}
         w="100%"
       >
         <Image
-          boxSize="250px"
+          //boxSize="250px"
           objectFit="contain"
+          mx={6}
           src={bookData.volumeInfo.imageLinks.thumbnail}
           alt={bookData.volumeInfo.title}
           alignSelf="center"
