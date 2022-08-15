@@ -75,6 +75,8 @@ const MyLibrary = () => {
           },
         })
         .then((response) => {
+          console.log(response);
+          console.log(response.data);
           setReadingNowList(response.data);
         })
         .catch((error) => {
@@ -89,7 +91,8 @@ const MyLibrary = () => {
           },
         })
         .then((response) => {
-          //console.log(response);
+          console.log(response);
+          console.log(response.data);
           setHaveReadList(response.data);
         })
         .catch((error) => {

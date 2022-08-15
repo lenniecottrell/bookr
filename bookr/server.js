@@ -19,9 +19,10 @@ app.all("/set-token", (req, res, next) => {
   if (req.query.token === "") {
     app.set("token", "");
     res.send("token is removed from the server");
+  } else {
+    app.set("token", req.query.token);
+    res.send("Token is set");
   }
-  app.set("token", req.query.token);
-  res.send("Token is set");
   next();
 });
 
@@ -64,11 +65,17 @@ app.route("/get-shelf").get((req, res) => {
       { headers: headers }
     )
     .then((response) => {
-      console.log(response.data.items);
+      //console.log(`line 67, shelfId ${req.query.shelfId}`, response.data.items);
+      //if no books exist already, send an empty array
       if (response.data.items === undefined) {
         res.send([]);
       } else {
         for (let bookObj of response.data.items) {
+          //console.log("line 74: ", bookObj.volumeInfo.authors);
+          //if no authors are listed
+          if (bookObj.volumeInfo.authors === undefined) {
+            bookObj.volumeInfo.authors = [];
+          }
           // If there's more than one author, add a comma and a space to each item
           if (bookObj.volumeInfo.authors.length > 1) {
             for (let j = 0; j < bookObj.volumeInfo.authors.length - 1; j++) {
@@ -76,13 +83,13 @@ app.route("/get-shelf").get((req, res) => {
             }
           }
         }
+        res.send(response.data.items);
       }
-      res.send(response.data.items);
     })
     .catch((error) => {
       console.log(error);
-      console.log(error.response.data);
-      res.send(error.response.data);
+      //console.log(error.response.data);
+      res.send(error);
     });
 });
 
