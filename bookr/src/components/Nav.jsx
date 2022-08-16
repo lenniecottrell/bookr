@@ -76,7 +76,7 @@ const Nav = ({
       m={5}
       px={5}
     >
-      <Heading size={["xl", "2xl"]}>Bookr</Heading>
+      <Heading size={{ base: "xl", md: "2xl" }}>Bookr</Heading>
       <Spacer />
       <HStack
         as={"nav"}
@@ -88,7 +88,7 @@ const Nav = ({
           Search
         </Link>
         {!loggedIn ? (
-          <PopoverWarning />
+          <PopoverWarning isCollapsed={false} />
         ) : (
           <Link as={RouterLink} to="/library">
             My Library
@@ -110,7 +110,7 @@ const Nav = ({
         )}
       </HStack>
       {/* collapsed menu */}
-      <Flex>
+      <Flex display={{ md: "none" }}>
         <Menu>
           {({ isOpen }) => (
             <>
@@ -132,7 +132,7 @@ const Nav = ({
                 <LinkBox>
                   {!loggedIn ? (
                     <MenuItem closeOnSelect={false}>
-                      <PopoverWarning />
+                      <PopoverWarning isCollapsed={true} />
                     </MenuItem>
                   ) : (
                     <MenuItem>

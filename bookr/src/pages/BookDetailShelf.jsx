@@ -104,17 +104,18 @@ const BookDetailShelf = ({
                 alignSelf="center"
               />
             </Box>
-            <Box display="flex" flexDirection="column">
-              {/* <Text>{bookData.volumeInfo.title}</Text> */}
+            <Box display="flex" flexDirection="column" ml={{ base: 2, sm: 0 }}>
               <Text mb={1} fontSize="lg">
                 {bookData.volumeInfo.authors}
               </Text>
-              <Text my={0.5}>
-                Published {bookData.volumeInfo.publishedDate}
-              </Text>
-              <Text my={0.5}>
-                ISBN: {bookData.volumeInfo.industryIdentifiers[0].identifier}
-              </Text>
+              <Box my={0.5}>
+                <Text fontStyle={"italic"}>Published: </Text>
+                {bookData.volumeInfo.publishedDate}
+              </Box>
+              <Box my={0.5}>
+                <Text fontStyle={"italic"}>ISBN: </Text>
+                {bookData.volumeInfo.industryIdentifiers[0].identifier}
+              </Box>
               <Text my={0.5}>{bookData.volumeInfo.language}</Text>
             </Box>
           </Container>
@@ -125,12 +126,20 @@ const BookDetailShelf = ({
             <Text>{bookData.volumeInfo.description}</Text>
           </Container>
         </ModalBody>
-        <ModalFooter display="flex" justifyContent="space-between" gap="10px">
-          <Button onClick={() => removeBook(bookData.id, shelfId, token)}>
+        <ModalFooter
+          display="flex"
+          flexDirection={{ base: "column", md: "row" }}
+          justifyContent="space-between"
+          gap="10px"
+        >
+          <Button
+            onClick={() => removeBook(bookData.id, shelfId, token)}
+            width={{ base: "80%", md: "auto" }}
+          >
             Remove from shelf
           </Button>
-          <LinkBox>
-            <Button colorScheme="telegram">
+          <LinkBox width={{ base: "80%", md: "auto" }}>
+            <Button colorScheme="telegram" width={{ base: "100%", md: "auto" }}>
               Find in OverDrive
               <LinkOverlay
                 href={`https://www.overdrive.com/Search?q=${bookData.volumeInfo.title}`}
@@ -138,7 +147,11 @@ const BookDetailShelf = ({
               ></LinkOverlay>
             </Button>
           </LinkBox>
-          <Button onClick={onClose} colorScheme="red">
+          <Button
+            onClick={onClose}
+            colorScheme="red"
+            width={{ base: "80%", md: "auto" }}
+          >
             Close
           </Button>
         </ModalFooter>

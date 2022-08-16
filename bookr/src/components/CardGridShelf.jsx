@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import BookCard from "./BookCard";
 import BookDetailShelf from "../pages/BookDetailShelf";
 import {
@@ -26,7 +26,15 @@ const CardGridShelf = ({
 
   return (
     <>
-      <SimpleGrid minChildWidth={300} spacing={6} m="2rem">
+      <SimpleGrid
+        templateColumns={{
+          base: "repeat(1, 1fr)",
+          sm: "repeat(2,1fr)",
+          md: "repeat(4,1fr)",
+          xl: "repeat(5,1fr)",
+        }}
+        spacing={6}
+      >
         {books.map((book) => (
           <SlideFade key={book.id} in={true} onClick={() => handleClick(book)}>
             <GridItem
