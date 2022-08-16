@@ -89,23 +89,22 @@ const BookDetail = ({ isOpen, onClose, bookData }) => {
                 alignSelf="center"
               />
             </Box>
-            <Box display="flex" flexDirection="column">
-              {/* <Text>{bookData.volumeInfo.title}</Text> */}
-              <Text mb={1} fontSize="xl">
+            <Box display="flex" flexDirection="column" ml={2}>
+              <Text mb={1} fontSize="lg">
                 {bookData.volumeInfo.authors}
               </Text>
-              <Text my={0.5}>
-                <Text fontStyle={"italic"}>Published</Text>{" "}
+              <Box my={0.5}>
+                <Text fontStyle={"italic"}>Published:</Text>{" "}
                 {bookData.volumeInfo.publishedDate}
-              </Text>
-              <Text my={0.5}>
+              </Box>
+              <Box my={0.5}>
                 <Text fontStyle={"italic"}>ISBN:</Text>{" "}
                 {bookData.volumeInfo.industryIdentifiers[0].identifier}
-              </Text>
-              <Text my={0.5}>
+              </Box>
+              <Box my={0.5}>
                 <Text fontStyle={"italic"}>Language: </Text>
                 {bookData.volumeInfo.language}
-              </Text>
+              </Box>
             </Box>
           </Container>
           <Heading size="sm" mt={5} mb={3}>
@@ -142,7 +141,7 @@ const BookDetail = ({ isOpen, onClose, bookData }) => {
             </MenuList>
           </Menu>
           <LinkBox width={{ base: "80%", md: "auto" }}>
-            <Button colorScheme="telegram" width={{ base: "100%", md: "auto" }}>
+            <Button colorScheme="telegram" width={{ base: "80%", md: "auto" }}>
               Find in OverDrive
               <LinkOverlay
                 href={`https://www.overdrive.com/Search?q=${bookData.volumeInfo.title}`}
