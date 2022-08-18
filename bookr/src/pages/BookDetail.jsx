@@ -151,7 +151,7 @@ const BookDetail = ({ isOpen, onClose, bookData }) => {
             </MenuList>
           </Menu>
           <LinkBox width={{ base: "80%", md: "auto" }}>
-            <Button colorScheme="telegram" width={{ base: "80%", md: "auto" }}>
+            <Button colorScheme="telegram" width={{ base: "100%", md: "auto" }}>
               Find in OverDrive
               <LinkOverlay
                 href={`https://www.overdrive.com/Search?q=${bookData.volumeInfo.title}`}
