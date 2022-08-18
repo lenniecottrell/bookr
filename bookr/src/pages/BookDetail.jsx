@@ -37,10 +37,10 @@ const BookDetail = ({ isOpen, onClose, bookData }) => {
   //Reading Now = 3
   //Have Read = 4
   const addToShelf = (bookId, shelfId, token) => {
-    if (!token) {
-      alert("You need to sign in to add books to your library");
-      return;
-    }
+    //TODO maaaaaybe come back to this
+    //     if (!token) {
+    // alert("You need to sign in to add books to your library");
+    //     }
 
     if (!!token) {
       axios
@@ -72,6 +72,7 @@ const BookDetail = ({ isOpen, onClose, bookData }) => {
         });
     }
   };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="lg">
       <ModalOverlay bg="transparent" />
@@ -129,13 +130,22 @@ const BookDetail = ({ isOpen, onClose, bookData }) => {
               Add to My Library
             </MenuButton>
             <MenuList>
-              <MenuItem onClick={() => addToShelf(bookData.id, 2, token)}>
+              <MenuItem
+                isDisabled={!token ? true : false}
+                onClick={() => addToShelf(bookData.id, 2, token)}
+              >
                 To Read
               </MenuItem>
-              <MenuItem onClick={() => addToShelf(bookData.id, 3, token)}>
+              <MenuItem
+                isDisabled={!token ? true : false}
+                onClick={() => addToShelf(bookData.id, 3, token)}
+              >
                 Reading Now
               </MenuItem>
-              <MenuItem onClick={() => addToShelf(bookData.id, 4, token)}>
+              <MenuItem
+                isDisabled={!token ? true : false}
+                onClick={() => addToShelf(bookData.id, 4, token)}
+              >
                 Have Read
               </MenuItem>
             </MenuList>
