@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import axios from "axios";
 import { useToken } from "../hooks/useToken";
 import {
@@ -22,14 +22,11 @@ import {
   MenuList,
   MenuItem,
   useToast,
-  Tooltip,
 } from "@chakra-ui/react";
-import AlertDialogComponent from "../components/AlertDialog";
 
 import { ChevronDownIcon } from "@chakra-ui/icons";
 
 const BookDetail = ({ isOpen, onClose, bookData }) => {
-  const [alertIsOpen, setAlertIsOpen] = useState(true);
   const token = useToken().token;
   const toast = useToast();
 
