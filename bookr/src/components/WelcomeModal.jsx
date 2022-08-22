@@ -9,7 +9,7 @@ import {
   ModalCloseButton,
   Button,
 } from "@chakra-ui/react";
-import GoogleButton from "react-google-button";
+import GoogleButton from "../components/GoogleAuth";
 
 const WelcomeModal = ({ isOpen, onClose, getAccessToken }) => {
   return (
