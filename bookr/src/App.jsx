@@ -9,11 +9,12 @@ import axios from "axios";
 import { useDisclosure } from "@chakra-ui/react";
 
 function App() {
-  const [q, setQ] = useState("harry+potter");
+  const [q, setQ] = useState("star+trek");
   const [loggedIn, setLoggedIn] = useState(false);
   const [modalViewed, setModalViewed] = useState(
     window.sessionStorage.getItem("hasSeenModal") || false
   );
+  const [sort, setSort] = useState("");
   const { token, setToken } = useToken("");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -39,11 +40,6 @@ function App() {
         console.log(error);
       });
   }, []);
-
-  const handleSearchChange = (e) => {
-    let input = e.target.value.trim();
-    setQ(input.replace(" ", "+"));
-  };
 
   //set the token from Google
   const handleAuthorizationResponse = (response) => {
@@ -81,6 +77,15 @@ function App() {
     client.requestAccessToken();
   };
 
+  const handleSearchChange = (e) => {
+    let input = e.target.value.trim();
+    setQ(input.replace(" ", "+"));
+  };
+
+  const selectSort = (e) => {
+    setSort(e.target.value);
+  };
+
   return (
     <div className="App">
       {!modalViewed && (
@@ -98,8 +103,12 @@ function App() {
         setToken={setToken}
         location={"landing"}
       />
-      <SearchBar handleSearchChange={handleSearchChange} value={q} />
-      <CardGrid query={q} />
+      <SearchBar
+        handleSearchChange={handleSearchChange}
+        value={q}
+        selectSort={selectSort}
+      />
+      <CardGrid query={q} sort={sort} />
     </div>
   );
 }
