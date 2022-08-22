@@ -1,7 +1,7 @@
 import React from "react";
-import { Input, Heading, Box } from "@chakra-ui/react";
+import { Input, Heading, Box, Select } from "@chakra-ui/react";
 
-const SearchBar = ({ handleSearchChange, q }) => {
+const SearchBar = ({ handleSearchChange, q, selectSort }) => {
   return (
     <Box
       display="flex"
@@ -23,6 +23,15 @@ const SearchBar = ({ handleSearchChange, q }) => {
         value={q}
         onChange={handleSearchChange}
       />
+      <Select
+        placeholder="Sort"
+        variant="filled"
+        w={{ base: "10rem", md: "12rem" }}
+        onChange={selectSort}
+      >
+        <option value="newest">Newest First</option>
+        <option value="oldest">Oldest First</option>
+      </Select>
     </Box>
   );
 };

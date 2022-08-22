@@ -65,14 +65,13 @@ app.route("/get-shelf").get((req, res) => {
       { headers: headers }
     )
     .then((response) => {
-      //console.log(`line 67, shelfId ${req.query.shelfId}`, response.data.items);
       //if no books exist already, send an empty array
       if (response.data.items === undefined) {
         res.send([]);
       } else {
         for (let bookObj of response.data.items) {
-          //console.log("line 74: ", bookObj.volumeInfo.authors);
           //if no authors are listed
+          //TODO: refactor this with hasOwnProperty()
           if (bookObj.volumeInfo.authors === undefined) {
             bookObj.volumeInfo.authors = [];
           }
@@ -88,7 +87,6 @@ app.route("/get-shelf").get((req, res) => {
     })
     .catch((error) => {
       console.log(error);
-      //console.log(error.response.data);
       res.send(error);
     });
 });
