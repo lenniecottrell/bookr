@@ -85,7 +85,7 @@ const About = () => {
           About this app
         </Heading>
         <Text fontSize="xl" m={2}>
-          This app is made with Vite (React), ChakraUI, and the Google Books API
+          Shelf is made with Vite (React), ChakraUI, and the Google Books API
         </Text>
         <Text fontSize="xl" m={2}>
           You can see it on Github{" "}
@@ -107,7 +107,13 @@ const About = () => {
           >
             Twitter
           </Link>{" "}
-          sometimes.{" "}
+          , or LinkedIn
+          <Link
+            href="https://www.linkedin.com/in/lenniecottrell/"
+            color="blue.500"
+            textDecoration="underline"
+          ></Link>
+          .{" "}
         </Text>
       </Container>
     </>
