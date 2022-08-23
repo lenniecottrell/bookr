@@ -9,7 +9,7 @@ import BookCard from "./BookCard";
 import BookDetail from "../pages/BookDetail";
 import axios from "axios";
 
-const CardGrid = ({ query }) => {
+const CardGrid = ({ query, sort }) => {
   const [allBookData, setAllBookData] = useState([]);
   const [selectedBook, setSelectedBook] = useState({});
   const { isOpen, onClose, onOpen } = useDisclosure();
@@ -29,6 +29,7 @@ const CardGrid = ({ query }) => {
       .then((response) => {
         const allBooks = response.data.items;
         //handle undefined book data
+        //imageLinks, publishedDate, industryIdentifiers, language, title, authors,
         for (let i = 0; i < allBooks.length; i++) {
           if (allBooks[i].volumeInfo.imageLinks == undefined) {
             allBooks[i].volumeInfo.imageLinks = {
@@ -36,8 +37,18 @@ const CardGrid = ({ query }) => {
               thumbnail: "No Image Available",
             };
           }
-          if (allBooks[i].volumeInfo.authors === undefined) {
-            allBooks[i].volumeInfo.authors = [""];
+          if (!allBooks[i].volumeInfo.hasOwnProperty("publishedDate")) {
+            allBooks[i].volumeInfo["publishedDate"] = "0000";
+          }
+          if (!allBooks[i].volumeInfo.hasOwnProperty("industryIdentifiers")) {
+            allBooks[i].volumeInfo["industryIdentifiers"] = "";
+          }
+          if (!allBooks[i].volumeInfo.hasOwnProperty("language")) {
+            allBooks[i].volumeInfo["language"] = "";
+          }
+          //there's no way a book will be missing a title property
+          if (!allBooks[i].volumeInfo.hasOwnProperty("authors")) {
+            allBooks[i].volumeInfo["authors"] = [""];
           }
           // If there's more than one author, add a comma and a space to each item except the last
           if (allBooks[i].volumeInfo.authors.length > 1) {
@@ -50,18 +61,37 @@ const CardGrid = ({ query }) => {
             }
           }
         }
+        sortData(sort, allBooks);
         setAllBookData(allBooks);
         setSelectedBook(allBooks[0]);
       })
       .catch((err) => {
         console.error(err);
       });
-  }, [query]);
+  }, [query, sort]);
 
   const handleClick = (item) => {
     console.log(item);
     setSelectedBook(item);
     onOpen();
+  };
+  // sort by year
+  // TODO: include month and day in sorting
+  const sortData = (sort, data) => {
+    const sortedBooks = data.sort((a, b) => {
+      if (sort === "newest") {
+        return (
+          parseInt(b.volumeInfo.publishedDate.substring(0, 4)) -
+          parseInt(a.volumeInfo.publishedDate.substring(0, 4))
+        );
+      } else if (sort === "oldest") {
+        return (
+          parseInt(a.volumeInfo.publishedDate.substring(0, 4)) -
+          parseInt(b.volumeInfo.publishedDate.substring(0, 4))
+        );
+      }
+    });
+    return sortedBooks;
   };
 
   return (

@@ -76,7 +76,7 @@ const Nav = ({
       m={5}
       px={5}
     >
-      <Heading size={{ base: "xl", md: "2xl" }}>Bookr</Heading>
+      <Heading size={{ base: "xl", md: "2xl" }}>Shelf</Heading>
       <Spacer />
       <HStack
         as={"nav"}

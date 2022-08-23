@@ -17,8 +17,10 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
+  Tooltip,
   useToast,
 } from "@chakra-ui/react";
+import { InfoOutlineIcon } from "@chakra-ui/icons";
 
 const BookDetailShelf = ({
   isOpen,
@@ -110,7 +112,9 @@ const BookDetailShelf = ({
               </Text>
               <Box my={0.5}>
                 <Text fontStyle={"italic"}>Published: </Text>
-                {bookData.volumeInfo.publishedDate}
+                {bookData.volumeInfo.publishedDate === "0000"
+                  ? "Not available"
+                  : bookData.volumeInfo.publishedDate}
               </Box>
               <Box my={0.5}>
                 <Text fontStyle={"italic"}>ISBN: </Text>
@@ -121,6 +125,12 @@ const BookDetailShelf = ({
           </Container>
           <Heading size="sm" mt={5} mb={3}>
             Description
+            <Tooltip
+              label="Why is the description cut off, you ask? Turns out the Google Books API returns a truncated description when using an authenticated call, but the full description when using a generic call. Pretty strange choice IMO"
+              fontSize="sm"
+            >
+              <InfoOutlineIcon ml={2} />
+            </Tooltip>
           </Heading>
           <Container>
             <Text>{bookData.volumeInfo.description}</Text>
