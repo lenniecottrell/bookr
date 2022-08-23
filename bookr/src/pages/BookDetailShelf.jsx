@@ -110,7 +110,9 @@ const BookDetailShelf = ({
               </Text>
               <Box my={0.5}>
                 <Text fontStyle={"italic"}>Published: </Text>
-                {bookData.volumeInfo.publishedDate}
+                {bookData.volumeInfo.publishedDate === "0000"
+                  ? "Not available"
+                  : bookData.volumeInfo.publishedDate}
               </Box>
               <Box my={0.5}>
                 <Text fontStyle={"italic"}>ISBN: </Text>

@@ -29,6 +29,7 @@ const CardGrid = ({ query, sort }) => {
       .then((response) => {
         const allBooks = response.data.items;
         //handle undefined book data
+        //imageLinks, publishedDate, industryIdentifiers, language, title, authors,
         for (let i = 0; i < allBooks.length; i++) {
           if (allBooks[i].volumeInfo.imageLinks == undefined) {
             allBooks[i].volumeInfo.imageLinks = {
@@ -39,8 +40,15 @@ const CardGrid = ({ query, sort }) => {
           if (!allBooks[i].volumeInfo.hasOwnProperty("publishedDate")) {
             allBooks[i].volumeInfo["publishedDate"] = "0000";
           }
-          if (allBooks[i].volumeInfo.authors === undefined) {
-            allBooks[i].volumeInfo.authors = [""];
+          if (!allBooks[i].volumeInfo.hasOwnProperty("industryIdentifiers")) {
+            allBooks[i].volumeInfo["industryIdentifiers"] = "";
+          }
+          if (!allBooks[i].volumeInfo.hasOwnProperty("language")) {
+            allBooks[i].volumeInfo["language"] = "";
+          }
+          //there's no way a book will be missing a title property
+          if (!allBooks[i].volumeInfo.hasOwnProperty("authors")) {
+            allBooks[i].volumeInfo["authors"] = [""];
           }
           // If there's more than one author, add a comma and a space to each item except the last
           if (allBooks[i].volumeInfo.authors.length > 1) {
