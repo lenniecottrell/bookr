@@ -17,7 +17,7 @@ const WelcomeModal = ({ isOpen, onClose, getAccessToken }) => {
       <Modal isOpen={isOpen} onClose={onClose} isCentered={true} size="xl">
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Welcome to Bookr</ModalHeader>
+          <ModalHeader>Welcome to Shelf</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             This app interacts directly with your Google Books account. If you
@@ -33,7 +33,7 @@ const WelcomeModal = ({ isOpen, onClose, getAccessToken }) => {
             <GoogleButton onClick={() => getAccessToken()} />
 
             <Button variant="outline" onClick={onClose} size="sm" mt={3}>
-              Nvm, browse books
+              I'll do it later
             </Button>
           </ModalFooter>
         </ModalContent>
