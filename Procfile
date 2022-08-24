@@ -1,1 +1,1 @@
-web: node main.jsx
+web: npm run deploy
