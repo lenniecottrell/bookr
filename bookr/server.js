@@ -32,7 +32,6 @@ app.get("/get-token", (req, res) => {
 });
 
 app.route("/add-to-shelf").get((req, res) => {
-  console.log("request params: ", req.query);
   const headers = {
     Authorization: `Bearer ${app.get("token")}`,
     "Content-Type": "application/json",
@@ -54,7 +53,6 @@ app.route("/add-to-shelf").get((req, res) => {
 });
 
 app.route("/get-shelf").get((req, res) => {
-  console.log("request params: ", req.query);
   const headers = {
     Authorization: `Bearer ${app.get("token")}`,
     "Content-Type": "application/json",
@@ -92,7 +90,6 @@ app.route("/get-shelf").get((req, res) => {
 });
 
 app.route("/remove-book").get((req, res) => {
-  console.log("request params: ", req.query);
   const headers = {
     Authorization: `Bearer ${app.get("token")}`,
     "Content-Type": "application/json",
