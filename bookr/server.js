@@ -1,11 +1,15 @@
 const express = require("express");
-const app = express();
+const path = require("path");
 const axios = require("axios");
 const cors = require("cors");
-const port = 5000;
 require("dotenv").config();
 
+const app = express();
+const port = 5000;
+
 app.use(cors());
+
+app.use(express.static(path.join(__dirname, "dist")));
 
 app.listen(port, () => {
   console.log(`App listening on port: ${port}`);
@@ -132,4 +136,8 @@ app.route("/remove-book").get((req, res) => {
       console.log(error.response.data);
       res.send(error.response.data);
     });
+});
+
+app.get("*", async (req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
