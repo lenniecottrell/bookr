@@ -34,7 +34,7 @@ const MyLibrary = () => {
     axios
       .get("http://localhost:5000/get-token")
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         setLoggedIn(true);
         setToken(res.data);
       })
@@ -59,8 +59,7 @@ const MyLibrary = () => {
           },
         })
         .then((response) => {
-          console.log(response);
-          console.log(response.data);
+          //console.log(response.data);
           setToReadList(response.data);
         })
         .catch((error) => {
@@ -75,8 +74,7 @@ const MyLibrary = () => {
           },
         })
         .then((response) => {
-          console.log(response);
-          console.log(response.data);
+          //console.log(response.data);
           setReadingNowList(response.data);
         })
         .catch((error) => {
@@ -91,8 +89,8 @@ const MyLibrary = () => {
           },
         })
         .then((response) => {
-          console.log(response);
-          console.log(response.data);
+          //console.log(response);
+          //console.log(response.data);
           setHaveReadList(response.data);
         })
         .catch((error) => {

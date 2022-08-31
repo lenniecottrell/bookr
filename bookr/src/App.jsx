@@ -30,7 +30,7 @@ function App() {
     axios
       .get("http://localhost:5000/get-token")
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         if (res.data.length > 0) {
           setLoggedIn(true);
           setToken(res.data);
@@ -44,7 +44,7 @@ function App() {
   //set the token from Google
   const handleAuthorizationResponse = (response) => {
     try {
-      console.log(response);
+      //console.log(response);
       setToken(response.access_token);
       setLoggedIn(true);
       //send token to backend storage
@@ -63,7 +63,6 @@ function App() {
     } catch (error) {
       console.error(error);
     }
-    console.log("logged in? ", loggedIn);
   };
 
   const getAccessToken = () => {

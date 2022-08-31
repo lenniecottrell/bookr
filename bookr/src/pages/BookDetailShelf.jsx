@@ -50,8 +50,7 @@ const BookDetailShelf = ({
       })
       .then((response) => {
         //response.data has the new book list in it
-        console.log(response);
-        console.log(response.data.bookResponse);
+        //console.log(response.data.bookResponse);
         let updatedBookList = response.data.bookResponse;
         //To read = 2
         //Reading Now = 3

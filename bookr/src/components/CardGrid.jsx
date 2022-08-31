@@ -71,7 +71,7 @@ const CardGrid = ({ query, sort }) => {
   }, [query, sort]);
 
   const handleClick = (item) => {
-    console.log(item);
+    //console.log(item);
     setSelectedBook(item);
     onOpen();
   };
