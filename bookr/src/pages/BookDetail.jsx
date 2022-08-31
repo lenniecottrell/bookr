@@ -44,7 +44,7 @@ const BookDetail = ({ isOpen, onClose, bookData }) => {
 
     if (!!token) {
       axios
-        .get("http://localhost:5000/add-to-shelf", {
+        .get("/add-to-shelf", {
           params: {
             bookId: bookId,
             shelfId: shelfId,

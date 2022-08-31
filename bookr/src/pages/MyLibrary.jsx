@@ -32,7 +32,7 @@ const MyLibrary = () => {
   useEffect(() => {
     setLoggedIn(false);
     axios
-      .get("http://localhost:5000/get-token")
+      .get("/get-token")
       .then((res) => {
         //console.log(res);
         setLoggedIn(true);
@@ -53,7 +53,7 @@ const MyLibrary = () => {
 
       //get To Read shelf
       axios
-        .get("http://localhost:5000/get-shelf", {
+        .get("/get-shelf", {
           params: {
             shelfId: 2,
           },
@@ -68,7 +68,7 @@ const MyLibrary = () => {
 
       //get Reading Now shelf
       axios
-        .get("http://localhost:5000/get-shelf", {
+        .get("/get-shelf", {
           params: {
             shelfId: 3,
           },
@@ -83,7 +83,7 @@ const MyLibrary = () => {
 
       //get Have Read shelf
       axios
-        .get("http://localhost:5000/get-shelf", {
+        .get("/get-shelf", {
           params: {
             shelfId: 4,
           },
