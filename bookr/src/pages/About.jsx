@@ -42,7 +42,7 @@ const About = () => {
   //set the token from Google
   const handleAuthorizationResponse = (response) => {
     try {
-      console.log(response);
+      //console.log(response);
       setToken(response.access_token);
       setLoggedIn(true);
       //send token to backend storage
@@ -53,7 +53,7 @@ const About = () => {
           },
         })
         .then((response) => {
-          console.log(response.data);
+          //console.log(response.data);
         })
         .catch((error) => {
           console.log(error);
@@ -61,7 +61,6 @@ const About = () => {
     } catch (error) {
       console.error(error);
     }
-    console.log("logged in? ", loggedIn);
   };
 
   return (
