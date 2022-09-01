@@ -14,7 +14,7 @@ const SearchBar = ({ handleSearchChange, q, selectSort }) => {
       </Heading>
       <Input
         color="gray.800"
-        placeholder="Search"
+        placeholder="Star Trek"
         _placeholder={{ color: "inherit" }}
         size="lg"
         w={["60%", "50"]}
