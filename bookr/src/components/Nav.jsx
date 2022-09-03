@@ -22,18 +22,20 @@ import {
 } from "@chakra-ui/react";
 import { useToast, useDisclosure } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
+import { useToken } from "../hooks/useToken";
 
 const Nav = ({
   getAccessToken,
   loggedIn,
   setLoggedIn,
-  token,
-  setToken,
+  // token,
+  //setToken,
   location,
 }) => {
   const toast = useToast();
   let navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { token, setToken } = useToken();
 
   const handleSignOut = () => {
     //clear token
@@ -46,7 +48,7 @@ const Nav = ({
       .then((response) => {
         console.log(response.data);
         setLoggedIn(false);
-        setToken(false);
+        setToken("");
         toast({
           title: "You are now logged out",
           status: "success",
@@ -64,7 +66,7 @@ const Nav = ({
       });
   };
 
-  //reference here, but I had to make some significant adjustments: https://chakra-templates.dev/navigation/navbar
+  //reference here, but I had to make some significant adjustments for my use case: https://chakra-templates.dev/navigation/navbar
 
   return (
     <Flex

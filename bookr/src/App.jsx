@@ -30,7 +30,7 @@ function App() {
     axios
       .get("http://localhost:5000/get-token")
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         if (res.data.length > 0) {
           setLoggedIn(true);
           setToken(res.data);
@@ -99,8 +99,8 @@ function App() {
         getAccessToken={getAccessToken}
         loggedIn={loggedIn}
         setLoggedIn={setLoggedIn}
-        token={token}
-        setToken={setToken}
+        // token={token}
+        // setToken={setToken}
         location={"landing"}
       />
       <SearchBar

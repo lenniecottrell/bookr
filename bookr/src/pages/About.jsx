@@ -70,8 +70,6 @@ const About = () => {
         getAccessToken={getAccessToken}
         loggedIn={loggedIn}
         setLoggedIn={setLoggedIn}
-        token={token}
-        setToken={setToken}
       />
       <Container
         display="flex"
@@ -107,13 +105,14 @@ const About = () => {
           >
             Twitter
           </Link>{" "}
-          , or LinkedIn
+          , or{" "}
           <Link
             href="https://www.linkedin.com/in/lenniecottrell/"
             color="blue.500"
             textDecoration="underline"
-          ></Link>
-          .{" "}
+          >
+            LinkedIn.
+          </Link>
         </Text>
       </Container>
     </>
