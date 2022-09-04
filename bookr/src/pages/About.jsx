@@ -12,7 +12,7 @@ const About = () => {
     axios
       .get("http://localhost:5000/get-token")
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         if (res.data.length > 0) {
           setLoggedIn(true);
           setToken(res.data);
@@ -22,12 +22,6 @@ const About = () => {
         console.log(error);
       });
   }, []);
-
-  // useEffect(() => {
-  //   if (!!token) {
-  //     setLoggedIn(true);
-  //   }
-  // });
 
   const getAccessToken = () => {
     const client = google.accounts.oauth2.initTokenClient({

@@ -1,10 +1,11 @@
 import React from "react";
 import axios from "axios";
+import { useToken } from "../hooks/useToken";
+import { useToast, useDisclosure } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import GoogleButton from "../components/GoogleAuth";
 import PopoverWarning from "./PopoverWarning";
-// import GoogleButton from "react-google-button";
 import {
   HStack,
   IconButton,
@@ -20,9 +21,7 @@ import {
   LinkBox,
   LinkOverlay,
 } from "@chakra-ui/react";
-import { useToast, useDisclosure } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
-import { useToken } from "../hooks/useToken";
 
 const Nav = ({
   getAccessToken,
@@ -36,6 +35,8 @@ const Nav = ({
   let navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { token, setToken } = useToken();
+  //this is weird, but localStorage values need to be strings, so this is just making the value a boolean
+  let tokenExists = localStorage.getItem("token") === "true" ? true : false;
 
   const handleSignOut = () => {
     //clear token
@@ -49,6 +50,9 @@ const Nav = ({
         console.log(response.data);
         setLoggedIn(false);
         setToken("");
+        localStorage.removeItem("token");
+        tokenExists = localStorage.getItem("token");
+        console.log(tokenExists);
         toast({
           title: "You are now logged out",
           status: "success",
@@ -99,7 +103,7 @@ const Nav = ({
         <Link as={RouterLink} to="/about">
           About
         </Link>
-        {token ? (
+        {tokenExists ? (
           <Button
             variant="outline"
             colorScheme="messenger"
@@ -153,7 +157,7 @@ const Nav = ({
                 </LinkBox>
                 <LinkBox>
                   <MenuItem>
-                    {token ? (
+                    {tokenExists ? (
                       <LinkOverlay
                         as={Button}
                         variant="outline"
