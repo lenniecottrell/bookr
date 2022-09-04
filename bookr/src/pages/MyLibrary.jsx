@@ -107,8 +107,8 @@ const MyLibrary = () => {
       <Nav
         loggedIn={loggedIn}
         setLoggedIn={setLoggedIn}
-        token={token}
-        setToken={setToken}
+        // token={token}
+        // setToken={setToken}
         location={"myLibrary"}
       />
       {/* <SearchBar title={"My Library"} /> */}

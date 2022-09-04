@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
+import { useToken } from "./hooks/useToken";
+import { useDisclosure } from "@chakra-ui/react";
 import "./styles/App.scss";
+import axios from "axios";
 import SearchBar from "./components/SearchBar";
 import Nav from "./components/Nav";
 import CardGrid from "./components/CardGrid";
 import WelcomeModal from "./components/WelcomeModal";
-import { useToken } from "./hooks/useToken";
-import axios from "axios";
-import { useDisclosure } from "@chakra-ui/react";
 
 function App() {
   const [q, setQ] = useState("star+trek");
@@ -30,7 +30,7 @@ function App() {
     axios
       .get("http://localhost:5000/get-token")
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         if (res.data.length > 0) {
           setLoggedIn(true);
           setToken(res.data);
@@ -47,6 +47,7 @@ function App() {
       console.log(response);
       setToken(response.access_token);
       setLoggedIn(true);
+      localStorage.setItem("token", "true");
       //send token to backend storage
       axios
         .get("http://localhost:5000/set-token", {
@@ -99,8 +100,8 @@ function App() {
         getAccessToken={getAccessToken}
         loggedIn={loggedIn}
         setLoggedIn={setLoggedIn}
-        token={token}
-        setToken={setToken}
+        // token={token}
+        // setToken={setToken}
         location={"landing"}
       />
       <SearchBar
