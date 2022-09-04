@@ -41,7 +41,7 @@ const Nav = ({
   const handleSignOut = () => {
     //clear token
     axios
-      .get("http://localhost:5000/set-token", {
+      .get("/set-token", {
         params: {
           token: "",
         },

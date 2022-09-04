@@ -8,7 +8,7 @@ export const TokenProvider = ({ children }) => {
 
   try {
     axios
-      .get("http://localhost:5000/get-token")
+      .get("/get-token")
       .then((res) => {
         //console.log(res);
         existingToken = res.data;

@@ -41,7 +41,7 @@ const BookDetailShelf = ({
     }
 
     axios
-      .get("http://localhost:5000/remove-book", {
+      .get("/remove-book", {
         params: {
           shelfId: shelfId,
           token: token,

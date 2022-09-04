@@ -28,7 +28,7 @@ function App() {
   //get the token from the server if it exists
   useEffect(() => {
     axios
-      .get("http://localhost:5000/get-token")
+      .get("/get-token")
       .then((res) => {
         //console.log(res);
         if (res.data.length > 0) {
@@ -50,7 +50,7 @@ function App() {
       localStorage.setItem("token", "true");
       //send token to backend storage
       axios
-        .get("http://localhost:5000/set-token", {
+        .get("/set-token", {
           params: {
             token: response.access_token,
           },
