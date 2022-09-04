@@ -37,11 +37,6 @@ const BookDetail = ({ isOpen, onClose, bookData }) => {
   //Reading Now = 3
   //Have Read = 4
   const addToShelf = (bookId, shelfId, token) => {
-    //TODO maaaaaybe come back to this
-    //     if (!token) {
-    // alert("You need to sign in to add books to your library");
-    //     }
-
     if (!!token) {
       axios
         .get("http://localhost:5000/add-to-shelf", {
@@ -52,7 +47,7 @@ const BookDetail = ({ isOpen, onClose, bookData }) => {
           },
         })
         .then((response) => {
-          console.log(response);
+          //console.log(response);
           toast({
             title: "Book added!",
             status: "success",
