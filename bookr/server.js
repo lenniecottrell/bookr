@@ -1,12 +1,12 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const axios = require("axios");
-const cors = require("cors");
-const port = 5000;
 require("dotenv").config();
 
 app.use(cors());
 
+const port = 5000;
 app.listen(port, () => {
   console.log(`App listening on port: ${port}`);
   console.log(

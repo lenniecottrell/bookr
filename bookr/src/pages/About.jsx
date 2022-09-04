@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { useToken } from "../hooks/useToken";
+import axios from "axios";
 import Nav from "../components/Nav";
 import { Heading, Text, Container, Link } from "@chakra-ui/react";
-import axios from "axios";
-import { useToken } from "../hooks/useToken";
 
 const About = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -39,6 +39,7 @@ const About = () => {
       console.log(response);
       setToken(response.access_token);
       setLoggedIn(true);
+      localStorage.setItem("token", "true");
       //send token to backend storage
       axios
         .get("http://localhost:5000/set-token", {
