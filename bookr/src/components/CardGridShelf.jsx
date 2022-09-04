@@ -22,7 +22,6 @@ const CardGridShelf = ({
     setSelectedBook(item);
     onOpen();
   };
-  console.log(books);
 
   return (
     <>
