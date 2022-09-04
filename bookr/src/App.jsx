@@ -56,7 +56,8 @@ function App() {
           },
         })
         .then((response) => {
-          console.log(response.data);
+          //console.log(response.data);
+          console.log("got token");
         })
         .catch((error) => {
           console.log(error);

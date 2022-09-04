@@ -47,7 +47,7 @@ const Nav = ({
         },
       })
       .then((response) => {
-        console.log(response.data);
+        //console.log(response.data);
         setLoggedIn(false);
         setToken("");
         localStorage.removeItem("token");
