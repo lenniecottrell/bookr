@@ -44,62 +44,65 @@ const MyLibrary = () => {
   }, []);
 
   useEffect(() => {
-    setLoading(true);
     setTimeout(() => {
-      //google shelf ids:
-      //To read = 2
-      //Reading Now = 3
-      //Have Read = 4
+      setLoading(false), 3000;
+    });
+    //google shelf ids:
+    //To read = 2
+    //Reading Now = 3
+    //Have Read = 4
 
-      //get To Read shelf
-      axios
-        .get("http://localhost:5000/get-shelf", {
-          params: {
-            shelfId: 2,
-          },
-        })
-        .then((response) => {
-          console.log(response);
-          console.log(response.data);
-          setToReadList(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    //get To Read shelf
+    axios
+      .get("http://localhost:5000/get-shelf", {
+        params: {
+          shelfId: 2,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        console.log(response.data);
+        setToReadList(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
-      //get Reading Now shelf
-      axios
-        .get("http://localhost:5000/get-shelf", {
-          params: {
-            shelfId: 3,
-          },
-        })
-        .then((response) => {
-          console.log(response);
-          console.log(response.data);
-          setReadingNowList(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    //get Reading Now shelf
+    axios
+      .get("http://localhost:5000/get-shelf", {
+        params: {
+          shelfId: 3,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        console.log(response.data);
+        setReadingNowList(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
-      //get Have Read shelf
-      axios
-        .get("http://localhost:5000/get-shelf", {
-          params: {
-            shelfId: 4,
-          },
-        })
-        .then((response) => {
-          console.log(response);
-          console.log(response.data);
-          setHaveReadList(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      setLoading(false);
-    }, 1000);
+    //get Have Read shelf
+    axios
+      .get("http://localhost:5000/get-shelf", {
+        params: {
+          shelfId: 4,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        console.log(response.data);
+        setHaveReadList(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    // setTimeout(() => {
+    //   setLoading(false), 3000;
+    // });
   }, []);
 
   return (
@@ -111,7 +114,6 @@ const MyLibrary = () => {
         setToken={setToken}
         location={"myLibrary"}
       />
-      {/* <SearchBar title={"My Library"} /> */}
       <Heading
         size="xl"
         mb={6}
