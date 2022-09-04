@@ -41,7 +41,7 @@ const CardGrid = ({ query, sort }) => {
             allBooks[i].volumeInfo["publishedDate"] = "0000";
           }
           if (!allBooks[i].volumeInfo.hasOwnProperty("industryIdentifiers")) {
-            allBooks[i].volumeInfo["industryIdentifiers"] = "";
+            allBooks[i].volumeInfo["industryIdentifiers"] = [""];
           }
           if (!allBooks[i].volumeInfo.hasOwnProperty("language")) {
             allBooks[i].volumeInfo["language"] = "";
