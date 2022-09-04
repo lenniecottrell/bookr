@@ -52,7 +52,7 @@ const Nav = ({
         setToken("");
         localStorage.removeItem("token");
         tokenExists = localStorage.getItem("token");
-        console.log(tokenExists);
+        console.log("token exists?: ", tokenExists);
         toast({
           title: "You are now logged out",
           status: "success",

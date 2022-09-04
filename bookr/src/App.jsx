@@ -44,7 +44,7 @@ function App() {
   //set the token from Google
   const handleAuthorizationResponse = (response) => {
     try {
-      console.log(response);
+      //console.log(response);
       setToken(response.access_token);
       setLoggedIn(true);
       localStorage.setItem("token", "true");
@@ -64,7 +64,6 @@ function App() {
     } catch (error) {
       console.error(error);
     }
-    console.log("logged in? ", loggedIn);
   };
 
   const getAccessToken = () => {
