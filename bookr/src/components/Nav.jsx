@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import { useToken } from "../hooks/useToken";
 import { useToast, useDisclosure } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
@@ -23,51 +22,32 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 
-const Nav = ({
-  getAccessToken,
-  loggedIn,
-  setLoggedIn,
-  // token,
-  //setToken,
-  location,
-}) => {
+const Nav = ({ getAccessToken, loggedIn, setLoggedIn, location }) => {
   const toast = useToast();
   let navigate = useNavigate();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { onClose } = useDisclosure();
   const { token, setToken } = useToken();
-  //this is weird, but localStorage values need to be strings, so this is just making the value a boolean
-  let tokenExists = localStorage.getItem("token") === "true" ? true : false;
+  let tokenExists =
+    window.localStorage.getItem("token") !== null ? true : false;
 
   const handleSignOut = () => {
     //clear token
-    axios
-      .get("http://localhost:5000/set-token", {
-        params: {
-          token: "",
-        },
-      })
-      .then((response) => {
-        console.log(response.data);
-        setLoggedIn(false);
-        setToken("");
-        localStorage.removeItem("token");
-        tokenExists = localStorage.getItem("token");
-        console.log("token exists?: ", tokenExists);
-        toast({
-          title: "You are now logged out",
-          status: "success",
-          duration: 5000,
-          isClosable: true,
-        });
-        //reroute from MyLibrary
-        if (location === "myLibrary") {
-          navigate("/");
-        }
-        onClose();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    setLoggedIn(false);
+    setToken("");
+    localStorage.removeItem("token");
+    console.log(localStorage.getItem("token"));
+    console.log("token exists?: ", tokenExists);
+    toast({
+      title: "You are now logged out",
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+    });
+    //reroute from MyLibrary
+    if (location === "myLibrary") {
+      navigate("/");
+    }
+    onClose();
   };
 
   //reference here, but I had to make some significant adjustments for my use case: https://chakra-templates.dev/navigation/navbar
@@ -136,7 +116,7 @@ const Nav = ({
                   </MenuItem>
                 </LinkBox>
                 <LinkBox>
-                  {!loggedIn ? (
+                  {!tokenExists ? (
                     <MenuItem closeOnSelect={false}>
                       <PopoverWarning isCollapsed={true} />
                     </MenuItem>

@@ -10,7 +10,9 @@ import WelcomeModal from "./components/WelcomeModal";
 
 function App() {
   const [q, setQ] = useState("star+trek");
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(
+    window.localStorage.getItem("token") !== null
+  );
   const [modalViewed, setModalViewed] = useState(
     window.sessionStorage.getItem("hasSeenModal") || false
   );
@@ -25,42 +27,14 @@ function App() {
     }
   }, []);
 
-  //get the token from the server if it exists
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/get-token")
-      .then((res) => {
-        //console.log(res);
-        if (res.data.length > 0) {
-          setLoggedIn(true);
-          setToken(res.data);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-
   //set the token from Google
   const handleAuthorizationResponse = (response) => {
     try {
       //console.log(response);
       setToken(response.access_token);
       setLoggedIn(true);
-      localStorage.setItem("token", "true");
-      //send token to backend storage
-      axios
-        .get("http://localhost:5000/set-token", {
-          params: {
-            token: response.access_token,
-          },
-        })
-        .then((response) => {
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      localStorage.setItem("token", response.access_token);
+      console.log("got the token");
     } catch (error) {
       console.error(error);
     }
