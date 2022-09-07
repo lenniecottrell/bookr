@@ -27,13 +27,13 @@ app.listen(port, () => {
 // });
 
 // app.get("/get-token", (req, res) => {
-//   const token = app.get("token");
+//   const token = req.query.token;
 //   res.send(token);
 // });
 
 app.route("/add-to-shelf").get((req, res) => {
   const headers = {
-    Authorization: `Bearer ${app.get("token")}`,
+    Authorization: `Bearer ${req.query.token}`,
     "Content-Type": "application/json",
   };
   axios
@@ -54,7 +54,7 @@ app.route("/add-to-shelf").get((req, res) => {
 
 app.route("/get-shelf").get((req, res) => {
   const headers = {
-    Authorization: `Bearer ${app.get("token")}`,
+    Authorization: `Bearer ${req.query.token}`,
     "Content-Type": "application/json",
   };
   axios
@@ -91,7 +91,7 @@ app.route("/get-shelf").get((req, res) => {
 
 app.route("/remove-book").get((req, res) => {
   const headers = {
-    Authorization: `Bearer ${app.get("token")}`,
+    Authorization: `Bearer ${req.query.token}`,
     "Content-Type": "application/json",
   };
   axios

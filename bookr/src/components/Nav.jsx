@@ -35,39 +35,26 @@ const Nav = ({
   let navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { token, setToken } = useToken();
-  //this is weird, but localStorage values need to be strings, so this is just making the value a boolean
-  let tokenExists = localStorage.getItem("token") === "true" ? true : false;
+  //let tokenExists = localStorage.getItem("token").length > 0 ? true : false;
 
   const handleSignOut = () => {
     //clear token
-    axios
-      .get("http://localhost:5000/set-token", {
-        params: {
-          token: "",
-        },
-      })
-      .then((response) => {
-        console.log(response.data);
-        setLoggedIn(false);
-        setToken("");
-        localStorage.removeItem("token");
-        tokenExists = localStorage.getItem("token");
-        console.log("token exists?: ", tokenExists);
-        toast({
-          title: "You are now logged out",
-          status: "success",
-          duration: 5000,
-          isClosable: true,
-        });
-        //reroute from MyLibrary
-        if (location === "myLibrary") {
-          navigate("/");
-        }
-        onClose();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    setLoggedIn(false);
+    setToken("");
+    localStorage.removeItem("token");
+    let tokenExists = localStorage.getItem("token");
+    console.log("token exists?: ", tokenExists);
+    toast({
+      title: "You are now logged out",
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+    });
+    //reroute from MyLibrary
+    if (location === "myLibrary") {
+      navigate("/");
+    }
+    onClose();
   };
 
   //reference here, but I had to make some significant adjustments for my use case: https://chakra-templates.dev/navigation/navbar
@@ -103,7 +90,7 @@ const Nav = ({
         <Link as={RouterLink} to="/about">
           About
         </Link>
-        {tokenExists ? (
+        {token ? (
           <Button
             variant="outline"
             colorScheme="messenger"
@@ -157,7 +144,7 @@ const Nav = ({
                 </LinkBox>
                 <LinkBox>
                   <MenuItem>
-                    {tokenExists ? (
+                    {token ? (
                       <LinkOverlay
                         as={Button}
                         variant="outline"

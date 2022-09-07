@@ -28,19 +28,19 @@ const MyLibrary = () => {
   //https://stackoverflow.com/questions/486896/adding-a-parameter-to-the-url-with-javascript?test=true
   const [activeTab, setActiveTab] = useState(1);
 
-  //get token from server if it exists
-  useEffect(() => {
-    setLoggedIn(false);
-    axios
-      .get("http://localhost:5000/get-token")
-      .then((res) => {
-        setLoggedIn(true);
-        setToken(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  // //get token from server if it exists
+  // useEffect(() => {
+  //   setLoggedIn(false);
+  //   axios
+  //     .get("http://localhost:5000/get-token")
+  //     .then((res) => {
+  //       setLoggedIn(true);
+  //       setToken(res.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, []);
 
   useEffect(() => {
     setLoading(true);
@@ -55,6 +55,7 @@ const MyLibrary = () => {
         .get("http://localhost:5000/get-shelf", {
           params: {
             shelfId: 2,
+            token: token,
           },
         })
         .then((response) => {
@@ -70,6 +71,7 @@ const MyLibrary = () => {
         .get("http://localhost:5000/get-shelf", {
           params: {
             shelfId: 3,
+            token: token,
           },
         })
         .then((response) => {
@@ -85,6 +87,7 @@ const MyLibrary = () => {
         .get("http://localhost:5000/get-shelf", {
           params: {
             shelfId: 4,
+            token: token,
           },
         })
         .then((response) => {
