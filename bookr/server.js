@@ -14,22 +14,22 @@ app.listen(port, () => {
   );
 });
 
-app.all("/set-token", (req, res, next) => {
-  //clear token
-  if (req.query.token === "") {
-    app.set("token", "");
-    res.send("token is removed from the server");
-  } else {
-    app.set("token", req.query.token);
-    res.send("Token is set");
-  }
-  next();
-});
+// app.all("/set-token", (req, res, next) => {
+//   //clear token
+//   if (req.query.token === "") {
+//     app.set("token", "");
+//     res.send("token is removed from the server");
+//   } else {
+//     app.set("token", req.query.token);
+//     res.send("Token is set");
+//   }
+//   next();
+// });
 
-app.get("/get-token", (req, res) => {
-  const token = app.get("token");
-  res.send(token);
-});
+// app.get("/get-token", (req, res) => {
+//   const token = app.get("token");
+//   res.send(token);
+// });
 
 app.route("/add-to-shelf").get((req, res) => {
   const headers = {

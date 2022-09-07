@@ -7,18 +7,13 @@ export const TokenProvider = ({ children }) => {
   let existingToken;
 
   try {
-    axios
-      .get("http://localhost:5000/get-token")
-      .then((res) => {
-        //console.log(res);
-        existingToken = res.data;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (window.localStorage.getItem("token").length > 0) {
+      existingToken = window.localStorage.getItem("token");
+    } else existingToken = "";
   } catch (error) {
     console.error(error);
   }
+
   const [token, setToken] = useState(existingToken || null);
 
   return (

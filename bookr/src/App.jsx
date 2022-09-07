@@ -26,20 +26,20 @@ function App() {
   }, []);
 
   //get the token from the server if it exists
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/get-token")
-      .then((res) => {
-        //console.log(res);
-        if (res.data.length > 0) {
-          setLoggedIn(true);
-          setToken(res.data);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:5000/get-token")
+  //     .then((res) => {
+  //       //console.log(res);
+  //       if (res.data.length > 0) {
+  //         setLoggedIn(true);
+  //         setToken(res.data);
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, []);
 
   //set the token from Google
   const handleAuthorizationResponse = (response) => {
@@ -47,20 +47,21 @@ function App() {
       //console.log(response);
       setToken(response.access_token);
       setLoggedIn(true);
-      localStorage.setItem("token", "true");
+      localStorage.setItem("token", response.access_token);
+      console.log("got the token");
       //send token to backend storage
-      axios
-        .get("http://localhost:5000/set-token", {
-          params: {
-            token: response.access_token,
-          },
-        })
-        .then((response) => {
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      // axios
+      //   .get("http://localhost:5000/set-token", {
+      //     params: {
+      //       token: response.access_token,
+      //     },
+      //   })
+      //   .then((response) => {
+      //     console.log(response.data);
+      //   })
+      //   .catch((error) => {
+      //     console.log(error);
+      //   });
     } catch (error) {
       console.error(error);
     }
