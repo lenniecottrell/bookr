@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useLayoutEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import Nav from "../components/Nav";
 import CardGridShelf from "../components/CardGridShelf";
@@ -27,20 +27,6 @@ const MyLibrary = () => {
   //https://reactrouter.com/docs/en/v6/hooks/use-navigate
   //https://stackoverflow.com/questions/486896/adding-a-parameter-to-the-url-with-javascript?test=true
   const [activeTab, setActiveTab] = useState(1);
-
-  // //get token from server if it exists
-  // useEffect(() => {
-  //   setLoggedIn(false);
-  //   axios
-  //     .get("http://localhost:5000/get-token")
-  //     .then((res) => {
-  //       setLoggedIn(true);
-  //       setToken(res.data);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, []);
 
   useEffect(() => {
     setLoading(true);

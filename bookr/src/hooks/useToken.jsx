@@ -4,17 +4,11 @@ import axios from "axios";
 export const TokenContext = createContext(null);
 
 export const TokenProvider = ({ children }) => {
-  let existingToken;
-
-  try {
-    if (window.localStorage.getItem("token").length > 0) {
-      existingToken = window.localStorage.getItem("token");
-    } else existingToken = "";
-  } catch (error) {
-    console.error(error);
-  }
-
-  const [token, setToken] = useState(existingToken || null);
+  let existingToken =
+    window.localStorage.getItem("token") !== null
+      ? window.localStorage.getItem("token")
+      : null;
+  const [token, setToken] = useState(existingToken);
 
   return (
     <TokenContext.Provider value={{ token, setToken }}>

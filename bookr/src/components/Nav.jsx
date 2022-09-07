@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import { useToken } from "../hooks/useToken";
 import { useToast, useDisclosure } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
@@ -23,19 +22,11 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 
-const Nav = ({
-  getAccessToken,
-  loggedIn,
-  setLoggedIn,
-  // token,
-  //setToken,
-  location,
-}) => {
+const Nav = ({ getAccessToken, loggedIn, setLoggedIn, location }) => {
   const toast = useToast();
   let navigate = useNavigate();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { onClose } = useDisclosure();
   const { token, setToken } = useToken();
-  //let tokenExists = localStorage.getItem("token").length > 0 ? true : false;
 
   const handleSignOut = () => {
     //clear token

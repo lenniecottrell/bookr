@@ -7,21 +7,6 @@ import { Heading, Text, Container, Link } from "@chakra-ui/react";
 const About = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const { token, setToken } = useToken("");
-  //get the token from the server if it exists
-  // useEffect(() => {
-  //   axios
-  //     .get("http://localhost:5000/get-token")
-  //     .then((res) => {
-  //       //console.log(res);
-  //       if (res.data.length > 0) {
-  //         setLoggedIn(true);
-  //         setToken(res.data);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, []);
 
   const getAccessToken = () => {
     const client = google.accounts.oauth2.initTokenClient({
@@ -40,19 +25,6 @@ const About = () => {
       setLoggedIn(true);
       localStorage.setItem("token", response.access_token);
       console.log("got the token");
-      //send token to backend storage
-      // axios
-      //   .get("http://localhost:5000/set-token", {
-      //     params: {
-      //       token: response.access_token,
-      //     },
-      //   })
-      //   .then((response) => {
-      //     console.log(response.data);
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //   });
     } catch (error) {
       console.error(error);
     }
