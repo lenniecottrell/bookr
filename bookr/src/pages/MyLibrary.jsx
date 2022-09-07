@@ -17,7 +17,9 @@ import {
 import axios from "axios";
 
 const MyLibrary = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(
+    window.localStorage.getItem("token")
+  );
   const [loading, setLoading] = useState(true);
   const { token, setToken } = useToken("");
   const [toReadList, setToReadList] = useState([]);

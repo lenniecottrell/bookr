@@ -5,7 +5,9 @@ import Nav from "../components/Nav";
 import { Heading, Text, Container, Link } from "@chakra-ui/react";
 
 const About = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(
+    window.localStorage.getItem("token")
+  );
   const { token, setToken } = useToken("");
 
   const getAccessToken = () => {

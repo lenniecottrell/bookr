@@ -10,7 +10,9 @@ import WelcomeModal from "./components/WelcomeModal";
 
 function App() {
   const [q, setQ] = useState("star+trek");
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(
+    window.localStorage.getItem("token") !== null
+  );
   const [modalViewed, setModalViewed] = useState(
     window.sessionStorage.getItem("hasSeenModal") || false
   );

@@ -27,13 +27,15 @@ const Nav = ({ getAccessToken, loggedIn, setLoggedIn, location }) => {
   let navigate = useNavigate();
   const { onClose } = useDisclosure();
   const { token, setToken } = useToken();
+  let tokenExists =
+    window.localStorage.getItem("token") !== null ? true : false;
 
   const handleSignOut = () => {
     //clear token
     setLoggedIn(false);
     setToken("");
     localStorage.removeItem("token");
-    let tokenExists = localStorage.getItem("token");
+    console.log(localStorage.getItem("token"));
     console.log("token exists?: ", tokenExists);
     toast({
       title: "You are now logged out",
@@ -81,7 +83,7 @@ const Nav = ({ getAccessToken, loggedIn, setLoggedIn, location }) => {
         <Link as={RouterLink} to="/about">
           About
         </Link>
-        {token ? (
+        {tokenExists ? (
           <Button
             variant="outline"
             colorScheme="messenger"
@@ -114,7 +116,7 @@ const Nav = ({ getAccessToken, loggedIn, setLoggedIn, location }) => {
                   </MenuItem>
                 </LinkBox>
                 <LinkBox>
-                  {!loggedIn ? (
+                  {!tokenExists ? (
                     <MenuItem closeOnSelect={false}>
                       <PopoverWarning isCollapsed={true} />
                     </MenuItem>
@@ -135,7 +137,7 @@ const Nav = ({ getAccessToken, loggedIn, setLoggedIn, location }) => {
                 </LinkBox>
                 <LinkBox>
                   <MenuItem>
-                    {token ? (
+                    {tokenExists ? (
                       <LinkOverlay
                         as={Button}
                         variant="outline"
