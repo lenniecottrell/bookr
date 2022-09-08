@@ -19,7 +19,7 @@ const WelcomeModal = ({ isOpen, onClose, getAccessToken }) => {
         <ModalContent>
           <ModalHeader>Welcome to Shelf</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
+          <ModalBody fontSize="lg">
             This app interacts directly with your Google Books account. If you
             use Google Books to keep track of books, this app will manipulate
             your Google Books data. Please log in to explore the functionality!

@@ -24,7 +24,7 @@ const BookCard = ({ bookData }) => {
           <Heading size="sm" my={2} px={2} textAlign="center">
             {bookData.volumeInfo.title}
           </Heading>
-          <Text size="md" mb={2} textAlign="center">
+          <Text fontSize="md" mb={2} textAlign="center">
             {bookData.volumeInfo.authors}
           </Text>
         </Box>
