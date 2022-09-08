@@ -46,7 +46,7 @@ const CardGrid = ({ query, sort }) => {
           if (!allBooks[i].volumeInfo.hasOwnProperty("language")) {
             allBooks[i].volumeInfo["language"] = "";
           }
-          //there's no way a book will be missing a title property
+          //there's no way a book will be missing a title property ...right???
           if (!allBooks[i].volumeInfo.hasOwnProperty("authors")) {
             allBooks[i].volumeInfo["authors"] = [""];
           }

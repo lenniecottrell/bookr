@@ -109,7 +109,7 @@ const BookDetail = ({ isOpen, onClose, bookData }) => {
             Description
           </Heading>
           <Container>
-            <Text>{bookData.volumeInfo.description}</Text>
+            <Text fontSize="md">{bookData.volumeInfo.description}</Text>
           </Container>
         </ModalBody>
         <ModalFooter
