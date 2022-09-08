@@ -72,7 +72,7 @@ const About = () => {
             textDecoration="underline"
           >
             Twitter
-          </Link>
+          </Link>{" "}
           or{" "}
           <Link
             href="https://www.linkedin.com/in/lenniecottrell/"
