@@ -89,17 +89,17 @@ const BookDetail = ({ isOpen, onClose, bookData }) => {
               <Text mb={1} fontSize="lg">
                 {bookData.volumeInfo.authors}
               </Text>
-              <Box my={0.5}>
+              <Box my={0.5} fontSize="md">
                 <Text fontStyle={"italic"}>Published:</Text>{" "}
                 {bookData.volumeInfo.publishedDate === "0000"
                   ? "Not available"
                   : bookData.volumeInfo.publishedDate}
               </Box>
-              <Box my={0.5}>
+              <Box my={0.5} fontSize="md">
                 <Text fontStyle={"italic"}>ISBN:</Text>{" "}
                 {bookData.volumeInfo.industryIdentifiers[0].identifier}
               </Box>
-              <Box my={0.5}>
+              <Box my={0.5} fontSize="md">
                 <Text fontStyle={"italic"}>Language: </Text>
                 {bookData.volumeInfo.language}
               </Box>

@@ -97,7 +97,7 @@ const MyLibrary = () => {
         location={"myLibrary"}
       />
       <Heading
-        size="xl"
+        size={{ base: "lg", md: "xl" }}
         mb={6}
         display="flex"
         flexDirection="column"

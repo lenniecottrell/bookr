@@ -16,15 +16,17 @@ const PopoverWarning = ({ isCollapsed }) => {
     <Popover>
       <PopoverTrigger>
         {isCollapsed ? (
-          <LinkOverlay>My Library</LinkOverlay>
+          <LinkOverlay fontSize="md">My Library</LinkOverlay>
         ) : (
-          <Text>My Library </Text>
+          <Text fontSize="md">My Library </Text>
         )}
       </PopoverTrigger>
       <PopoverContent color="white" bg="blue.800" borderColor="blue.800">
         <PopoverArrow bg="blue.800" />
         <PopoverCloseButton />
-        <PopoverBody>You need to sign in to view My Library</PopoverBody>
+        <PopoverBody fontSize="md">
+          You need to sign in to view My Library
+        </PopoverBody>
       </PopoverContent>
     </Popover>
   );

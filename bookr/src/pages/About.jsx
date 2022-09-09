@@ -47,7 +47,7 @@ const About = () => {
         textAlign="center"
         w="100%"
       >
-        <Heading size="xl" mb={4}>
+        <Heading size={{ base: "lg", md: "xl" }} mb={4}>
           About this app
         </Heading>
         <Text fontSize="xl" m={2}>

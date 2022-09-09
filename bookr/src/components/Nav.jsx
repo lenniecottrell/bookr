@@ -70,17 +70,17 @@ const Nav = ({ getAccessToken, loggedIn, setLoggedIn, location }) => {
         p={{ base: 0 }}
         spacing={6}
       >
-        <Link as={RouterLink} to="/">
+        <Link as={RouterLink} to="/" fontSize="md">
           Search
         </Link>
         {!loggedIn ? (
           <PopoverWarning isCollapsed={false} />
         ) : (
-          <Link as={RouterLink} to="/library">
+          <Link as={RouterLink} to="/library" fontSize="md">
             My Library
           </Link>
         )}
-        <Link as={RouterLink} to="/about">
+        <Link as={RouterLink} to="/about" fontSize="md">
           About
         </Link>
         {tokenExists ? (
@@ -110,7 +110,7 @@ const Nav = ({ getAccessToken, loggedIn, setLoggedIn, location }) => {
               <MenuList>
                 <LinkBox>
                   <MenuItem>
-                    <LinkOverlay as={RouterLink} to="/">
+                    <LinkOverlay as={RouterLink} to="/" fontSize="md">
                       Search
                     </LinkOverlay>
                   </MenuItem>
@@ -122,7 +122,7 @@ const Nav = ({ getAccessToken, loggedIn, setLoggedIn, location }) => {
                     </MenuItem>
                   ) : (
                     <MenuItem>
-                      <LinkOverlay as={RouterLink} to="/library">
+                      <LinkOverlay as={RouterLink} to="/library" fontSize="md">
                         My Library
                       </LinkOverlay>
                     </MenuItem>
@@ -130,7 +130,7 @@ const Nav = ({ getAccessToken, loggedIn, setLoggedIn, location }) => {
                 </LinkBox>
                 <LinkBox>
                   <MenuItem>
-                    <LinkOverlay as={RouterLink} to="/about">
+                    <LinkOverlay as={RouterLink} to="/about" fontSize="md">
                       About
                     </LinkOverlay>
                   </MenuItem>
