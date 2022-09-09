@@ -105,8 +105,8 @@ const BookDetailShelf = ({
                 alignSelf="center"
               />
             </Box>
-            <Box display="flex" flexDirection="column" ml={{ base: 2, sm: 0 }}>
-              <Text mb={1} fontSize="lg">
+            <Box display="flex" flexDirection="column" ml={{ base: 1, sm: 2 }}>
+              <Text mb={1} fontSize={{ base: "md", md: "lg" }}>
                 {bookData.volumeInfo.authors}
               </Text>
               <Box my={0.5} fontSize="md">
@@ -127,7 +127,7 @@ const BookDetailShelf = ({
           <Heading size="sm" mt={5} mb={3}>
             Description
             <Tooltip
-              label="Why is the description cut off, you ask? Turns out the Google Books API returns a truncated description when using an authenticated call, but the full description when using a generic call. Pretty strange choice IMO"
+              label="Hey! Why is the description cut off? Turns out the Google Books API returns a truncated description when using an authenticated call, but the full description when using a generic call."
               fontSize="sm"
               bg="gray.100"
               color="black"
