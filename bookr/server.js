@@ -9,6 +9,7 @@ const port = process.env.PORT || 5000;
 console.log("port:", process.env.PORT);
 app.use(cors());
 
+//serves the frontend files from the dist folder after build
 app.use(express.static(path.join(__dirname, "dist")));
 
 app.listen(port, () => {
@@ -17,23 +18,6 @@ app.listen(port, () => {
     `~~~~~~~************~~~~~~~~~~~~~~~~~~~~~***********~~~~~~~~~~~~~~~~~~`
   );
 });
-
-// app.all("/set-token", (req, res, next) => {
-//   //clear token
-//   if (req.query.token === "") {
-//     app.set("token", "");
-//     res.send("token is removed from the server");
-//   } else {
-//     app.set("token", req.query.token);
-//     res.send("Token is set");
-//   }
-//   next();
-// });
-
-// app.get("/get-token", (req, res) => {
-//   const token = req.query.token;
-//   res.send(token);
-// });
 
 app.route("/add-to-shelf").get((req, res) => {
   const headers = {
@@ -138,6 +122,7 @@ app.route("/remove-book").get((req, res) => {
     });
 });
 
+//this is a route that is triggered for every request
 app.get("*", async (req, res) => {
   res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
