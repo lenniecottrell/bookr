@@ -72,15 +72,16 @@ const About = () => {
             textDecoration="underline"
           >
             Twitter
-          </Link>
+          </Link>{" "}
           or{" "}
           <Link
             href="https://www.linkedin.com/in/lenniecottrell/"
             color="blue.500"
             textDecoration="underline"
           >
-            LinkedIn.
+            LinkedIn
           </Link>
+          .
         </Text>
       </Container>
     </>

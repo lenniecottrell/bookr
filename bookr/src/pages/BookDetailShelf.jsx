@@ -109,17 +109,19 @@ const BookDetailShelf = ({
               <Text mb={1} fontSize="lg">
                 {bookData.volumeInfo.authors}
               </Text>
-              <Box my={0.5}>
+              <Box my={0.5} fontSize="md">
                 <Text fontStyle={"italic"}>Published: </Text>
                 {bookData.volumeInfo.publishedDate === "0000"
                   ? "Not available"
                   : bookData.volumeInfo.publishedDate}
               </Box>
-              <Box my={0.5}>
+              <Box my={0.5} fontSize="md">
                 <Text fontStyle={"italic"}>ISBN: </Text>
                 {bookData.volumeInfo.industryIdentifiers[0].identifier}
               </Box>
-              <Text my={0.5}>{bookData.volumeInfo.language}</Text>
+              <Text my={0.5} fontSize="md">
+                {bookData.volumeInfo.language}
+              </Text>
             </Box>
           </Container>
           <Heading size="sm" mt={5} mb={3}>
@@ -127,12 +129,14 @@ const BookDetailShelf = ({
             <Tooltip
               label="Why is the description cut off, you ask? Turns out the Google Books API returns a truncated description when using an authenticated call, but the full description when using a generic call. Pretty strange choice IMO"
               fontSize="sm"
+              bg="gray.100"
+              color="black"
             >
               <InfoOutlineIcon ml={2} />
             </Tooltip>
           </Heading>
           <Container>
-            <Text>{bookData.volumeInfo.description}</Text>
+            <Text fontSize="md">{bookData.volumeInfo.description}</Text>
           </Container>
         </ModalBody>
         <ModalFooter

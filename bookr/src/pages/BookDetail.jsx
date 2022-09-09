@@ -85,7 +85,7 @@ const BookDetail = ({ isOpen, onClose, bookData }) => {
                 alignSelf="center"
               />
             </Box>
-            <Box display="flex" flexDirection="column" ml={2}>
+            <Box display="flex" flexDirection="column" ml={{ base: 2, sm: 0 }}>
               <Text mb={1} fontSize="lg">
                 {bookData.volumeInfo.authors}
               </Text>
