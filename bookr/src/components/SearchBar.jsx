@@ -9,7 +9,7 @@ const SearchBar = ({ handleSearchChange, q, selectSort }) => {
       justifyContent="center"
       alignItems="center"
     >
-      <Heading size="xl" mb={4}>
+      <Heading size={{ base: "lg", md: "xl" }} mb={4}>
         Find A Book
       </Heading>
       <Input
