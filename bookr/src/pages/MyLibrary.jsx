@@ -37,7 +37,7 @@ const MyLibrary = () => {
 
     //get To Read shelf
     axios
-      .get("http://localhost:5000/get-shelf", {
+      .get("/get-shelf", {
         params: {
           shelfId: 2,
           token: token,
@@ -53,7 +53,7 @@ const MyLibrary = () => {
 
     //get Reading Now shelf
     axios
-      .get("http://localhost:5000/get-shelf", {
+      .get("/get-shelf", {
         params: {
           shelfId: 3,
           token: token,
@@ -69,7 +69,7 @@ const MyLibrary = () => {
 
     //get Have Read shelf
     axios
-      .get("http://localhost:5000/get-shelf", {
+      .get("/get-shelf", {
         params: {
           shelfId: 4,
           token: token,
