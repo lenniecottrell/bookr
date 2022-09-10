@@ -4,13 +4,15 @@ import {
   GridItem,
   SlideFade,
   useDisclosure,
+  Container,
+  Spinner,
 } from "@chakra-ui/react";
 import BookCard from "./BookCard";
 import BookDetail from "../pages/BookDetail";
 import axios from "axios";
 
 const CardGrid = ({ query, sort }) => {
-  const [allBookData, setAllBookData] = useState([]);
+  const [allBookData, setAllBookData] = useState(null);
   const [selectedBook, setSelectedBook] = useState({});
   const { isOpen, onClose, onOpen } = useDisclosure();
 
@@ -95,22 +97,32 @@ const CardGrid = ({ query, sort }) => {
 
   return (
     <>
-      <SimpleGrid minChildWidth={300} spacing={6} m="2rem">
-        {allBookData.map((book) => (
-          <SlideFade key={book.id} in={true} onClick={() => handleClick(book)}>
-            <GridItem
-              className="gridItem"
-              boxShadow="lg"
-              w="100%"
-              h="100%"
-              bg="gray.100"
-              borderRadius={6}
+      {!allBookData ? (
+        <Container centerContent>
+          <Spinner mt={10} size="xl" />
+        </Container>
+      ) : (
+        <SimpleGrid minChildWidth={300} spacing={6} m="2rem">
+          {allBookData.map((book) => (
+            <SlideFade
+              key={book.id}
+              in={true}
+              onClick={() => handleClick(book)}
             >
-              <BookCard bookData={book} />
-            </GridItem>
-          </SlideFade>
-        ))}
-      </SimpleGrid>
+              <GridItem
+                className="gridItem"
+                boxShadow="lg"
+                w="100%"
+                h="100%"
+                bg="gray.100"
+                borderRadius={6}
+              >
+                <BookCard bookData={book} />
+              </GridItem>
+            </SlideFade>
+          ))}
+        </SimpleGrid>
+      )}
       {Object.keys(selectedBook).length > 0 && (
         <BookDetail isOpen={isOpen} onClose={onClose} bookData={selectedBook} />
       )}

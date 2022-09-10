@@ -20,9 +20,9 @@ const MyLibrary = () => {
   const [loggedIn, setLoggedIn] = useState(
     window.localStorage.getItem("token")
   );
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const { token, setToken } = useToken("");
-  const [toReadList, setToReadList] = useState([]);
+  const [toReadList, setToReadList] = useState(null);
   const [readingNowList, setReadingNowList] = useState([]);
   const [haveReadList, setHaveReadList] = useState([]);
   //TODO: add route to the URL to preserve the active tab on refresh
@@ -31,9 +31,6 @@ const MyLibrary = () => {
   const [activeTab, setActiveTab] = useState(1);
 
   useEffect(() => {
-    setTimeout(() => {
-      setLoading(false), 3000;
-    });
     //google shelf ids:
     //To read = 2
     //Reading Now = 3
@@ -122,7 +119,7 @@ const MyLibrary = () => {
             <Tab>Reading Now</Tab>
             <Tab>Have Read</Tab>
           </TabList>
-          {loading ? (
+          {!toReadList ? (
             <Container centerContent>
               <Spinner mt={10} size="xl" />
             </Container>
