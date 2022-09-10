@@ -20,9 +20,8 @@ const MyLibrary = () => {
   const [loggedIn, setLoggedIn] = useState(
     window.localStorage.getItem("token")
   );
-  const [loading, setLoading] = useState(true);
   const { token, setToken } = useToken("");
-  const [toReadList, setToReadList] = useState([]);
+  const [toReadList, setToReadList] = useState(null);
   const [readingNowList, setReadingNowList] = useState([]);
   const [haveReadList, setHaveReadList] = useState([]);
   //TODO: add route to the URL to preserve the active tab on refresh
@@ -31,62 +30,58 @@ const MyLibrary = () => {
   const [activeTab, setActiveTab] = useState(1);
 
   useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      //google shelf ids:
-      //To read = 2
-      //Reading Now = 3
-      //Have Read = 4
+    //google shelf ids:
+    //To read = 2
+    //Reading Now = 3
+    //Have Read = 4
 
-      //get To Read shelf
-      axios
-        .get("http://localhost:5000/get-shelf", {
-          params: {
-            shelfId: 2,
-            token: token,
-          },
-        })
-        .then((response) => {
-          //console.log(response.data);
-          setToReadList(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    //get To Read shelf
+    axios
+      .get("http://localhost:5000/get-shelf", {
+        params: {
+          shelfId: 2,
+          token: token,
+        },
+      })
+      .then((response) => {
+        //console.log(response.data);
+        setToReadList(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
-      //get Reading Now shelf
-      axios
-        .get("http://localhost:5000/get-shelf", {
-          params: {
-            shelfId: 3,
-            token: token,
-          },
-        })
-        .then((response) => {
-          //console.log(response.data);
-          setReadingNowList(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    //get Reading Now shelf
+    axios
+      .get("http://localhost:5000/get-shelf", {
+        params: {
+          shelfId: 3,
+          token: token,
+        },
+      })
+      .then((response) => {
+        //console.log(response.data);
+        setReadingNowList(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
-      //get Have Read shelf
-      axios
-        .get("http://localhost:5000/get-shelf", {
-          params: {
-            shelfId: 4,
-            token: token,
-          },
-        })
-        .then((response) => {
-          //console.log(response.data);
-          setHaveReadList(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      setLoading(false);
-    }, 1000);
+    //get Have Read shelf
+    axios
+      .get("http://localhost:5000/get-shelf", {
+        params: {
+          shelfId: 4,
+          token: token,
+        },
+      })
+      .then((response) => {
+        //console.log(response.data);
+        setHaveReadList(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   return (
@@ -122,7 +117,7 @@ const MyLibrary = () => {
             <Tab>Reading Now</Tab>
             <Tab>Have Read</Tab>
           </TabList>
-          {loading ? (
+          {!toReadList ? (
             <Container centerContent>
               <Spinner mt={10} size="xl" />
             </Container>
