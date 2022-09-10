@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useToken } from "./hooks/useToken";
 import { useDisclosure } from "@chakra-ui/react";
 import "./styles/App.scss";
-import axios from "axios";
 import SearchBar from "./components/SearchBar";
 import Nav from "./components/Nav";
 import CardGrid from "./components/CardGrid";
@@ -73,8 +72,6 @@ function App() {
         getAccessToken={getAccessToken}
         loggedIn={loggedIn}
         setLoggedIn={setLoggedIn}
-        // token={token}
-        // setToken={setToken}
         location={"landing"}
       />
       <SearchBar
