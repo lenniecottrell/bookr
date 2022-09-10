@@ -37,14 +37,9 @@ const BookDetail = ({ isOpen, onClose, bookData }) => {
   //Reading Now = 3
   //Have Read = 4
   const addToShelf = (bookId, shelfId, token) => {
-    //TODO maaaaaybe come back to this
-    //     if (!token) {
-    // alert("You need to sign in to add books to your library");
-    //     }
-
     if (!!token) {
       axios
-        .get("http://localhost:5000/add-to-shelf", {
+        .get("/add-to-shelf", {
           params: {
             bookId: bookId,
             shelfId: shelfId,
@@ -52,7 +47,7 @@ const BookDetail = ({ isOpen, onClose, bookData }) => {
           },
         })
         .then((response) => {
-          console.log(response);
+          //console.log(response);
           toast({
             title: "Book added!",
             status: "success",
@@ -90,21 +85,21 @@ const BookDetail = ({ isOpen, onClose, bookData }) => {
                 alignSelf="center"
               />
             </Box>
-            <Box display="flex" flexDirection="column" ml={2}>
-              <Text mb={1} fontSize="lg">
+            <Box display="flex" flexDirection="column" ml={{ base: 1, sm: 2 }}>
+              <Text mb={1} fontSize={{ base: "md", md: "lg" }}>
                 {bookData.volumeInfo.authors}
               </Text>
-              <Box my={0.5}>
+              <Box my={0.5} fontSize="md">
                 <Text fontStyle={"italic"}>Published:</Text>{" "}
                 {bookData.volumeInfo.publishedDate === "0000"
                   ? "Not available"
                   : bookData.volumeInfo.publishedDate}
               </Box>
-              <Box my={0.5}>
+              <Box my={0.5} fontSize="md">
                 <Text fontStyle={"italic"}>ISBN:</Text>{" "}
                 {bookData.volumeInfo.industryIdentifiers[0].identifier}
               </Box>
-              <Box my={0.5}>
+              <Box my={0.5} fontSize="md">
                 <Text fontStyle={"italic"}>Language: </Text>
                 {bookData.volumeInfo.language}
               </Box>
@@ -114,7 +109,7 @@ const BookDetail = ({ isOpen, onClose, bookData }) => {
             Description
           </Heading>
           <Container>
-            <Text>{bookData.volumeInfo.description}</Text>
+            <Text fontSize="md">{bookData.volumeInfo.description}</Text>
           </Container>
         </ModalBody>
         <ModalFooter

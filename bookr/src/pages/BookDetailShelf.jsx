@@ -41,7 +41,7 @@ const BookDetailShelf = ({
     }
 
     axios
-      .get("http://localhost:5000/remove-book", {
+      .get("/remove-book", {
         params: {
           shelfId: shelfId,
           token: token,
@@ -50,8 +50,7 @@ const BookDetailShelf = ({
       })
       .then((response) => {
         //response.data has the new book list in it
-        console.log(response);
-        console.log(response.data.bookResponse);
+        //console.log(response.data.bookResponse);
         let updatedBookList = response.data.bookResponse;
         //To read = 2
         //Reading Now = 3
@@ -106,34 +105,38 @@ const BookDetailShelf = ({
                 alignSelf="center"
               />
             </Box>
-            <Box display="flex" flexDirection="column" ml={{ base: 2, sm: 0 }}>
-              <Text mb={1} fontSize="lg">
+            <Box display="flex" flexDirection="column" ml={{ base: 1, sm: 2 }}>
+              <Text mb={1} fontSize={{ base: "md", md: "lg" }}>
                 {bookData.volumeInfo.authors}
               </Text>
-              <Box my={0.5}>
+              <Box my={0.5} fontSize="md">
                 <Text fontStyle={"italic"}>Published: </Text>
                 {bookData.volumeInfo.publishedDate === "0000"
                   ? "Not available"
                   : bookData.volumeInfo.publishedDate}
               </Box>
-              <Box my={0.5}>
+              <Box my={0.5} fontSize="md">
                 <Text fontStyle={"italic"}>ISBN: </Text>
                 {bookData.volumeInfo.industryIdentifiers[0].identifier}
               </Box>
-              <Text my={0.5}>{bookData.volumeInfo.language}</Text>
+              <Text my={0.5} fontSize="md">
+                {bookData.volumeInfo.language}
+              </Text>
             </Box>
           </Container>
           <Heading size="sm" mt={5} mb={3}>
             Description
             <Tooltip
-              label="Why is the description cut off, you ask? Turns out the Google Books API returns a truncated description when using an authenticated call, but the full description when using a generic call. Pretty strange choice IMO"
+              label="Hey! Why is the description cut off? Turns out the Google Books API returns a truncated description when using an authenticated call, but the full description when using a generic call."
               fontSize="sm"
+              bg="gray.100"
+              color="black"
             >
               <InfoOutlineIcon ml={2} />
             </Tooltip>
           </Heading>
           <Container>
-            <Text>{bookData.volumeInfo.description}</Text>
+            <Text fontSize="md">{bookData.volumeInfo.description}</Text>
           </Container>
         </ModalBody>
         <ModalFooter

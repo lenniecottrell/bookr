@@ -1,10 +1,10 @@
 import React from "react";
-import axios from "axios";
+import { useToken } from "../hooks/useToken";
+import { useToast, useDisclosure } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import GoogleButton from "../components/GoogleAuth";
 import PopoverWarning from "./PopoverWarning";
-// import GoogleButton from "react-google-button";
 import {
   HStack,
   IconButton,
@@ -20,51 +20,37 @@ import {
   LinkBox,
   LinkOverlay,
 } from "@chakra-ui/react";
-import { useToast, useDisclosure } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 
-const Nav = ({
-  getAccessToken,
-  loggedIn,
-  setLoggedIn,
-  token,
-  setToken,
-  location,
-}) => {
+const Nav = ({ getAccessToken, loggedIn, setLoggedIn, location }) => {
   const toast = useToast();
   let navigate = useNavigate();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { onClose } = useDisclosure();
+  const { token, setToken } = useToken();
+  let tokenExists =
+    window.localStorage.getItem("token") !== null ? true : false;
 
   const handleSignOut = () => {
     //clear token
-    axios
-      .get("http://localhost:5000/set-token", {
-        params: {
-          token: "",
-        },
-      })
-      .then((response) => {
-        console.log(response.data);
-        setLoggedIn(false);
-        setToken(false);
-        toast({
-          title: "You are now logged out",
-          status: "success",
-          duration: 5000,
-          isClosable: true,
-        });
-        //reroute from MyLibrary
-        if (location === "myLibrary") {
-          navigate("/");
-        }
-        onClose();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    setLoggedIn(false);
+    setToken("");
+    localStorage.removeItem("token");
+    console.log(localStorage.getItem("token"));
+    console.log("token exists?: ", tokenExists);
+    toast({
+      title: "You are now logged out",
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+    });
+    //reroute from MyLibrary
+    if (location === "myLibrary") {
+      navigate("/");
+    }
+    onClose();
   };
 
-  //reference here, but I had to make some significant adjustments: https://chakra-templates.dev/navigation/navbar
+  //reference here, but I had to make some significant adjustments for my use case: https://chakra-templates.dev/navigation/navbar
 
   return (
     <Flex
@@ -84,20 +70,20 @@ const Nav = ({
         p={{ base: 0 }}
         spacing={6}
       >
-        <Link as={RouterLink} to="/">
+        <Link as={RouterLink} to="/" fontSize="md">
           Search
         </Link>
         {!loggedIn ? (
           <PopoverWarning isCollapsed={false} />
         ) : (
-          <Link as={RouterLink} to="/library">
+          <Link as={RouterLink} to="/library" fontSize="md">
             My Library
           </Link>
         )}
-        <Link as={RouterLink} to="/about">
+        <Link as={RouterLink} to="/about" fontSize="md">
           About
         </Link>
-        {token ? (
+        {tokenExists ? (
           <Button
             variant="outline"
             colorScheme="messenger"
@@ -124,19 +110,19 @@ const Nav = ({
               <MenuList>
                 <LinkBox>
                   <MenuItem>
-                    <LinkOverlay as={RouterLink} to="/">
+                    <LinkOverlay as={RouterLink} to="/" fontSize="md">
                       Search
                     </LinkOverlay>
                   </MenuItem>
                 </LinkBox>
                 <LinkBox>
-                  {!loggedIn ? (
+                  {!tokenExists ? (
                     <MenuItem closeOnSelect={false}>
                       <PopoverWarning isCollapsed={true} />
                     </MenuItem>
                   ) : (
                     <MenuItem>
-                      <LinkOverlay as={RouterLink} to="/library">
+                      <LinkOverlay as={RouterLink} to="/library" fontSize="md">
                         My Library
                       </LinkOverlay>
                     </MenuItem>
@@ -144,14 +130,14 @@ const Nav = ({
                 </LinkBox>
                 <LinkBox>
                   <MenuItem>
-                    <LinkOverlay as={RouterLink} to="/about">
+                    <LinkOverlay as={RouterLink} to="/about" fontSize="md">
                       About
                     </LinkOverlay>
                   </MenuItem>
                 </LinkBox>
                 <LinkBox>
                   <MenuItem>
-                    {token ? (
+                    {tokenExists ? (
                       <LinkOverlay
                         as={Button}
                         variant="outline"

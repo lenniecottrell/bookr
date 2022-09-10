@@ -1,18 +1,20 @@
 import { useState, useEffect } from "react";
+import { useToken } from "./hooks/useToken";
+import { useDisclosure } from "@chakra-ui/react";
 import "./styles/App.scss";
+import axios from "axios";
 import SearchBar from "./components/SearchBar";
 import Nav from "./components/Nav";
 import CardGrid from "./components/CardGrid";
 import WelcomeModal from "./components/WelcomeModal";
-import { useToken } from "./hooks/useToken";
-import axios from "axios";
-import { useDisclosure } from "@chakra-ui/react";
 
 function App() {
   const [q, setQ] = useState("star+trek");
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(
+    window.localStorage.getItem("token") !== null
+  );
   const [modalViewed, setModalViewed] = useState(
-    window.sessionStorage.getItem("hasSeenModal") || false
+    window.localStorage.getItem("hasSeenModal") || false
   );
   const [sort, setSort] = useState("");
   const { token, setToken } = useToken("");
@@ -21,49 +23,21 @@ function App() {
   useEffect(() => {
     if (!modalViewed) {
       onOpen();
-      window.sessionStorage.setItem("hasSeenModal", true);
+      window.localStorage.setItem("hasSeenModal", true);
     }
-  }, []);
-
-  //get the token from the server if it exists
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/get-token")
-      .then((res) => {
-        console.log(res);
-        if (res.data.length > 0) {
-          setLoggedIn(true);
-          setToken(res.data);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   }, []);
 
   //set the token from Google
   const handleAuthorizationResponse = (response) => {
     try {
-      console.log(response);
+      //console.log(response);
       setToken(response.access_token);
       setLoggedIn(true);
-      //send token to backend storage
-      axios
-        .get("http://localhost:5000/set-token", {
-          params: {
-            token: response.access_token,
-          },
-        })
-        .then((response) => {
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      localStorage.setItem("token", response.access_token);
+      console.log("got the token");
     } catch (error) {
       console.error(error);
     }
-    console.log("logged in? ", loggedIn);
   };
 
   const getAccessToken = () => {
@@ -99,8 +73,6 @@ function App() {
         getAccessToken={getAccessToken}
         loggedIn={loggedIn}
         setLoggedIn={setLoggedIn}
-        token={token}
-        setToken={setToken}
         location={"landing"}
       />
       <SearchBar

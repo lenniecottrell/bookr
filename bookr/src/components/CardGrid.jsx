@@ -41,12 +41,12 @@ const CardGrid = ({ query, sort }) => {
             allBooks[i].volumeInfo["publishedDate"] = "0000";
           }
           if (!allBooks[i].volumeInfo.hasOwnProperty("industryIdentifiers")) {
-            allBooks[i].volumeInfo["industryIdentifiers"] = "";
+            allBooks[i].volumeInfo["industryIdentifiers"] = [""];
           }
           if (!allBooks[i].volumeInfo.hasOwnProperty("language")) {
             allBooks[i].volumeInfo["language"] = "";
           }
-          //there's no way a book will be missing a title property
+          //there's no way a book will be missing a title property ...right???
           if (!allBooks[i].volumeInfo.hasOwnProperty("authors")) {
             allBooks[i].volumeInfo["authors"] = [""];
           }
@@ -71,7 +71,6 @@ const CardGrid = ({ query, sort }) => {
   }, [query, sort]);
 
   const handleClick = (item) => {
-    console.log(item);
     setSelectedBook(item);
     onOpen();
   };

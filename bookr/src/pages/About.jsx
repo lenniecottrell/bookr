@@ -1,33 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { useToken } from "../hooks/useToken";
+import axios from "axios";
 import Nav from "../components/Nav";
 import { Heading, Text, Container, Link } from "@chakra-ui/react";
-import axios from "axios";
-import { useToken } from "../hooks/useToken";
 
 const About = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(
+    window.localStorage.getItem("token")
+  );
   const { token, setToken } = useToken("");
-  //get the token from the server if it exists
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/get-token")
-      .then((res) => {
-        console.log(res);
-        if (res.data.length > 0) {
-          setLoggedIn(true);
-          setToken(res.data);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-
-  // useEffect(() => {
-  //   if (!!token) {
-  //     setLoggedIn(true);
-  //   }
-  // });
 
   const getAccessToken = () => {
     const client = google.accounts.oauth2.initTokenClient({
@@ -42,26 +23,13 @@ const About = () => {
   //set the token from Google
   const handleAuthorizationResponse = (response) => {
     try {
-      console.log(response);
       setToken(response.access_token);
       setLoggedIn(true);
-      //send token to backend storage
-      axios
-        .get("http://localhost:5000/set-token", {
-          params: {
-            token: response.access_token,
-          },
-        })
-        .then((response) => {
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      localStorage.setItem("token", response.access_token);
+      console.log("got the token");
     } catch (error) {
       console.error(error);
     }
-    console.log("logged in? ", loggedIn);
   };
 
   return (
@@ -70,8 +38,6 @@ const About = () => {
         getAccessToken={getAccessToken}
         loggedIn={loggedIn}
         setLoggedIn={setLoggedIn}
-        token={token}
-        setToken={setToken}
       />
       <Container
         display="flex"
@@ -81,7 +47,7 @@ const About = () => {
         textAlign="center"
         w="100%"
       >
-        <Heading size="xl" mb={4}>
+        <Heading size={{ base: "lg", md: "xl" }} mb={4}>
           About this app
         </Heading>
         <Text fontSize="xl" m={2}>
@@ -107,13 +73,15 @@ const About = () => {
           >
             Twitter
           </Link>{" "}
-          , or LinkedIn
+          or{" "}
           <Link
             href="https://www.linkedin.com/in/lenniecottrell/"
             color="blue.500"
             textDecoration="underline"
-          ></Link>
-          .{" "}
+          >
+            LinkedIn
+          </Link>
+          .
         </Text>
       </Container>
     </>

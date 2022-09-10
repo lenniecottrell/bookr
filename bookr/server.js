@@ -1,11 +1,15 @@
 const express = require("express");
-const app = express();
-const axios = require("axios");
 const cors = require("cors");
-const port = 5000;
+const path = require("path");
+const axios = require("axios");
 require("dotenv").config();
 
+const app = express();
+const port = process.env.PORT || 5000;
+console.log("port:", process.env.PORT);
 app.use(cors());
+
+app.use(express.static(path.join(__dirname, "dist")));
 
 app.listen(port, () => {
   console.log(`App listening on port: ${port}`);
@@ -14,26 +18,26 @@ app.listen(port, () => {
   );
 });
 
-app.all("/set-token", (req, res, next) => {
-  //clear token
-  if (req.query.token === "") {
-    app.set("token", "");
-    res.send("token is removed from the server");
-  } else {
-    app.set("token", req.query.token);
-    res.send("Token is set");
-  }
-  next();
-});
+// app.all("/set-token", (req, res, next) => {
+//   //clear token
+//   if (req.query.token === "") {
+//     app.set("token", "");
+//     res.send("token is removed from the server");
+//   } else {
+//     app.set("token", req.query.token);
+//     res.send("Token is set");
+//   }
+//   next();
+// });
 
-app.get("/get-token", (req, res) => {
-  const token = app.get("token");
-  res.send(token);
-});
+// app.get("/get-token", (req, res) => {
+//   const token = req.query.token;
+//   res.send(token);
+// });
 
 app.route("/add-to-shelf").get((req, res) => {
   const headers = {
-    Authorization: `Bearer ${app.get("token")}`,
+    Authorization: `Bearer ${req.query.token}`,
     "Content-Type": "application/json",
   };
   axios
@@ -54,7 +58,7 @@ app.route("/add-to-shelf").get((req, res) => {
 
 app.route("/get-shelf").get((req, res) => {
   const headers = {
-    Authorization: `Bearer ${app.get("token")}`,
+    Authorization: `Bearer ${req.query.token}`,
     "Content-Type": "application/json",
   };
   axios
@@ -91,7 +95,7 @@ app.route("/get-shelf").get((req, res) => {
 
 app.route("/remove-book").get((req, res) => {
   const headers = {
-    Authorization: `Bearer ${app.get("token")}`,
+    Authorization: `Bearer ${req.query.token}`,
     "Content-Type": "application/json",
   };
   axios
@@ -132,4 +136,8 @@ app.route("/remove-book").get((req, res) => {
       console.log(error.response.data);
       res.send(error.response.data);
     });
+});
+
+app.get("*", async (req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
