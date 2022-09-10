@@ -14,7 +14,7 @@ function App() {
     window.localStorage.getItem("token") !== null
   );
   const [modalViewed, setModalViewed] = useState(
-    window.sessionStorage.getItem("hasSeenModal") || false
+    window.localStorage.getItem("hasSeenModal") || false
   );
   const [sort, setSort] = useState("");
   const { token, setToken } = useToken("");
@@ -23,7 +23,7 @@ function App() {
   useEffect(() => {
     if (!modalViewed) {
       onOpen();
-      window.sessionStorage.setItem("hasSeenModal", true);
+      window.localStorage.setItem("hasSeenModal", true);
     }
   }, []);
 
