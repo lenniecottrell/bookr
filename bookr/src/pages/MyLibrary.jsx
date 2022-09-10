@@ -20,7 +20,6 @@ const MyLibrary = () => {
   const [loggedIn, setLoggedIn] = useState(
     window.localStorage.getItem("token")
   );
-  const [loading, setLoading] = useState(false);
   const { token, setToken } = useToken("");
   const [toReadList, setToReadList] = useState(null);
   const [readingNowList, setReadingNowList] = useState([]);
@@ -83,7 +82,6 @@ const MyLibrary = () => {
       .catch((error) => {
         console.log(error);
       });
-    setLoading(false);
   }, []);
 
   return (
