@@ -73,8 +73,6 @@ function App() {
         getAccessToken={getAccessToken}
         loggedIn={loggedIn}
         setLoggedIn={setLoggedIn}
-        // token={token}
-        // setToken={setToken}
         location={"landing"}
       />
       <SearchBar
