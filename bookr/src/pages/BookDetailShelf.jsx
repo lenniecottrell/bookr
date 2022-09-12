@@ -18,9 +18,17 @@ import {
   ModalBody,
   ModalFooter,
   Tooltip,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuItemOption,
+  MenuGroup,
+  MenuOptionGroup,
+  MenuDivider,
   useToast,
 } from "@chakra-ui/react";
-import { InfoOutlineIcon } from "@chakra-ui/icons";
+import { InfoOutlineIcon, ChevronDownIcon } from "@chakra-ui/icons";
 
 const BookDetailShelf = ({
   isOpen,
@@ -145,12 +153,35 @@ const BookDetailShelf = ({
           justifyContent="space-between"
           gap="10px"
         >
-          <Button
-            onClick={() => removeBook(bookData.id, shelfId, token)}
-            width={{ base: "80%", md: "auto" }}
-          >
-            Remove from shelf
-          </Button>
+          <Menu>
+            <MenuButton
+              as={Button}
+              width={{ base: "80%", md: "auto" }}
+              rightIcon={<ChevronDownIcon mt={1} />}
+            >
+              Move or Remove
+            </MenuButton>
+            <MenuList>
+              <MenuGroup title="Move book" ml="8px">
+                <MenuItem onClick={() => moveToShelf(bookdata.id, 2, token)}>
+                  To Read
+                </MenuItem>
+                <MenuItem onClick={() => moveToShelf(bookdata.id, 3, token)}>
+                  Reading Now
+                </MenuItem>
+                <MenuItem onClick={() => moveToShelf(bookdata.id, 4, token)}>
+                  Have Read
+                </MenuItem>
+              </MenuGroup>
+              <MenuDivider />
+              <MenuItem
+                onClick={() => removeBook(bookData.id, shelfId, token)}
+                color="red"
+              >
+                Remove from shelf
+              </MenuItem>
+            </MenuList>
+          </Menu>
           <LinkBox width={{ base: "80%", md: "auto" }}>
             <Button colorScheme="telegram" width={{ base: "100%", md: "auto" }}>
               Find in OverDrive
