@@ -30,7 +30,7 @@ app.route("/add-to-shelf").get((req, res) => {
       { headers: headers }
     )
     .then((response) => {
-      console.log(response);
+      console.log(response.response.data);
     })
     .catch((error) => {
       console.log(error.response.data);

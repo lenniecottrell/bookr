@@ -43,11 +43,6 @@ const BookDetailShelf = ({
   const toast = useToast();
 
   const removeBook = (bookId, shelfId, token) => {
-    if (!token) {
-      alert("You need to sign in to remove books from your library");
-      return;
-    }
-
     axios
       .get("/remove-book", {
         params: {
@@ -79,6 +74,56 @@ const BookDetailShelf = ({
         }
         toast({
           title: "Book removed!",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+        onClose();
+      })
+      .catch((error) => {
+        console.error(error);
+        toast({
+          title: "Uh oh. Something went wrong",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      });
+  };
+
+  const moveToShelf = (bookId, shelfId, futureShelfId, token) => {
+    axios
+      .get("/move-book", {
+        params: {
+          bookId: bookId,
+          currentShelfId: shelfId,
+          futureShelfId: futureShelfId,
+          token: token,
+        },
+      })
+      .then((response) => {
+        //response.data has the new book list in it
+        //console.log(response.data.bookResponse);
+        let updatedBookList = response.data.bookResponse;
+        //To read = 2
+        //Reading Now = 3
+        //Have Read = 4
+        if (updatedBookList === undefined) {
+          updatedBookList = [];
+        }
+        switch (response.data.shelfResponse) {
+          case "2":
+            setToReadList(updatedBookList);
+            break;
+          case "3":
+            setReadingNowList(updatedBookList);
+            break;
+          case "4":
+            setHaveReadList(updatedBookList);
+            break;
+        }
+        toast({
+          title: "Book moved!",
           status: "success",
           duration: 5000,
           isClosable: true,
@@ -163,13 +208,22 @@ const BookDetailShelf = ({
             </MenuButton>
             <MenuList>
               <MenuGroup title="Move book" ml="8px">
-                <MenuItem onClick={() => moveToShelf(bookdata.id, 2, token)}>
+                <MenuItem
+                  isDisabled={shelfId === 2}
+                  onClick={() => moveToShelf(bookdata.id, shelfId, 2, token)}
+                >
                   To Read
                 </MenuItem>
-                <MenuItem onClick={() => moveToShelf(bookdata.id, 3, token)}>
+                <MenuItem
+                  isDisabled={shelfId === 3}
+                  onClick={() => moveToShelf(bookdata.id, shelfId, 3, token)}
+                >
                   Reading Now
                 </MenuItem>
-                <MenuItem onClick={() => moveToShelf(bookdata.id, 4, token)}>
+                <MenuItem
+                  isDisabled={shelfId === 4}
+                  onClick={() => moveToShelf(bookdata.id, shelfId, 4, token)}
+                >
                   Have Read
                 </MenuItem>
               </MenuGroup>

@@ -36,7 +36,6 @@ const Nav = ({ getAccessToken, loggedIn, setLoggedIn, location }) => {
     setToken("");
     localStorage.removeItem("token");
     console.log(localStorage.getItem("token"));
-    console.log("token exists?: ", tokenExists);
     toast({
       title: "You are now logged out",
       status: "success",
