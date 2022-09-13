@@ -44,7 +44,7 @@ const BookDetailShelf = ({
 
   const removeBook = (bookId, shelfId, token) => {
     axios
-      .get("/remove-book", {
+      .get("http://localhost:5000/remove-book", {
         params: {
           shelfId: shelfId,
           token: token,
@@ -93,7 +93,7 @@ const BookDetailShelf = ({
 
   const moveToShelf = (bookId, shelfId, futureShelfId, token) => {
     axios
-      .get("/move-book", {
+      .get("http://localhost:5000/move-book", {
         params: {
           bookId: bookId,
           currentShelfId: shelfId,
