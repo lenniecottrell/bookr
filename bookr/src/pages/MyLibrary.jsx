@@ -84,6 +84,20 @@ const MyLibrary = () => {
       });
   }, []);
 
+  const handleUpdateShelf = (shelfId, updatedList) => {
+    switch (shelfId) {
+      case "2":
+        setToReadList(updatedList);
+        break;
+      case "3":
+        setReadingNowList(updatedList);
+        break;
+      case "4":
+        setHaveReadList(updatedList);
+        break;
+    }
+  };
+
   return (
     <div>
       <Nav
@@ -131,6 +145,7 @@ const MyLibrary = () => {
                     books={toReadList}
                     shelfId={2}
                     setToReadList={setToReadList}
+                    handleUpdateShelf={handleUpdateShelf}
                   />
                 )}
               </TabPanel>
@@ -142,6 +157,7 @@ const MyLibrary = () => {
                     books={readingNowList}
                     shelfId={3}
                     setReadingNowList={setReadingNowList}
+                    handleUpdateShelf={handleUpdateShelf}
                   />
                 )}
               </TabPanel>
@@ -153,6 +169,7 @@ const MyLibrary = () => {
                     books={haveReadList}
                     shelfId={4}
                     setHaveReadList={setHaveReadList}
+                    handleUpdateShelf={handleUpdateShelf}
                   />
                 )}
               </TabPanel>

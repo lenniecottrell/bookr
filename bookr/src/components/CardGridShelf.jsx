@@ -14,10 +14,10 @@ const CardGridShelf = ({
   setToReadList,
   setReadingNowList,
   setHaveReadList,
+  handleUpdateShelf,
 }) => {
   const [selectedBook, setSelectedBook] = useState({});
   const { isOpen, onClose, onOpen } = useDisclosure();
-
   const handleClick = (item) => {
     setSelectedBook(item);
     onOpen();
@@ -58,6 +58,7 @@ const CardGridShelf = ({
           setToReadList={setToReadList}
           setReadingNowList={setReadingNowList}
           setHaveReadList={setHaveReadList}
+          handleUpdateShelf={handleUpdateShelf}
         />
       )}
     </>
