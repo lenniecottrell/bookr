@@ -144,6 +144,7 @@ const MyLibrary = () => {
                   <CardGridShelf
                     books={toReadList}
                     shelfId={2}
+                    setToReadList={setToReadList}
                     handleUpdateShelf={handleUpdateShelf}
                   />
                 )}
@@ -155,6 +156,7 @@ const MyLibrary = () => {
                   <CardGridShelf
                     books={readingNowList}
                     shelfId={3}
+                    setReadingNowList={setReadingNowList}
                     handleUpdateShelf={handleUpdateShelf}
                   />
                 )}
@@ -166,6 +168,7 @@ const MyLibrary = () => {
                   <CardGridShelf
                     books={haveReadList}
                     shelfId={4}
+                    setHaveReadList={setHaveReadList}
                     handleUpdateShelf={handleUpdateShelf}
                   />
                 )}

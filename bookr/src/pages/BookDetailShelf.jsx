@@ -35,11 +35,13 @@ const BookDetailShelf = ({
   onClose,
   bookData,
   shelfId,
+  setToReadList,
+  setReadingNowList,
+  setHaveReadList,
   handleUpdateShelf,
 }) => {
   const token = useToken().token;
   const toast = useToast();
-
   const removeBook = (bookId, shelfId, token) => {
     axios
       .get("http://localhost:5000/remove-book", {
@@ -58,10 +60,17 @@ const BookDetailShelf = ({
         if (updatedBookList === undefined) {
           updatedBookList = [];
         }
-        handleUpdateShelf(
-          response.data.shelfResponse,
-          response.data.bookResponse
-        );
+        switch (response.data.shelfResponse) {
+          case "2":
+            setToReadList(updatedBookList);
+            break;
+          case "3":
+            setReadingNowList(updatedBookList);
+            break;
+          case "4":
+            setHaveReadList(updatedBookList);
+            break;
+        }
         toast({
           title: "Book removed!",
           status: "success",
