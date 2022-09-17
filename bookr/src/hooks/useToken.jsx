@@ -1,5 +1,4 @@
 import { createContext, useContext, useState } from "react";
-import axios from "axios";
 //reference: https://egghead.io/lessons/react-store-a-token-globally-with-react-context-for-easier-use-anywhere-in-a-next-js-app
 export const TokenContext = createContext(null);
 
