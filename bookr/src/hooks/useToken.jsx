@@ -5,8 +5,8 @@ export const TokenContext = createContext(null);
 
 export const TokenProvider = ({ children }) => {
   let existingToken =
-    window.localStorage.getItem("token") !== null
-      ? window.localStorage.getItem("token")
+    window.sessionStorage.getItem("token") !== null
+      ? window.sessionStorage.getItem("token")
       : null;
   const [token, setToken] = useState(existingToken);
 
