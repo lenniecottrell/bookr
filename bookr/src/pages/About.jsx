@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useToken } from "../hooks/useToken";
-import axios from "axios";
 import Nav from "../components/Nav";
 import { Heading, Text, Container, Link } from "@chakra-ui/react";
 
 const About = () => {
   const [loggedIn, setLoggedIn] = useState(
-    window.localStorage.getItem("token")
+    window.sessionStorage.getItem("token")
   );
   const { token, setToken } = useToken("");
 
@@ -25,7 +24,7 @@ const About = () => {
     try {
       setToken(response.access_token);
       setLoggedIn(true);
-      localStorage.setItem("token", response.access_token);
+      sessionStorage.setItem("token", response.access_token);
       console.log("got the token");
     } catch (error) {
       console.error(error);

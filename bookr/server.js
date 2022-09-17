@@ -30,14 +30,48 @@ app.route("/add-to-shelf").get((req, res) => {
       {},
       { headers: headers }
     )
-    .then((response) => {
-      console.log(response);
+    .then(() => {
+      axios
+        .get(
+          `https://www.googleapis.com/books/v1/mylibrary/bookshelves/${req.query.shelfId}/volumes`,
+          { headers: headers }
+        )
+        .then((response) => {
+          //console.log(response.data.items);
+          if (response.data.items === undefined) {
+            res.send([]);
+          } else if (response.data.items.length > 0) {
+            for (let bookObj of response.data.items) {
+              // If there's more than one author, add a comma and a space to each item
+              //console.log(bookObj.volumeInfo.authors);
+              if (bookObj.volumeInfo.authors === undefined) {
+                bookObj.volumeInfo.authors = [];
+              }
+              if (bookObj.volumeInfo.authors.length > 1) {
+                for (
+                  let j = 0;
+                  j < bookObj.volumeInfo.authors.length - 1;
+                  j++
+                ) {
+                  bookObj.volumeInfo.authors[j] += ", ";
+                }
+              }
+            }
+          }
+          let responseObj = {
+            bookResponse: response.data.items,
+            shelfResponse: req.query.shelfId,
+          };
+          res.send(responseObj);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     })
     .catch((error) => {
-      console.log(error.response.data);
+      console.log(error.response);
+      res.send(error.response.data);
     });
-
-  res.send("adding a book!");
 });
 
 app.route("/get-shelf").get((req, res) => {
@@ -88,7 +122,7 @@ app.route("/remove-book").get((req, res) => {
       {},
       { headers: headers }
     )
-    .then((response) => {
+    .then(() => {
       axios
         .get(
           `https://www.googleapis.com/books/v1/mylibrary/bookshelves/${req.query.shelfId}/volumes`,

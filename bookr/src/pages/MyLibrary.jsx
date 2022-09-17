@@ -18,7 +18,7 @@ import axios from "axios";
 
 const MyLibrary = () => {
   const [loggedIn, setLoggedIn] = useState(
-    window.localStorage.getItem("token")
+    window.sessionStorage.getItem("token")
   );
   const { token, setToken } = useToken("");
   const [toReadList, setToReadList] = useState(null);
@@ -84,6 +84,20 @@ const MyLibrary = () => {
       });
   }, []);
 
+  const handleUpdateShelf = (shelfId, updatedList) => {
+    switch (shelfId) {
+      case "2":
+        setToReadList(updatedList);
+        break;
+      case "3":
+        setReadingNowList(updatedList);
+        break;
+      case "4":
+        setHaveReadList(updatedList);
+        break;
+    }
+  };
+
   return (
     <div>
       <Nav
@@ -130,7 +144,7 @@ const MyLibrary = () => {
                   <CardGridShelf
                     books={toReadList}
                     shelfId={2}
-                    setToReadList={setToReadList}
+                    handleUpdateShelf={handleUpdateShelf}
                   />
                 )}
               </TabPanel>
@@ -141,7 +155,7 @@ const MyLibrary = () => {
                   <CardGridShelf
                     books={readingNowList}
                     shelfId={3}
-                    setReadingNowList={setReadingNowList}
+                    handleUpdateShelf={handleUpdateShelf}
                   />
                 )}
               </TabPanel>
@@ -152,7 +166,7 @@ const MyLibrary = () => {
                   <CardGridShelf
                     books={haveReadList}
                     shelfId={4}
-                    setHaveReadList={setHaveReadList}
+                    handleUpdateShelf={handleUpdateShelf}
                   />
                 )}
               </TabPanel>
