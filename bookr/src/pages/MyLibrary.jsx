@@ -18,7 +18,7 @@ import axios from "axios";
 
 const MyLibrary = () => {
   const [loggedIn, setLoggedIn] = useState(
-    window.localStorage.getItem("token")
+    window.sessionStorage.getItem("token")
   );
   const { token, setToken } = useToken("");
   const [toReadList, setToReadList] = useState(null);
@@ -144,7 +144,6 @@ const MyLibrary = () => {
                   <CardGridShelf
                     books={toReadList}
                     shelfId={2}
-                    setToReadList={setToReadList}
                     handleUpdateShelf={handleUpdateShelf}
                   />
                 )}
@@ -156,7 +155,6 @@ const MyLibrary = () => {
                   <CardGridShelf
                     books={readingNowList}
                     shelfId={3}
-                    setReadingNowList={setReadingNowList}
                     handleUpdateShelf={handleUpdateShelf}
                   />
                 )}
@@ -168,7 +166,6 @@ const MyLibrary = () => {
                   <CardGridShelf
                     books={haveReadList}
                     shelfId={4}
-                    setHaveReadList={setHaveReadList}
                     handleUpdateShelf={handleUpdateShelf}
                   />
                 )}

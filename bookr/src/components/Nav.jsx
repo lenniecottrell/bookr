@@ -28,14 +28,14 @@ const Nav = ({ getAccessToken, loggedIn, setLoggedIn, location }) => {
   const { onClose } = useDisclosure();
   const { token, setToken } = useToken();
   let tokenExists =
-    window.localStorage.getItem("token") !== null ? true : false;
+    window.sessionStorage.getItem("token") !== null ? true : false;
 
   const handleSignOut = () => {
     //clear token
     setLoggedIn(false);
     setToken("");
-    localStorage.removeItem("token");
-    console.log(localStorage.getItem("token"));
+    sessionStorage.removeItem("token");
+    console.log(sessionStorage.getItem("token"));
     toast({
       title: "You are now logged out",
       status: "success",

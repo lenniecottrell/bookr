@@ -22,9 +22,7 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  MenuItemOption,
   MenuGroup,
-  MenuOptionGroup,
   MenuDivider,
   useToast,
 } from "@chakra-ui/react";
@@ -35,13 +33,11 @@ const BookDetailShelf = ({
   onClose,
   bookData,
   shelfId,
-  setToReadList,
-  setReadingNowList,
-  setHaveReadList,
   handleUpdateShelf,
 }) => {
   const token = useToken().token;
   const toast = useToast();
+
   const removeBook = (bookId, shelfId, token) => {
     axios
       .get("http://localhost:5000/remove-book", {
@@ -54,23 +50,10 @@ const BookDetailShelf = ({
       .then((response) => {
         //response.data has the new book list in it
         let updatedBookList = response.data.bookResponse;
-        //To read = 2
-        //Reading Now = 3
-        //Have Read = 4
         if (updatedBookList === undefined) {
           updatedBookList = [];
         }
-        switch (response.data.shelfResponse) {
-          case "2":
-            setToReadList(updatedBookList);
-            break;
-          case "3":
-            setReadingNowList(updatedBookList);
-            break;
-          case "4":
-            setHaveReadList(updatedBookList);
-            break;
-        }
+        handleUpdateShelf(response.data.shelfResponse, updatedBookList);
         toast({
           title: "Book removed!",
           status: "success",
@@ -102,9 +85,6 @@ const BookDetailShelf = ({
       .then((response) => {
         //console.log(response);
         let updatedBookList = response.data.bookResponse;
-        //To read = 2
-        //Reading Now = 3
-        //Have Read = 4
         if (updatedBookList === undefined) {
           updatedBookList = [];
         }
