@@ -36,9 +36,16 @@ app.route("/add-to-shelf").get((req, res) => {
           { headers: headers }
         )
         .then((response) => {
-          if (response.data.items > 0) {
+          //console.log(response.data.items);
+          if (response.data.items === undefined) {
+            res.send([]);
+          } else if (response.data.items.length > 0) {
             for (let bookObj of response.data.items) {
               // If there's more than one author, add a comma and a space to each item
+              //console.log(bookObj.volumeInfo.authors);
+              if (bookObj.volumeInfo.authors === undefined) {
+                bookObj.volumeInfo.authors = [];
+              }
               if (bookObj.volumeInfo.authors.length > 1) {
                 for (
                   let j = 0;
@@ -55,6 +62,9 @@ app.route("/add-to-shelf").get((req, res) => {
             shelfResponse: req.query.shelfId,
           };
           res.send(responseObj);
+        })
+        .catch((error) => {
+          console.log(error);
         });
     })
     .catch((error) => {
