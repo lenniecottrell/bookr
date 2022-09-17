@@ -33,9 +33,6 @@ const BookDetailShelf = ({
   onClose,
   bookData,
   shelfId,
-  setToReadList,
-  setReadingNowList,
-  setHaveReadList,
   handleUpdateShelf,
 }) => {
   const token = useToken().token;
