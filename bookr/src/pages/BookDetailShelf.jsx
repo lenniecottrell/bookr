@@ -18,30 +18,29 @@ import {
   ModalBody,
   ModalFooter,
   Tooltip,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuGroup,
+  MenuDivider,
   useToast,
 } from "@chakra-ui/react";
-import { InfoOutlineIcon } from "@chakra-ui/icons";
+import { InfoOutlineIcon, ChevronDownIcon } from "@chakra-ui/icons";
 
 const BookDetailShelf = ({
   isOpen,
   onClose,
   bookData,
   shelfId,
-  setToReadList,
-  setReadingNowList,
-  setHaveReadList,
+  handleUpdateShelf,
 }) => {
   const token = useToken().token;
   const toast = useToast();
 
   const removeBook = (bookId, shelfId, token) => {
-    if (!token) {
-      alert("You need to sign in to remove books from your library");
-      return;
-    }
-
     axios
-      .get("/remove-book", {
+      .get("http://localhost:5000/remove-book", {
         params: {
           shelfId: shelfId,
           token: token,
@@ -50,29 +49,15 @@ const BookDetailShelf = ({
       })
       .then((response) => {
         //response.data has the new book list in it
-        //console.log(response.data.bookResponse);
         let updatedBookList = response.data.bookResponse;
-        //To read = 2
-        //Reading Now = 3
-        //Have Read = 4
         if (updatedBookList === undefined) {
           updatedBookList = [];
         }
-        switch (response.data.shelfResponse) {
-          case "2":
-            setToReadList(updatedBookList);
-            break;
-          case "3":
-            setReadingNowList(updatedBookList);
-            break;
-          case "4":
-            setHaveReadList(updatedBookList);
-            break;
-        }
+        handleUpdateShelf(response.data.shelfResponse, updatedBookList);
         toast({
           title: "Book removed!",
           status: "success",
-          duration: 5000,
+          duration: 2000,
           isClosable: true,
         });
         onClose();
@@ -86,6 +71,49 @@ const BookDetailShelf = ({
           isClosable: true,
         });
       });
+  };
+
+  const addToShelf = (bookId, shelfId, token) => {
+    axios
+      .get("http://localhost:5000/add-to-shelf", {
+        params: {
+          bookId: bookId,
+          shelfId: shelfId,
+          token: token,
+        },
+      })
+      .then((response) => {
+        //console.log(response);
+        let updatedBookList = response.data.bookResponse;
+        if (updatedBookList === undefined) {
+          updatedBookList = [];
+        }
+        handleUpdateShelf(
+          response.data.shelfResponse,
+          response.data.bookResponse
+        );
+        toast({
+          title: "Book added!",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+        });
+        onClose();
+      })
+      .catch((error) => {
+        console.error(error);
+        toast({
+          title: "Uh oh. Something went wrong",
+          status: error,
+          duration: 5000,
+          isClosable: true,
+        });
+      });
+  };
+
+  const moveToShelf = (bookId, shelfId, futureShelfId, token) => {
+    removeBook(bookId, shelfId, token);
+    addToShelf(bookId, futureShelfId, token);
   };
 
   return (
@@ -145,12 +173,44 @@ const BookDetailShelf = ({
           justifyContent="space-between"
           gap="10px"
         >
-          <Button
-            onClick={() => removeBook(bookData.id, shelfId, token)}
-            width={{ base: "80%", md: "auto" }}
-          >
-            Remove from shelf
-          </Button>
+          <Menu>
+            <MenuButton
+              as={Button}
+              width={{ base: "80%", md: "auto" }}
+              rightIcon={<ChevronDownIcon mt={1} />}
+            >
+              Move or Remove
+            </MenuButton>
+            <MenuList>
+              <MenuGroup title="Move book" ml="8px">
+                <MenuItem
+                  isDisabled={shelfId === 2}
+                  onClick={() => moveToShelf(bookData.id, shelfId, 2, token)}
+                >
+                  To Read
+                </MenuItem>
+                <MenuItem
+                  isDisabled={shelfId === 3}
+                  onClick={() => moveToShelf(bookData.id, shelfId, 3, token)}
+                >
+                  Reading Now
+                </MenuItem>
+                <MenuItem
+                  isDisabled={shelfId === 4}
+                  onClick={() => moveToShelf(bookData.id, shelfId, 4, token)}
+                >
+                  Have Read
+                </MenuItem>
+              </MenuGroup>
+              <MenuDivider />
+              <MenuItem
+                onClick={() => removeBook(bookData.id, shelfId, token)}
+                color="red"
+              >
+                Remove from shelf
+              </MenuItem>
+            </MenuList>
+          </Menu>
           <LinkBox width={{ base: "80%", md: "auto" }}>
             <Button colorScheme="telegram" width={{ base: "100%", md: "auto" }}>
               Find in OverDrive
