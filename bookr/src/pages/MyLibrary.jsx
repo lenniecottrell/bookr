@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Nav from "../components/Nav";
 import CardGridShelf from "../components/CardGridShelf";
 import EmptyShelf from "../components/EmptyShelf";
@@ -28,6 +28,11 @@ const MyLibrary = () => {
   //https://reactrouter.com/docs/en/v6/hooks/use-navigate
   //https://stackoverflow.com/questions/486896/adding-a-parameter-to-the-url-with-javascript?test=true
   const [activeTab, setActiveTab] = useState(1);
+  let navigate = useNavigate();
+
+  if (!loggedIn) {
+    navigate("/");
+  }
 
   useEffect(() => {
     //google shelf ids:
