@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Nav from "../components/Nav";
 import CardGridShelf from "../components/CardGridShelf";
 import EmptyShelf from "../components/EmptyShelf";
@@ -18,76 +18,90 @@ import axios from "axios";
 
 const MyLibrary = () => {
   const [loggedIn, setLoggedIn] = useState(
-    window.localStorage.getItem("token")
+    window.sessionStorage.getItem("token")
   );
-  const [loading, setLoading] = useState(true);
   const { token, setToken } = useToken("");
-  const [toReadList, setToReadList] = useState([]);
+  const [toReadList, setToReadList] = useState(null);
   const [readingNowList, setReadingNowList] = useState([]);
   const [haveReadList, setHaveReadList] = useState([]);
   //TODO: add route to the URL to preserve the active tab on refresh
   //https://reactrouter.com/docs/en/v6/hooks/use-navigate
   //https://stackoverflow.com/questions/486896/adding-a-parameter-to-the-url-with-javascript?test=true
   const [activeTab, setActiveTab] = useState(1);
+  let navigate = useNavigate();
+
+  if (!loggedIn) {
+    navigate("/");
+  }
 
   useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      //google shelf ids:
-      //To read = 2
-      //Reading Now = 3
-      //Have Read = 4
+    //google shelf ids:
+    //To read = 2
+    //Reading Now = 3
+    //Have Read = 4
 
-      //get To Read shelf
-      axios
-        .get("/get-shelf", {
-          params: {
-            shelfId: 2,
-            token: token,
-          },
-        })
-        .then((response) => {
-          //console.log(response.data);
-          setToReadList(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    //get To Read shelf
+    axios
+      .get("/get-shelf", {
+        params: {
+          shelfId: 2,
+          token: token,
+        },
+      })
+      .then((response) => {
+        //console.log(response.data);
+        setToReadList(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
-      //get Reading Now shelf
-      axios
-        .get("/get-shelf", {
-          params: {
-            shelfId: 3,
-            token: token,
-          },
-        })
-        .then((response) => {
-          //console.log(response.data);
-          setReadingNowList(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    //get Reading Now shelf
+    axios
+      .get("/get-shelf", {
+        params: {
+          shelfId: 3,
+          token: token,
+        },
+      })
+      .then((response) => {
+        //console.log(response.data);
+        setReadingNowList(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
-      //get Have Read shelf
-      axios
-        .get("/get-shelf", {
-          params: {
-            shelfId: 4,
-            token: token,
-          },
-        })
-        .then((response) => {
-          //console.log(response.data);
-          setHaveReadList(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      setLoading(false);
-    }, 1000);
+    //get Have Read shelf
+    axios
+      .get("/get-shelf", {
+        params: {
+          shelfId: 4,
+          token: token,
+        },
+      })
+      .then((response) => {
+        //console.log(response.data);
+        setHaveReadList(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
+
+  const handleUpdateShelf = (shelfId, updatedList) => {
+    switch (shelfId) {
+      case "2":
+        setToReadList(updatedList);
+        break;
+      case "3":
+        setReadingNowList(updatedList);
+        break;
+      case "4":
+        setHaveReadList(updatedList);
+        break;
+    }
+  };
 
   return (
     <div>
@@ -122,7 +136,7 @@ const MyLibrary = () => {
             <Tab>Reading Now</Tab>
             <Tab>Have Read</Tab>
           </TabList>
-          {loading ? (
+          {!toReadList ? (
             <Container centerContent>
               <Spinner mt={10} size="xl" />
             </Container>
@@ -135,7 +149,7 @@ const MyLibrary = () => {
                   <CardGridShelf
                     books={toReadList}
                     shelfId={2}
-                    setToReadList={setToReadList}
+                    handleUpdateShelf={handleUpdateShelf}
                   />
                 )}
               </TabPanel>
@@ -146,7 +160,7 @@ const MyLibrary = () => {
                   <CardGridShelf
                     books={readingNowList}
                     shelfId={3}
-                    setReadingNowList={setReadingNowList}
+                    handleUpdateShelf={handleUpdateShelf}
                   />
                 )}
               </TabPanel>
@@ -157,7 +171,7 @@ const MyLibrary = () => {
                   <CardGridShelf
                     books={haveReadList}
                     shelfId={4}
-                    setHaveReadList={setHaveReadList}
+                    handleUpdateShelf={handleUpdateShelf}
                   />
                 )}
               </TabPanel>

@@ -8,16 +8,9 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 
-const CardGridShelf = ({
-  books,
-  shelfId,
-  setToReadList,
-  setReadingNowList,
-  setHaveReadList,
-}) => {
+const CardGridShelf = ({ books, shelfId, handleUpdateShelf }) => {
   const [selectedBook, setSelectedBook] = useState({});
   const { isOpen, onClose, onOpen } = useDisclosure();
-
   const handleClick = (item) => {
     setSelectedBook(item);
     onOpen();
@@ -55,9 +48,7 @@ const CardGridShelf = ({
           onClose={onClose}
           bookData={selectedBook}
           shelfId={shelfId}
-          setToReadList={setToReadList}
-          setReadingNowList={setReadingNowList}
-          setHaveReadList={setHaveReadList}
+          handleUpdateShelf={handleUpdateShelf}
         />
       )}
     </>

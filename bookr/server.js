@@ -9,6 +9,7 @@ const port = process.env.PORT || 5000;
 console.log("port:", process.env.PORT);
 app.use(cors());
 
+//serves the frontend files from the dist folder after build
 app.use(express.static(path.join(__dirname, "dist")));
 
 app.listen(port, () => {
@@ -17,23 +18,6 @@ app.listen(port, () => {
     `~~~~~~~************~~~~~~~~~~~~~~~~~~~~~***********~~~~~~~~~~~~~~~~~~`
   );
 });
-
-// app.all("/set-token", (req, res, next) => {
-//   //clear token
-//   if (req.query.token === "") {
-//     app.set("token", "");
-//     res.send("token is removed from the server");
-//   } else {
-//     app.set("token", req.query.token);
-//     res.send("Token is set");
-//   }
-//   next();
-// });
-
-// app.get("/get-token", (req, res) => {
-//   const token = req.query.token;
-//   res.send(token);
-// });
 
 app.route("/add-to-shelf").get((req, res) => {
   const headers = {
@@ -46,14 +30,48 @@ app.route("/add-to-shelf").get((req, res) => {
       {},
       { headers: headers }
     )
-    .then((response) => {
-      console.log(response);
+    .then(() => {
+      axios
+        .get(
+          `https://www.googleapis.com/books/v1/mylibrary/bookshelves/${req.query.shelfId}/volumes`,
+          { headers: headers }
+        )
+        .then((response) => {
+          //console.log(response.data.items);
+          if (response.data.items === undefined) {
+            res.send([]);
+          } else if (response.data.items.length > 0) {
+            for (let bookObj of response.data.items) {
+              // If there's more than one author, add a comma and a space to each item
+              //console.log(bookObj.volumeInfo.authors);
+              if (bookObj.volumeInfo.authors === undefined) {
+                bookObj.volumeInfo.authors = [];
+              }
+              if (bookObj.volumeInfo.authors.length > 1) {
+                for (
+                  let j = 0;
+                  j < bookObj.volumeInfo.authors.length - 1;
+                  j++
+                ) {
+                  bookObj.volumeInfo.authors[j] += ", ";
+                }
+              }
+            }
+          }
+          let responseObj = {
+            bookResponse: response.data.items,
+            shelfResponse: req.query.shelfId,
+          };
+          res.send(responseObj);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     })
     .catch((error) => {
-      console.log(error.response.data);
+      console.log(error.response);
+      res.send(error.response.data);
     });
-
-  res.send("adding a book!");
 });
 
 app.route("/get-shelf").get((req, res) => {
@@ -104,7 +122,7 @@ app.route("/remove-book").get((req, res) => {
       {},
       { headers: headers }
     )
-    .then((response) => {
+    .then(() => {
       axios
         .get(
           `https://www.googleapis.com/books/v1/mylibrary/bookshelves/${req.query.shelfId}/volumes`,
@@ -138,6 +156,7 @@ app.route("/remove-book").get((req, res) => {
     });
 });
 
+//this is a route that is triggered for every request
 app.get("*", async (req, res) => {
   res.sendFile(path.join(__dirname, "dist", "index.html"));
 });

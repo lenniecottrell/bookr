@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useToken } from "./hooks/useToken";
 import { useDisclosure } from "@chakra-ui/react";
 import "./styles/App.scss";
-import axios from "axios";
 import SearchBar from "./components/SearchBar";
 import Nav from "./components/Nav";
 import CardGrid from "./components/CardGrid";
@@ -11,10 +10,10 @@ import WelcomeModal from "./components/WelcomeModal";
 function App() {
   const [q, setQ] = useState("star+trek");
   const [loggedIn, setLoggedIn] = useState(
-    window.localStorage.getItem("token") !== null
+    window.sessionStorage.getItem("token") !== null
   );
   const [modalViewed, setModalViewed] = useState(
-    window.sessionStorage.getItem("hasSeenModal") || false
+    window.localStorage.getItem("hasSeenModal") || false
   );
   const [sort, setSort] = useState("");
   const { token, setToken } = useToken("");
@@ -23,7 +22,7 @@ function App() {
   useEffect(() => {
     if (!modalViewed) {
       onOpen();
-      window.sessionStorage.setItem("hasSeenModal", true);
+      window.localStorage.setItem("hasSeenModal", true);
     }
   }, []);
 
@@ -33,7 +32,7 @@ function App() {
       //console.log(response);
       setToken(response.access_token);
       setLoggedIn(true);
-      localStorage.setItem("token", response.access_token);
+      sessionStorage.setItem("token", response.access_token);
       console.log("got the token");
     } catch (error) {
       console.error(error);
@@ -73,8 +72,6 @@ function App() {
         getAccessToken={getAccessToken}
         loggedIn={loggedIn}
         setLoggedIn={setLoggedIn}
-        // token={token}
-        // setToken={setToken}
         location={"landing"}
       />
       <SearchBar

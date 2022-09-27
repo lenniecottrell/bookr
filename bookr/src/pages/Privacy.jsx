@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import { useToken } from "../hooks/useToken";
 import Nav from "../components/Nav";
 import { Heading, Text, Container, Link } from "@chakra-ui/react";
-import { Link as RouterLink } from "react-router-dom";
 
-const About = () => {
+const Privacy = () => {
   const [loggedIn, setLoggedIn] = useState(
     window.sessionStorage.getItem("token")
   );
@@ -48,54 +47,49 @@ const About = () => {
         w="100%"
       >
         <Heading size={{ base: "lg", md: "xl" }} mb={4}>
-          About this app
+          Privacy Policy
         </Heading>
         <Text fontSize="xl" m={2}>
-          Shelf is made with Vite (React), ChakraUI, and the Google Books API
+          Shelf does not collect or store your data. Shelf leverages the{" "}
+          <Link
+            href="https://developers.google.com/books"
+            color="blue.500"
+            textDecoration="underline"
+          >
+            Google Books API
+          </Link>{" "}
+          to access data in your Google account, all of which is stored on
+          Google's servers. The email address you use to log in is only used to
+          communicate with Google Account Services, it is not stored by this web
+          application. If you choose to create a new account when logging in to
+          Shelf, that process is handled by Google.
         </Text>
         <Text fontSize="xl" m={2}>
-          You can see it on Github{" "}
+          The Google Books privacy policy can be viewed{" "}
           <Link
-            href="https://github.com/lenniecottrell/bookr"
+            href="https://www.google.com/googlebooks/privacy-2010dec6.html"
+            color="blue.500"
+            textDecoration="underline"
+          >
+            here{" "}
+          </Link>
+          and Google's general privacy policy can be viewed{" "}
+          <Link
+            href="https://www.google.com/googlebooks/privacy-2010dec6.html"
             color="blue.500"
             textDecoration="underline"
           >
             here
           </Link>
-        </Text>
-        <Text fontSize="xl" m={2}>
-          If you like it, or have feedback, or want to say hi, you can find me
-          on{" "}
-          <Link
-            href="https://twitter.com/lenniecottrell"
-            color="blue.500"
-            textDecoration="underline"
-          >
-            Twitter
-          </Link>{" "}
-          or{" "}
-          <Link
-            href="https://www.linkedin.com/in/lenniecottrell/"
-            color="blue.500"
-            textDecoration="underline"
-          >
-            LinkedIn
-          </Link>
           .
         </Text>
         <Text fontSize="xl" m={2}>
-          <Link
-            as={RouterLink}
-            to="../privacy"
-            color="blue.500"
-            textDecoration="underline"
-          >
-            Privacy Policy
-          </Link>
+          I am not responsibile for the content of Google's privacy policy or
+          privacy practices.
         </Text>
       </Container>
     </>
   );
 };
 
-export default About;
+export default Privacy;

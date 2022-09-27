@@ -47,7 +47,7 @@ const BookDetail = ({ isOpen, onClose, bookData }) => {
           },
         })
         .then((response) => {
-          //console.log(response);
+          //console.log(response.data);
           toast({
             title: "Book added!",
             status: "success",

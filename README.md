@@ -1,6 +1,6 @@
 # Shelf
 
-formerly Bookr
+Formerly Bookr. Visit https://shelf.fly.dev for a demo!
 
 ### Tools and designs
 
