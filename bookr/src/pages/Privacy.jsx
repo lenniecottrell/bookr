@@ -75,7 +75,7 @@ const Privacy = () => {
           </Link>
           and Google's general privacy policy can be viewed{" "}
           <Link
-            href="https://www.google.com/googlebooks/privacy-2010dec6.html"
+            href="https://policies.google.com/privacy"
             color="blue.500"
             textDecoration="underline"
           >
