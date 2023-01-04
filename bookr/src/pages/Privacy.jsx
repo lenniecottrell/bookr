@@ -12,7 +12,7 @@ const Privacy = () => {
   const getAccessToken = () => {
     const client = google.accounts.oauth2.initTokenClient({
       client_id:
-        "618793947299-lrlk0trtc9qbej6b6f02vsuv15fh6o6n.apps.googleusercontent.com",
+        "524662715635-n46j1g1tsqa54mfmb7pnh9nipvri3ajr.apps.googleusercontent.com",
       scope: "https://www.googleapis.com/auth/books",
       callback: handleAuthorizationResponse,
     });
