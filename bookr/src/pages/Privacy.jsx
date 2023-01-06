@@ -65,6 +65,18 @@ const Privacy = () => {
           Shelf, that process is handled by Google.
         </Text>
         <Text fontSize="xl" m={2}>
+          Shelf's use of information received from Google APIs will adhere to
+          the{" "}
+          <Link
+            href="https://developers.google.com/terms/api-services-user-data-policy"
+            color="blue.500"
+            textDecoration="underline"
+          >
+            Google API Services User Data Policy
+          </Link>
+          , including the Limited Use requirements.
+        </Text>
+        <Text fontSize="xl" m={2}>
           The Google Books privacy policy can be viewed{" "}
           <Link
             href="https://www.google.com/googlebooks/privacy-2010dec6.html"
