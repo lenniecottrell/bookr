@@ -3,6 +3,9 @@ import { Box, Center, Image, Heading, Text } from "@chakra-ui/react";
 import noImage from "../images/no-image-icon-23494.png";
 
 const BookCard = ({ bookData }) => {
+  if (bookData.volumeInfo.imageLinks === undefined) {
+    bookData.volumeInfo.imageLinks = [];
+  }
   return (
     <Center>
       <Box
