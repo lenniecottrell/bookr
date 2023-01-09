@@ -95,6 +95,9 @@ app.route("/get-shelf").get((req, res) => {
           if (bookObj.volumeInfo.authors === undefined) {
             bookObj.volumeInfo.authors = [];
           }
+          if (bookObj.volumeInfo.imageLinks === undefined) {
+            bookObj.volumeInfo.imageLinks = [];
+          }
           // If there's more than one author, add a comma and a space to each item
           if (bookObj.volumeInfo.authors.length > 1) {
             for (let j = 0; j < bookObj.volumeInfo.authors.length - 1; j++) {

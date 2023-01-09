@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Center, Image, Heading, Text } from "@chakra-ui/react";
+import noImage from "../images/no-image-icon-23494.png";
 
 const BookCard = ({ bookData }) => {
   return (
@@ -16,7 +17,7 @@ const BookCard = ({ bookData }) => {
           //boxSize="250px"
           objectFit="contain"
           mx={6}
-          src={bookData.volumeInfo.imageLinks.thumbnail}
+          src={bookData.volumeInfo.imageLinks.thumbnail || noImage}
           alt={bookData.volumeInfo.title}
           alignSelf="center"
         />
