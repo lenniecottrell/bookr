@@ -44,6 +44,9 @@ app.route("/add-to-shelf").get((req, res) => {
             for (let bookObj of response.data.items) {
               // If there's more than one author, add a comma and a space to each item
               //console.log(bookObj.volumeInfo.authors);
+              if (bookObj.volumeInfo.imageLinks === undefined) {
+                bookObj.volumeInfo.imageLinks = [];
+              }
               if (bookObj.volumeInfo.authors === undefined) {
                 bookObj.volumeInfo.authors = [];
               }
@@ -134,6 +137,12 @@ app.route("/remove-book").get((req, res) => {
         .then((response) => {
           if (response.data.items > 0) {
             for (let bookObj of response.data.items) {
+              if (bookObj.volumeInfo.imageLinks === undefined) {
+                bookObj.volumeInfo.imageLinks = [];
+              }
+              if (bookObj.volumeInfo.authors === undefined) {
+                bookObj.volumeInfo.authors = [];
+              }
               // If there's more than one author, add a comma and a space to each item
               if (bookObj.volumeInfo.authors.length > 1) {
                 for (
