@@ -82,6 +82,9 @@ const Nav = ({ getAccessToken, loggedIn, setLoggedIn, location }) => {
         <Link as={RouterLink} to="/about" fontSize="md">
           About
         </Link>
+        <Link as={RouterLink} to="/privacy" fontSize="md">
+          Privacy
+        </Link>
         {tokenExists ? (
           <Button
             variant="outline"
@@ -131,6 +134,13 @@ const Nav = ({ getAccessToken, loggedIn, setLoggedIn, location }) => {
                   <MenuItem>
                     <LinkOverlay as={RouterLink} to="/about" fontSize="md">
                       About
+                    </LinkOverlay>
+                  </MenuItem>
+                </LinkBox>
+                <LinkBox>
+                  <MenuItem>
+                    <LinkOverlay as={RouterLink} to="/privacy" fontSize="md">
+                      Privacy
                     </LinkOverlay>
                   </MenuItem>
                 </LinkBox>

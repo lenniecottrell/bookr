@@ -8,6 +8,7 @@ import {
   ModalBody,
   ModalCloseButton,
   Button,
+  Link,
 } from "@chakra-ui/react";
 import GoogleButton from "../components/GoogleAuth";
 
@@ -25,8 +26,20 @@ const WelcomeModal = ({ isOpen, onClose, getAccessToken }) => {
             your Google Books data. Please log in to explore the functionality!
             <br />
             <br />
+            Shelf's use of information received from Google APIs will adhere to
+            the{" "}
+            <Link
+              href="https://developers.google.com/terms/api-services-user-data-policy"
+              color="blue.500"
+              textDecoration="underline"
+            >
+              Google API Services User Data Policy
+            </Link>
+            , including the Limited Use requirements.
+            <br />
+            <br />
             Otherwise, you can search for books in the Google Books database,
-            but won't be able to add them to shelves.
+            but won't be able to add them to your shelves.
           </ModalBody>
 
           <ModalFooter flexDirection="column">

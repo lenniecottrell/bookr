@@ -9,6 +9,7 @@ const port = process.env.PORT || 5000;
 console.log("port:", process.env.PORT);
 app.use(cors());
 
+//serves the frontend files from the dist folder after build
 app.use(express.static(path.join(__dirname, "dist")));
 
 app.listen(port, () => {
@@ -155,6 +156,7 @@ app.route("/remove-book").get((req, res) => {
     });
 });
 
+//this is a route that is triggered for every request
 app.get("*", async (req, res) => {
   res.sendFile(path.join(__dirname, "dist", "index.html"));
 });

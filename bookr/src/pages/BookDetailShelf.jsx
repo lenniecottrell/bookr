@@ -40,7 +40,7 @@ const BookDetailShelf = ({
 
   const removeBook = (bookId, shelfId, token) => {
     axios
-      .get("http://localhost:5000/remove-book", {
+      .get("/remove-book", {
         params: {
           shelfId: shelfId,
           token: token,
@@ -75,7 +75,7 @@ const BookDetailShelf = ({
 
   const addToShelf = (bookId, shelfId, token) => {
     axios
-      .get("http://localhost:5000/add-to-shelf", {
+      .get("/add-to-shelf", {
         params: {
           bookId: bookId,
           shelfId: shelfId,
